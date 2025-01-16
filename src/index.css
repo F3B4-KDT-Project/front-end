@@ -1,68 +1,119 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: 'Pretendard';
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: dark;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --transparent-opacity: 0.35;
+
+  /* [Black.ver] */
+  --bc-background: #2b2b2b;
+  --bc-white: #ffffff;
+  --bc-light-gray: #dadada;
+  --bc-gray: #5a5a5a;
+  --bc-black: #161616;
+
+  --bc-red: #d75656;
+  --bc-green: #3dbc8d;
+
+  --bc-red-input: rgba(215, 86, 86, var(--transparent-opacity));
+  --bc-green-input: rgba(61, 188, 141, var(--transparent-opacity));
+  --bc-input: rgba(218, 218, 218, var(--transparent-opacity));
+  --bc-modal-bg: rgba(43, 43, 43, var(--transparent-opacity));
+
+  --bc-container: #3b3b3b;
+  --bc-icon: #a4a3a3;
+
+  /* [White.ver] */
+  --wh-background: #fffefb;
+  --wh-white: #ffffff;
+  --wh-light-gray: #eae9e6;
+  --wh-gray: #9f9d98;
+  --wh-black: #4e4d4c;
+
+  --wh-red: #f26c6c;
+  --wh-green: #3dbc8d;
+
+  --wh-red-input: rgba(242, 108, 108, var(--transparent-opacity));
+  --wh-green-input: rgba(61, 188, 141, var(--transparent-opacity));
+  --wh-input: rgba(234, 233, 230, var(--transparent-opacity));
+  --wh-modal-bg: rgba(78, 77, 76, var(--transparent-opacity));
+
+  --wh-container: var(--wh-light-gray);
+  --wh-icon: var(--wh-gray);
+
+  font-synthesis: none; /* 폰트 합성 방지 */
+  text-rendering: optimizeLegibility; /* 텍스트 렌더링 최적화 */
+  -webkit-font-smoothing: antialiased; /* 웹킷 브라우저 폰트 부드럽게 */
+  -moz-osx-font-smoothing: grayscale; /* 모질라 브라우저 폰트 부드럽게 */
+
+  /* 로그인 / 회원가입 페이지 */
+  --font-header-caption: 500 16px;
+  --font-header: 800 85px;
+  --font-input-placeholder: 400 24px;
+  --font-input-pw-caption: 400 16px;
+  --font-button: 700 40px;
+  --font-signin-caption: 400 20px;
+  --font-signin-button: 700 22px;
+
+  /* 게시판 / 게시글 Header */
+  --font-title: 700 65px;
+  --font-board-name: 500 20px;
+  --font-post-title: 700 40px;
+  --font-button-create-post: 700 22px;
+
+  /* 게시판 component */
+  --font-member-count: 600 20px;
+  --font-post-title-component: 600 25px;
+  --font-post-alert-2digit: 700 20px;
+  --font-post-alert-3digit: 700 16px;
+  --font-post-date-time: 600 20px;
+  --font-bottom-list: 400 25px;
+
+  /* 모달 component */
+  --font-modal-title: 700 28px;
+  --font-modal-sub-title: 700 22px;
+  --font-modal-input-placeholder: 400 18px;
+  --font-modal-caption: 400 10px;
+  --font-modal-add-participants-email: 400 14px;
+  --font-modal-member-count: 600 16px;
+  --font-modal-registered-user-info: 500 18px;
+  --font-modal-language-button: 400 18px;
+  --font-modal-delete-board-name: 700 20px;
+  --font-modal-delete-post-name: 700 35px;
+  --font-modal-delete-caption: 700 24px;
+  --font-modal-button: 700 20px;
+
+  /* 게시글 IDE component */
+  --font-ide-line-number: 400 22px / 32px;
+  --font-ide-code: 500 22px / 32px;
+
+  /* 게시글 채팅 component */
+  --font-chat-user-name: 600 12px;
+  --font-chat-message: 400 18px / 23px;
+  --font-chat-send-time: 400 10px;
+  --font-chat-input: 400 22px;
+
+  /* 마이페이지 */
+  --font-user-name: 700 65px;
+  --font-mypage-text: 700 40px;
+  --font-user-info-title: 600 22px;
+  --font-user-info: 500 26px;
+  --font-edit-user-info-input: 400 24px;
+  --font-edit-button: 700 20px;
+  --font-theme-title: 700 25px;
+  --font-theme-name: 700 20px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+@font-face {
+  font-family: 'Pretendard';
+  src: url('./assets/fonts/Pretendard-Medium.woff2') format('woff2');
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background-color: var(--bc-background);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+body.light {
+  background-color: var(--wh-background);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
