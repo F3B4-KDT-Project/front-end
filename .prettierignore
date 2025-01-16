@@ -1,0 +1,34 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+node_modules/*
+
+# 빌드 출력 디렉토리
+dist/
+build/
+
+# Node.js 모듈 디렉토리
+node_modules/
+
+# 환경 설정 파일
+.env
+.env.local
+
+# 특정 파일 또는 디렉토리
+src/generated/
+coverage/
+
+# 로그 파일
+*.log
+
+# ESLint, Prettier 설정 파일
+.eslintrc.js
+.prettierrc
+
+# 데이터 파일 및 바이너리 파일
+*.png
+*.jpg
+*.json
+*.csv
