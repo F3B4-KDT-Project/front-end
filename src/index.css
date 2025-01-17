@@ -113,11 +113,13 @@ body {
   min-width: 1180px;
   min-height: 100vh;
   background-color: var(--bc-background);
+  color: var(--bc-white);
 }
 
 body.light {
   min-width: 1180px;
   min-height: 100vh;
   background-color: var(--wh-background);
+  color: var(--wh-black);
 }
 
