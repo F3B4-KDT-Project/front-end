@@ -110,10 +110,14 @@
 }
 
 body {
+  min-width: 1180px;
+  min-height: 100vh;
   background-color: var(--bc-background);
 }
 
 body.light {
+  min-width: 1180px;
+  min-height: 100vh;
   background-color: var(--wh-background);
 }
 
