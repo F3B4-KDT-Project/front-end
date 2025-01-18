@@ -43,7 +43,8 @@
   "lint-staged": {
     "*.ts?(x)": [
       "prettier --write",
-      "eslint --fix"
+      "eslint --fix",
+      "npm test -- --findRelatedTests" 
     ]
   }
 }
