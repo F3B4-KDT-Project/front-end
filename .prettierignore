@@ -19,6 +19,7 @@ node_modules/
 # 특정 파일 또는 디렉토리
 src/generated/
 coverage/
+reset.css
 
 # 로그 파일
 *.log
@@ -32,3 +33,7 @@ coverage/
 *.jpg
 *.json
 *.csv
+
+# github template
+.github/
+README.md
