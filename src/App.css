@@ -1,7 +1,7 @@
-@import "./reset.css";
+@import './reset.css';
 
 #root {
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
