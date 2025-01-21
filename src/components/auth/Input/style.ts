@@ -30,7 +30,7 @@ export const InputSection = styled.section`
 
   div {
     color: var(--bc-red, #d75656);
-    font-family: Inter;
+    font-family: 'Pretendard';
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
