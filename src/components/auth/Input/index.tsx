@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthInputProps } from '../../../../types/Auth';
+import { AuthInputProps } from '../../../../types/Common';
 import { InputSection } from './style';
 
 export const AuthInput: React.FC<AuthInputProps> = ({
