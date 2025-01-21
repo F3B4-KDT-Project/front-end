@@ -1,4 +1,4 @@
-export interface AuthInputProps {
+export interface InputProps {
   type: string;
   id: string;
   value: string;

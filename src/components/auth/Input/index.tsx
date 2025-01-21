@@ -1,8 +1,8 @@
 import React from 'react';
-import { AuthInputProps } from '../../../../types/Common';
+import { InputProps } from '../../../../types/Common';
 import { InputSection } from './style';
 
-export const AuthInput: React.FC<AuthInputProps> = ({
+export const AuthInput: React.FC<InputProps> = ({
   type,
   id,
   value,
