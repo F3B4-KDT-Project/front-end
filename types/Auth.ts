@@ -4,8 +4,8 @@ export interface AuthInputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
-  error: boolean;
-  message: string;
+  error?: boolean;
+  message?: string;
 }
 
 export interface AuthButtonProps {
