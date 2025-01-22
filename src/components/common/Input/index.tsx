@@ -2,7 +2,7 @@ import React from 'react';
 import { InputProps } from '../../../../types/Common';
 import { InputSection } from './style';
 
-export const AuthInput: React.FC<InputProps> = ({
+export const Input: React.FC<InputProps> = ({
   type,
   id,
   value,
