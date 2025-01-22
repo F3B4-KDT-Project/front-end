@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Chat from '../../components/Post/Chat';
 
 const Post = () => {
   return (
-    <div>게시글</div>
-  )
-}
+    <div>
+      <Chat />
+    </div>
+  );
+};
 
-export default Post
+export default Post;
