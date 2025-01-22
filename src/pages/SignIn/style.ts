@@ -60,7 +60,7 @@ export const SignInButtonWrapper = styled.section`
       background-color: transparent;
       border: none;
       color: var(--white, #fff);
-      font-family: 'Pretendard Variable';
+      font-family: 'Pretendard';
       font-size: 1.375rem;
       font-style: normal;
       font-weight: 700;
