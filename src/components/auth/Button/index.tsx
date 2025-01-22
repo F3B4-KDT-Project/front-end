@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthButtonProps } from '../../../../types/Auth';
+import { AuthButtonProps } from '../../../models/Auth';
 import { Button } from './style';
 
 export const AuthButton: React.FC<AuthButtonProps> = ({
