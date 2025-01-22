@@ -1,7 +1,8 @@
 import { BsArrowUpCircleFill } from 'react-icons/bs';
 import { ChatSection, Container, InputSection } from './style';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { Message } from '../../../models/Message';
+import { Message } from '../../../models/MessageData.type';
+import MessageCard from '../MessageCard';
 
 const Chat: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
@@ -46,6 +47,7 @@ const Chat: React.FC = () => {
       time: new Date().toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
+        hour12: false,
       }),
     };
 
@@ -55,7 +57,11 @@ const Chat: React.FC = () => {
 
   return (
     <Container>
-      <ChatSection></ChatSection>
+      <ChatSection>
+        {chatHistory.map((message, index) => (
+          <MessageCard key={index} {...message} />
+        ))}
+      </ChatSection>
       <InputSection>
         <input type="text" value={chat} onChange={handleChange} />
         <BsArrowUpCircleFill onClick={handleSend} />
