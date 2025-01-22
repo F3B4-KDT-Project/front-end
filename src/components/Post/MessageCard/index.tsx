@@ -1,4 +1,4 @@
-import { Message } from '../../../models/MessageData.type';
+import { Message } from '../../../models/ChatData.type';
 import { Container, Content, ProfileImage, Time } from './style';
 
 const MessageCard: React.FC<Message> = ({

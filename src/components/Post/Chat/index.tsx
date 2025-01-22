@@ -1,7 +1,7 @@
 import { BsArrowUpCircleFill } from 'react-icons/bs';
 import { ChatSection, Container, InputSection } from './style';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { Message } from '../../../models/MessageData.type';
+import { Message } from '../../../models/ChatData.type';
 import MessageCard from '../MessageCard';
 
 const Chat: React.FC = () => {
