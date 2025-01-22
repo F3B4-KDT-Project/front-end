@@ -5,8 +5,8 @@ export const Container = styled.div`
   height: 46.125rem;
 
   border-radius: 0.9375rem;
-  background: var(--bc_gray, #5a5a5a);
-  box-shadow: 0px 0px 4px 0px var(--bc_background, #2b2b2b) inset;
+  background: var(--bc-gray, #5a5a5a);
+  box-shadow: 0px 0px 4px 0px var(--bc-background, #2b2b2b) inset;
 
   position: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@ export const InputSection = styled.form`
   height: 9%;
 
   border-radius: 0.9375rem;
-  background: var(--bc_input, rgba(218, 218, 218, 0.35));
+  background: var(--bc-input, rgba(218, 218, 218, 0.35));
   box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.35);
 
   display: flex;
@@ -37,10 +37,10 @@ export const InputSection = styled.form`
 
     border: none;
     border-radius: 0.9375rem;
-    background: var(--bc_light-gray, #dadada);
+    background: var(--bc-light-gray, #dadada);
 
-    color: var(--bc_background, #2b2b2b);
-    font-family: 'Pretendard Variable';
+    color: var(--bc-background, #2b2b2b);
+    font-family: 'Pretendard';
     font-size: 1.125rem;
     font-style: normal;
     font-weight: 400;

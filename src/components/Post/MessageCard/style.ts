@@ -30,7 +30,7 @@ export const Content = styled.div`
 
   > p {
     color: #fff;
-    font-family: 'Pretendard Variable';
+    font-family: 'Pretendard';
     font-size: 0.75rem;
     font-style: normal;
     font-weight: 600;
@@ -43,10 +43,10 @@ export const Content = styled.div`
     padding: 0.6rem 0.7rem;
 
     border-radius: 0.4375rem;
-    background: var(--bc_light-gray, #dadada);
+    background: var(--bc-light-gray, #dadada);
 
-    color: var(--bc_background, #2b2b2b);
-    font-family: 'Pretendard Variable';
+    color: var(--bc-background, #2b2b2b);
+    font-family: 'Pretendard';
     font-size: 1.125rem;
     font-style: normal;
     font-weight: 400;
@@ -57,8 +57,8 @@ export const Content = styled.div`
 export const Time = styled.p`
   align-self: flex-end;
 
-  color: var(--bc_background, #2b2b2b);
-  font-family: Inter;
+  color: var(--bc-background, #2b2b2b);
+  font-family: 'Pretendard';
   font-size: 0.625rem;
   font-style: normal;
   font-weight: 400;
