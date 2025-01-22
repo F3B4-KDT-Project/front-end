@@ -1,7 +1,8 @@
 import React from 'react';
-import { AuthInputProps } from '../../../../types/Auth';
+import { InputProps } from '../../../../types/Common';
+import { InputSection } from './style';
 
-export const AuthInput: React.FC<AuthInputProps> = ({
+export const Input: React.FC<InputProps> = ({
   type,
   id,
   value,
@@ -11,7 +12,7 @@ export const AuthInput: React.FC<AuthInputProps> = ({
   message,
 }) => {
   return (
-    <div>
+    <InputSection>
       <input
         type={type}
         id={id}
@@ -20,6 +21,6 @@ export const AuthInput: React.FC<AuthInputProps> = ({
         placeholder={placeholder}
       />
       {error && <div>{message}</div>}
-    </div>
+    </InputSection>
   );
 };
