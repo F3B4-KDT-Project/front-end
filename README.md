@@ -21,7 +21,7 @@
 |한채연</br>[@imi21123](https://github.com/imi21123)|정윤석</br>[@yundol777](https://github.com/yundol777)|한승우</br>[@seungwoohan12](https://github.com/seungwoohan12)|유지희</br>[@jiHeeFlee](https://github.com/jiHeeFlee)|
 |:---:|:---:|:---:|:---:|
 |<img src = "https://github.com/imi21123.png" width ="250">|<img src = "https://github.com/yundol777.png" width ="250">|<img src = "https://github.com/seungwoohan12.png" width ="250">|<img src = "https://github.com/jiHeeFlee.png" width ="250">|
-|`프로젝트 세팅` `로그인` `마이페이지`|`채팅`|`게시판` `게시글` `네비게이션 바`|`IDE`|
+|`프로젝트 세팅` `로그인` `회원가입` `마이페이지`|`채팅`|`게시판` `게시글` `네비게이션 바`|`IDE`|
 </br>
 
 ### Built With
