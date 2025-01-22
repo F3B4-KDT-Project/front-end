@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Input } from '../../components/common/Input';
 import { AuthButton } from '../../components/auth/Button';
+import {
+  SignInButtonWrapper,
+  SignInContainer,
+  SignInForm,
+  SignInLogo,
+} from './style';
 import logo_black from '../../assets/icons/logo_black.svg';
 
 const SignIn = () => {
@@ -25,15 +31,15 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <section>
+    <SignInContainer>
+      <SignInLogo>
         <img src={logo_black} alt="Coedu logo" />
         <div>
           실시간 코드 편집기와 채팅 기능을 결합한 코딩 교육 보조 웹 서비스
         </div>
-      </section>
+      </SignInLogo>
 
-      <form>
+      <SignInForm>
         <Input
           type="text"
           id="id"
@@ -50,16 +56,16 @@ const SignIn = () => {
           error={error}
           message="틀린 비밀번호이거나 없는 계정입니다."
         />
-      </form>
+      </SignInForm>
 
-      <section>
+      <SignInButtonWrapper>
         <AuthButton onClick={handleLogin} disabled={disabled} text="LOGIN" />
         <div>
           <span>아직 회원이 아니신가요?</span>
           <button>회원가입</button>
         </div>
-      </section>
-    </div>
+      </SignInButtonWrapper>
+    </SignInContainer>
   );
 };
 
