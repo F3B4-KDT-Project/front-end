@@ -33,7 +33,7 @@ export const SignInLogo = styled.section`
 export const SignInForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1.69rem;
 `;
 
 export const SignInButtonWrapper = styled.section`
