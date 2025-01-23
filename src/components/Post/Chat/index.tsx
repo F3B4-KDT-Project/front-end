@@ -1,3 +1,4 @@
+import React from 'react';
 import { BsArrowUpCircleFill } from 'react-icons/bs';
 import { ChatSection, Container, InputSection } from './style';
 import { ChangeEvent, useEffect, useState } from 'react';
