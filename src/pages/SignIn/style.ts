@@ -20,7 +20,7 @@ export const SignInLogo = styled.section`
   }
 
   div {
-    color: var(--bc-white, #fff);
+    color: var(--white);
     text-align: center;
     font-family: 'Pretendard';
     font-size: 1rem;
@@ -48,7 +48,7 @@ export const SignInButtonWrapper = styled.section`
     align-items: center;
 
     span {
-      color: var(--bc-white, #fff);
+      color: var(--white);
       font-family: 'Pretendard';
       font-size: 1.25rem;
       font-style: normal;
@@ -59,7 +59,7 @@ export const SignInButtonWrapper = styled.section`
     button {
       background-color: transparent;
       border: none;
-      color: var(--white, #fff);
+      color: var(--white);
       font-family: 'Pretendard';
       font-size: 1.375rem;
       font-style: normal;
