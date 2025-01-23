@@ -1,5 +1,6 @@
 import React from 'react';
-import { AuthButtonProps } from '../../../../types/Auth';
+import { AuthButtonProps } from '../../../models/Auth';
+import { Button } from './style';
 
 export const AuthButton: React.FC<AuthButtonProps> = ({
   onClick,
@@ -7,8 +8,8 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
   text,
 }) => {
   return (
-    <button onClick={onClick} disabled={disabled}>
+    <Button onClick={onClick} disabled={disabled}>
       {text}
-    </button>
+    </Button>
   );
 };
