@@ -57,6 +57,23 @@ body {
   min-height: 100vh;
   background-color: var(--bc-background);
   color: var(--bc-white);
+
+  --background: var(--bc-background);
+  --white: var(--bc-white);
+  --light-gray: var(--bc-light-gray);
+  --gray: var(--bc-gray);
+  --black: var(--bc-black);
+
+  --red: var(--bc-red);
+  --green: var(--bc-green);
+
+  --red-input: var(--bc-red-input);
+  --green-input: var(--bc-green-input);
+  --input: var(--bc-input);
+  --modal-bg: var(--bc-modal-bg);
+
+  --container: var(--bc-container);
+  --icon: var(--bc-icon);
 }
 
 body.light {
@@ -64,4 +81,21 @@ body.light {
   min-height: 100vh;
   background-color: var(--wh-background);
   color: var(--wh-black);
+
+  --background: var(--wh-background);
+  --white: var(--wh-white);
+  --light-gray: var(--wh-light-gray);
+  --gray: var(--wh-gray);
+  --black: var(--wh-black);
+
+  --red: var(--wh-red);
+  --green: var(--wh-green);
+
+  --red-input: var(--wh-red-input);
+  --green-input: var(--wh-green-input);
+  --input: var(--wh-input);
+  --modal-bg: var(--wh-modal-bg);
+
+  --container: var(--wh-container);
+  --icon: var(--wh-icon);
 }
