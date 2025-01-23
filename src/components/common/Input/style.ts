@@ -8,10 +8,10 @@ export const InputSection = styled.section`
 
   input {
     border-radius: 2.1875rem;
-    border: 3px solid var(--bc-light-gray, #dadada);
-    background-color: var(--bc-input, rgba(218, 218, 218, 0.35));
+    border: 3px solid var(--light-gray);
+    background-color: var(--input);
     padding: 1.125rem 1.875rem;
-    color: var(--bc-white);
+    color: var(--white);
     font-family: 'Pretendard';
     font-size: 1.5rem;
     font-style: normal;
@@ -19,7 +19,7 @@ export const InputSection = styled.section`
     line-height: normal;
 
     &::placeholder {
-      color: var(--bc-white);
+      color: var(--white);
       font-family: 'Pretendard';
       font-size: 1.5rem;
       font-style: normal;
@@ -29,7 +29,7 @@ export const InputSection = styled.section`
   }
 
   div {
-    color: var(--bc-red, #d75656);
+    color: var(--red);
     font-family: 'Pretendard';
     font-size: 1rem;
     font-style: normal;

@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 
 export const Button = styled.button`
-  background-color: var(--bc-input);
-  color: var(--bc-white);
+  background-color: var(--input);
+  color: var(--white);
   border: none;
   text-align: center;
-  color: var(--white, #fff);
+  color: var(--white);
   font-family: 'Pretendard';
   font-size: 2.5rem;
   font-style: normal;
