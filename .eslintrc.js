@@ -15,7 +15,6 @@ module.exports = {
       'plugin:react/recommended',
       'plugin:@typescript-eslint/recommended', // TypeScript에서 제공하는 권장 설정을 사용
       'plugin:react-hooks/recommended',
-      'prettier',
     ],
     plugins: ['prettier'],
     settings: {
@@ -31,7 +30,6 @@ module.exports = {
     rules: {
       'react/react-in-jsx-scope': 'off', // Disable for new React versions
       '@typescript-eslint/no-unused-vars': 'warn', // Warn for unused variables
-      'prettier/prettier': 'error', // Prettier 규칙을 ESLint로 확인
     },
   };
   
