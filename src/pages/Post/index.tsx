@@ -55,15 +55,3 @@ const Body = styled.div`
   background: var(--bc-input, rgba(218, 218, 218, 0.35));
   box-shadow: 0px 0px 4px 0px var(--bc_black, #161616);
 `;
-
-const Test = styled.div`
-  flex: 1;
-  width: 29.75rem;
-  height: 46.125rem;
-  flex-shrink: 0;
-
-  /* width: 30%;
-  height: 30%; */
-
-  background-color: red;
-`;
