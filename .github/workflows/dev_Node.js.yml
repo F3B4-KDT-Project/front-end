@@ -29,7 +29,7 @@ jobs:
       - name: Push to main  # dev 브랜치에서 main 브랜치로 빌드된 내용을 푸시
         uses: ad-m/github-push-action@master  # github-push-action을 사용하여 푸시
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub 토큰 사용 (이 토큰은 GitHub가 자동으로 제공)
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # GitHub 토큰 사용 (이 토큰은 GitHub가 자동으로 제공)
           branch: main  # 푸시할 대상 브랜치 (main)
           force: true  # 강제로 푸시 (기존 기록을 덮어쓰는 방식)
           atomic: true  # 푸시 작업을 원자적으로 처리
