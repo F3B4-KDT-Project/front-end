@@ -35,7 +35,7 @@ const Chat: React.FC = () => {
     setChatHistory(dummyChatHistory);
   }, []);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setChat(e.target.value);
   };
 
@@ -64,7 +64,7 @@ const Chat: React.FC = () => {
         ))}
       </ChatSection>
       <InputSection>
-        <input type="text" value={chat} onChange={handleChange} />
+        <textarea value={chat} onChange={handleChange} />
         <BsArrowUpCircleFill onClick={handleSend} />
       </InputSection>
     </Container>
