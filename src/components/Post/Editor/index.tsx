@@ -1,7 +1,6 @@
-import styled from '@emotion/styled';
-import IdeEditor from './IdeEditor';
+import React from "react";
 
-const Editor = () => {
+const Editor:React.FC = () => {
 
 
     return(
@@ -12,7 +11,3 @@ const Editor = () => {
 };
 
 export default Editor;
-
-const Container = styled.div`
-
-`;
