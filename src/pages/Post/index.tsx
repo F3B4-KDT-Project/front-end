@@ -4,10 +4,20 @@ import styled from '@emotion/styled';
 import Header from '../../components/Post/Header';
 import IdeEditor from '../../components/Post/Editor/IdeEditor';
 
-const Post = () => {
+
+const Post: React.FC = () => {
+  /* 추후 api 연동으로 변경*/
+  const dummyData = {
+    boardName : '9oorm_KDT',
+    postName : '[FE] 모달창 컴포넌트 만들기2'
+  }
+
   return (
     <Container>
-      <Header />
+      <Header 
+        boardName={dummyData.boardName}
+        postName={dummyData.postName}
+      />
       <Body>
         <IdeEditor />
 
@@ -33,8 +43,8 @@ const Container=styled.div`
   width: 100%;
   height: 100%;
 
-  color: white;
-  background-color: var(--bc-background);
+  color: var(--white);
+  background-color: var(--background);
 `;
 
 const Body=styled.div`
@@ -51,9 +61,9 @@ const Body=styled.div`
   gap: 1.25rem;
   
   border-radius: 2.1875rem;
-  background-color: var(--bc-input);
-  background: var(--bc-input, rgba(218, 218, 218, 0.35));
-  box-shadow: 0px 0px 4px 0px var(--bc_black, #161616);
+  background-color: var(--input);
+  background: var(--input, rgba(218, 218, 218, 0.35));
+  box-shadow: 0px 0px 4px 0px var(--black, #161616);
 `;
 
 const Test=styled.div`
@@ -61,9 +71,6 @@ const Test=styled.div`
   width: 29.75rem;
   height: 46.125rem;
   flex-shrink: 0;
-
-  /* width: 30%;
-  height: 30%; */
 
   background-color: red;
 `;

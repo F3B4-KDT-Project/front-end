@@ -9,7 +9,7 @@ import {
 } from './style';
 import logo_black from '../../assets/icons/logo_black.svg';
 
-const SignIn = () => {
+const SignIn:React.FC = () => {
   const [user, setUser] = useState({ id: '', password: '' });
   const [error, setError] = useState(false);
   const [disabled, setDisabled] = useState(false);

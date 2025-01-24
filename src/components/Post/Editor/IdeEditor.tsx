@@ -1,29 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import Editor, { OnChange, OnMount } from '@monaco-editor/react';
-
-import lightTheme from  '../../../assets/editor/dark.json';
-import darkTheme from  '../../../assets/editor/light.json';
+import Editor from '@monaco-editor/react';
 
 const IdeEditor:React.FC = () =>{
-    const [theme, setTheme] = useState<'light'|'dark'>('dark'); // 테마 상태 관리
-
-    const handleEditorChange: OnChange = (value, event) => {
-        console.log('Editor Change : ', value);
-    };
-
-    const handleEditorDidMount: OnMount = (editor, monaco) => {
-        // 테마 등록
-        monaco.editor.defineTheme('light-theme', lightTheme as any);
-        monaco.editor.defineTheme('dark-theme', darkTheme as any);
-    
-        // 초기 테마 적용
-        monaco.editor.setTheme(theme === 'dark' ? 'dark-theme' : 'light-theme');
-      };
-
-    const toggleTheme =() => {
-        setTheme((prev)=>(prev === 'dark'?'light':'dark')); // 상태 업데이트
-    }
 
     return(
         <>
@@ -64,6 +43,6 @@ const Container = styled.div`
     flex: 2;
 
     border-radius: 0.9375rem;
-    background: var(--bc_background, #2B2B2B);
-    box-shadow: 0px 0px 4px 0px var(--bc_black, #161616) inset;
+    background: var(--background, #2B2B2B);
+    box-shadow: 0px 0px 4px 0px var(--black, #161616) inset;
 `;
