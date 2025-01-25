@@ -2,19 +2,12 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
-
-import monacoEditorPlugin from 'vite-plugin-monaco-editor';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
 
-    /* 아래 부분 살리면 빌드가 안됨. */
-    // monacoEditorPlugin({
-    //   languageWorkers: ['editorWorkerService', 'css', 'html', 'json', 'typescript'],
-    // }),
   ],
   publicDir:'public', // 정적 파일 경로 명시
 
@@ -30,7 +23,7 @@ export default defineConfig({
   
   /* IDE 라이브러리 - monako 번들링 코드 */
   optimizeDeps: {
-    include: ['monaco-editor'],
+    include: ['monaco-editor','monaco-editor/react'],
 
     /* monako 렌더링 중 이슈 - process 객제 정의되지 않아 발생.
     브라우저에서 process를 사용할 수 있도록 Polyfill을 추가. */

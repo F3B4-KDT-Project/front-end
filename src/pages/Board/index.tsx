@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Board = () => {
+const Board:React.FC = () => {
   return (
     <div>게시판</div>
   )

@@ -12,25 +12,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4  # 코드 체크아웃
-    - name: Check Node v            # Node v 확인
-      run: node -v
+    - name: Use Node.js '18.x'  # 지정된 Node.js 버전 사용
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'   # 설정할 Node.js 버전
+        cache: 'npm'  # 의존성 캐싱 활성화
     - run: npm install  # 의존성 설치 (CI 환경에서 npm ci는 npm install보다 빠르고 안정적)
     - run: npm run build --if-present  # 빌드 실행 (빌드 스크립트가 있을 때만 실행)
-    - run: npm test  # 테스트 실행
-
-  deploy-to-main:
-    runs-on: ubuntu-latest  # 최신 우분투 환경에서 실행
-    needs: build  # build job이 성공해야 실행됨
-    if: success()  # build job이 성공했을 때만 실행
-
-    steps:
-      - name: Checkout code  # main 브랜치로 푸시하기 위해 코드 다시 체크아웃
-        uses: actions/checkout@v4
-
-      - name: Push to main  # dev 브랜치에서 main 브랜치로 빌드된 내용을 푸시
-        uses: ad-m/github-push-action@master  # github-push-action을 사용하여 푸시
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub 토큰 사용 (이 토큰은 GitHub가 자동으로 제공)
-          branch: main  # 푸시할 대상 브랜치 (main)
-          force: true  # 강제로 푸시 (기존 기록을 덮어쓰는 방식)
-          atomic: true  # 푸시 작업을 원자적으로 처리
