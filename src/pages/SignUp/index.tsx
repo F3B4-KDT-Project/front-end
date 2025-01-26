@@ -3,7 +3,7 @@ import logo_black from '../../assets/icons/logo_black.svg';
 import { Input } from '../../components/common/Input';
 import { AuthButton } from '../../components/auth/Button';
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
   return (
     <div>
       <section>
