@@ -35,11 +35,24 @@ const Chat: React.FC = () => {
     setChatHistory(dummyChatHistory);
   }, []);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setChat(e.target.value);
   };
 
+  const handleEnterKey = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ): void => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
   const handleSend = (): void => {
+    if (!chat.trim()) {
+      return;
+    }
+
     const newChat: Message = {
       userId: user.id,
       profileImage: `https://picsum.photos/200/300?random=${user.id}`,
@@ -52,7 +65,7 @@ const Chat: React.FC = () => {
       }),
     };
 
-    setChatHistory((chatHistory) => [...chatHistory, newChat]); // 배열 뒤에 추가
+    setChatHistory((chatHistory) => [...chatHistory, newChat]);
     setChat('');
   };
 
@@ -64,7 +77,11 @@ const Chat: React.FC = () => {
         ))}
       </ChatSection>
       <InputSection>
-        <input type="text" value={chat} onChange={handleChange} />
+        <textarea
+          value={chat}
+          onChange={handleChange}
+          onKeyDown={handleEnterKey}
+        />
         <BsArrowUpCircleFill onClick={handleSend} />
       </InputSection>
     </Container>

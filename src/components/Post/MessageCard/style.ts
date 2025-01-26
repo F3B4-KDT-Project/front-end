@@ -41,6 +41,7 @@ export const Content = styled.div`
     box-sizing: border-box;
     width: 100%;
     padding: 0.6rem 0.7rem;
+    white-space: pre-wrap;
 
     border-radius: 0.4375rem;
     background: var(--bc-light-gray, #dadada);
