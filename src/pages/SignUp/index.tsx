@@ -6,7 +6,7 @@ import { AuthButton } from '../../components/auth/Button';
 const SignUp: React.FC = () => {
   return (
     <div>
-      <section>
+      <header>
         <img src={logo_black} alt="logo" />
         <div>
           <p>
@@ -14,39 +14,43 @@ const SignUp: React.FC = () => {
           </p>
           <h1>회원가입</h1>
         </div>
-      </section>
+      </header>
 
       <section>
-        <Input
-          type="text"
-          id="id"
-          value=""
-          onChange={() => {}}
-          placeholder="아이디를 입력하세요"
-        />
-        <Input
-          type="password"
-          id="password"
-          value=""
-          onChange={() => {}}
-          placeholder="비밀번호를 입력하세요"
-        />
-        <Input
-          type="password"
-          id="passwordConfirm"
-          value=""
-          onChange={() => {}}
-          placeholder="비밀번호를 다시 입력하세요"
-        />
-        <Input
-          type="text"
-          id="name"
-          value=""
-          onChange={() => {}}
-          placeholder="이름을 입력하세요"
-        />
+        <form action="">
+          <fieldset>
+            <Input
+              type="text"
+              id="id"
+              value=""
+              onChange={() => {}}
+              placeholder="아이디를 입력하세요"
+            />
+            <Input
+              type="password"
+              id="password"
+              value=""
+              onChange={() => {}}
+              placeholder="비밀번호를 입력하세요"
+            />
+            <Input
+              type="password"
+              id="passwordConfirm"
+              value=""
+              onChange={() => {}}
+              placeholder="비밀번호를 다시 입력하세요"
+            />
+            <Input
+              type="text"
+              id="name"
+              value=""
+              onChange={() => {}}
+              placeholder="이름을 입력하세요"
+            />
+          </fieldset>
 
-        <AuthButton onClick={() => {}} disabled text="SIGN IN" />
+          <AuthButton onClick={() => {}} disabled text="SIGN IN" />
+        </form>
       </section>
     </div>
   );
