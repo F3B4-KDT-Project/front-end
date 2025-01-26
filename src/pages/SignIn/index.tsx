@@ -9,7 +9,7 @@ import {
 } from './style';
 import logo_black from '../../assets/icons/logo_black.svg';
 
-const SignIn:React.FC = () => {
+const SignIn: React.FC = () => {
   const [user, setUser] = useState({ id: '', password: '' });
   const [error, setError] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -34,9 +34,7 @@ const SignIn:React.FC = () => {
     <SignInContainer>
       <SignInLogo>
         <img src={logo_black} alt="Coedu logo" />
-        <div>
-          실시간 코드 편집기와 채팅 기능을 결합한 코딩 교육 보조 웹 서비스
-        </div>
+        <p>실시간 코드 편집기와 채팅 기능을 결합한 코딩 교육 보조 웹 서비스</p>
       </SignInLogo>
 
       <SignInForm>

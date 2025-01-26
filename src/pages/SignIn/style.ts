@@ -19,7 +19,7 @@ export const SignInLogo = styled.section`
     height: 8.30244rem;
   }
 
-  div {
+  p {
     color: var(--white);
     text-align: center;
     font-family: 'Pretendard';
