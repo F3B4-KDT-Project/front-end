@@ -8,15 +8,16 @@ export const Container = styled.div`
   background: var(--bc-gray, #5a5a5a);
   box-shadow: 0px 0px 4px 0px var(--bc-background, #2b2b2b) inset;
 
-  position: flex;
+  display: flex;
   flex-direction: column;
 `;
 
 export const ChatSection = styled.div`
+  flex: 1;
   box-sizing: border-box;
   width: 100%;
   height: 91%;
-  padding: 0 1.25rem 0 0.88rem;
+  padding: 0.43rem 1.25rem 0 0.88rem;
 
   display: flex;
   flex-direction: column;
@@ -32,8 +33,11 @@ export const InputSection = styled.form`
 
   display: flex;
 
-  > input {
+  > textarea {
     width: 100%;
+    padding: 1.25rem;
+    resize: none;
+    scrollbar-width: none;
 
     border: none;
     border-radius: 0.9375rem;
@@ -41,10 +45,10 @@ export const InputSection = styled.form`
 
     color: var(--bc-background, #2b2b2b);
     font-family: 'Pretendard';
-    font-size: 1.125rem;
+    font-size: 1.375rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 1.4375rem;
+    line-height: normal;
   }
 
   > svg {
