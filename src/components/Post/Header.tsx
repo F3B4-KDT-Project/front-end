@@ -8,6 +8,19 @@ interface PostHeader{
 }
 
 const Header:React.FC<PostHeader> = ({ boardName, postName }) => {
+
+  const handleEditButton = () =>{
+
+    /* 추후 api 연동 */
+    alert('수정하기 버튼을 눌렀습니다.')
+  };
+
+  const handleDeleteButton = () => {
+
+    /* 추후 api 연동 */
+    alert('삭제하기 버튼을 눌렀습니다.')
+  }
+
   return (
 
     <Container>
@@ -16,9 +29,13 @@ const Header:React.FC<PostHeader> = ({ boardName, postName }) => {
             <Board>{boardName}</Board>
             <Post>{postName}</Post>
           </Title>
-          <EditButton />
+          <EditButton 
+            onClick={handleEditButton}
+          />
         </Info>
-        <DeleteButton />
+        <DeleteButton 
+            onClick={handleDeleteButton}
+        />
       </Container>
   )
 };
