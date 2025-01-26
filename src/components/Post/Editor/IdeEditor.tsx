@@ -45,7 +45,7 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
         const customTheme = (await response.json()) as CustomTheme;
 
         const monaco = await loader.init(); // Monaco 로더 초기화
-        monaco.editor.defineTheme('custom-dark', customTheme); // 커스텀 테마 등록
+        monaco.editor.defineTheme('vs-dark', customTheme); // 커스텀 테마 등록
         setThemeLoaded(true); // 테마 로드 완료
       } catch (error) {
         console.error('Failed to load Monaco theme:', (error as Error).message);
