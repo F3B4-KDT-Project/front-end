@@ -1,22 +1,55 @@
-import React from 'react';
+import React
+// { useState }
+ from 'react';
 import styled from '@emotion/styled';
 
 import Header from '../../components/Post/Header';
 import IdeEditor from '../../components/Post/Editor/IdeEditor';
 import Chat from '../../components/Post/Chat';
 
+
 const Post: React.FC = () => {
+
   /* 추후 api 연동으로 변경*/
-  const dummyData = {
-    boardName: '9oorm_KDT',
-    postName: '[FE] 모달창 컴포넌트 만들기2',
-  };
+  const dummyData  = {
+    // props api와 일치
+    name : '[FE] 모달창 컴포넌트 만들기2',
+    language:'javascript',
+
+    // props api와 미일치
+    boardName : '9oorm_KDT',
+    defaultValue:'// [FE] 모달창 컴포넌트 만들기2',
+    change_language:'typescript',
+    value:'let num:number = 10;',
+    theme:'vs-dark'
+  }
+
+  // 테스트용
+  // const [value,setValue] = useState<string>(dummyData.defaultValue);
+  // const handleChangeValue = (newValue : string) : void => {
+  //   setValue(newValue);
+  // };
 
   return (
     <Container>
-      <Header boardName={dummyData.boardName} postName={dummyData.postName} />
+      <Header 
+        boardName={dummyData.boardName}
+        postName={dummyData.name}
+      />
       <Body>
-        <IdeEditor />
+        {/* 테스트 용 input */}
+        {/* <input 
+          type='text'
+          value={value}
+          onChange={(e)=>handleChangeValue(e.target.value)} // 상태 업데이트
+        /> */}
+        <IdeEditor
+          defaultLanguage={dummyData.language}
+          defaultValue={dummyData.defaultValue}
+          language={dummyData.change_language}
+          value={dummyData.value}
+          theme={dummyData.theme}
+        />
 
         <Chat />
       </Body>
