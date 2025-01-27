@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import defaultImg from '../../assets/icons/logo_black.svg';
-import { BsImageFill, BsPencilFill } from 'react-icons/bs';
+import {
+  BsImageFill,
+  BsPencilFill,
+  BsFillCheckCircleFill,
+} from 'react-icons/bs';
 import { Input } from '../../components/common/Input';
 import {
   EditInfo,
@@ -12,8 +16,10 @@ import {
   ProfileInfo,
   ProfileInfoDetails,
   ProfileInfoDetailsContent,
+  RadioOption,
   ThemeSelectionForm,
   ThemeSelectionSection,
+  UncheckedCircle,
   UserInfoSection,
 } from './style';
 
@@ -23,6 +29,11 @@ const MyPage: React.FC = () => {
 
   const [isEditingId, setIsEditingId] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
+  const [selectedTheme, setSelectedTheme] = useState('dark');
+
+  const handleThemeChange = (theme: string) => {
+    setSelectedTheme(theme);
+  };
 
   return (
     <MyPageContainer>
@@ -107,14 +118,28 @@ const MyPage: React.FC = () => {
         <ThemeSelectionSection aria-labelledby="theme-selection">
           <h2 id="theme-selection">테마 선택</h2>
           <ThemeSelectionForm action="">
-            <div>
-              <input type="radio" />
-              <label htmlFor="dark-mode">dark mode</label>
-            </div>
-            <div>
-              <input type="radio" />
-              <label htmlFor="light-mode">light mode</label>
-            </div>
+            <RadioOption
+              isChecked={selectedTheme === 'dark'}
+              onClick={() => handleThemeChange('dark')}
+            >
+              {selectedTheme === 'dark' ? (
+                <BsFillCheckCircleFill size="1.5rem" />
+              ) : (
+                <UncheckedCircle />
+              )}
+              <label>Dark Mode</label>
+            </RadioOption>
+            <RadioOption
+              isChecked={selectedTheme === 'light'}
+              onClick={() => handleThemeChange('light')}
+            >
+              {selectedTheme === 'light' ? (
+                <BsFillCheckCircleFill size="1.5rem" />
+              ) : (
+                <UncheckedCircle />
+              )}
+              <label>Light Mode</label>
+            </RadioOption>
           </ThemeSelectionForm>
         </ThemeSelectionSection>
       </MyPageContent>
