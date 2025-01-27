@@ -2,6 +2,20 @@ import React, { useState } from 'react';
 import defaultImg from '../../assets/icons/logo_black.svg';
 import { BsImageFill, BsPencilFill } from 'react-icons/bs';
 import { Input } from '../../components/common/Input';
+import {
+  EditInfo,
+  MyPageContainer,
+  MyPageContent,
+  MyPageHeader,
+  MyPageHeaderUserName,
+  ProfileImage,
+  ProfileInfo,
+  ProfileInfoDetails,
+  ProfileInfoDetailsContent,
+  ThemeSelectionForm,
+  ThemeSelectionSection,
+  UserInfoSection,
+} from './style';
 
 const MyPage: React.FC = () => {
   const userName = '유지희';
@@ -11,39 +25,37 @@ const MyPage: React.FC = () => {
   const [isEditingName, setIsEditingName] = useState(false);
 
   return (
-    <div>
-      <header>
-        <h1>
-          <span>{userName}</span>님의 마이페이지
-        </h1>
-      </header>
+    <MyPageContainer>
+      <MyPageHeader>
+        <MyPageHeaderUserName>{userName}</MyPageHeaderUserName>님의 마이페이지
+      </MyPageHeader>
 
-      <div>
-        <section aria-labelledby="user-info">
+      <MyPageContent>
+        <UserInfoSection aria-labelledby="user-info">
           <h2 id="user-info" style={{ display: 'none' }}>
             사용자 정보
           </h2>
 
-          <div>
+          <ProfileImage>
             <img src={defaultImg} alt="프로필 이미지" />
             <button aria-label="프로필 이미지 수정">
-              <BsImageFill />
+              <BsImageFill className="icon_image" />
             </button>
-          </div>
+          </ProfileImage>
 
-          <div>
-            <div>
+          <ProfileInfo>
+            <ProfileInfoDetails>
               <label htmlFor="id">
-                사용자 아이디
+                | 사용자 아이디
                 <button
                   onClick={() => setIsEditingId(true)}
                   aria-label="사용자 아이디 수정"
                 >
-                  <BsPencilFill />
+                  <BsPencilFill className="icon_edit" />
                 </button>
               </label>
               {isEditingId ? (
-                <div>
+                <EditInfo>
                   <Input
                     type="id"
                     id="id"
@@ -54,26 +66,24 @@ const MyPage: React.FC = () => {
                   <button onClick={() => setIsEditingId(false)}>
                     수정완료
                   </button>
-                </div>
+                </EditInfo>
               ) : (
-                <div>
-                  <span>{userId}</span>
-                </div>
+                <ProfileInfoDetailsContent>{userId}</ProfileInfoDetailsContent>
               )}
-            </div>
+            </ProfileInfoDetails>
 
-            <div>
+            <ProfileInfoDetails>
               <label htmlFor="name">
-                사용자 이름
+                | 사용자 이름
                 <button
                   onClick={() => setIsEditingName(true)}
                   aria-label="사용자 이름 수정"
                 >
-                  <BsPencilFill />
+                  <BsPencilFill className="icon_edit" />
                 </button>
               </label>
               {isEditingName ? (
-                <div>
+                <EditInfo>
                   <Input
                     type="text"
                     id="name"
@@ -84,19 +94,19 @@ const MyPage: React.FC = () => {
                   <button onClick={() => setIsEditingName(false)}>
                     수정완료
                   </button>
-                </div>
+                </EditInfo>
               ) : (
-                <div>
-                  <span>{userName}</span>
-                </div>
+                <ProfileInfoDetailsContent>
+                  {userName}
+                </ProfileInfoDetailsContent>
               )}
-            </div>
-          </div>
-        </section>
+            </ProfileInfoDetails>
+          </ProfileInfo>
+        </UserInfoSection>
 
-        <section aria-labelledby="theme-selection">
+        <ThemeSelectionSection aria-labelledby="theme-selection">
           <h2 id="theme-selection">테마 선택</h2>
-          <form action="">
+          <ThemeSelectionForm action="">
             <div>
               <input type="radio" />
               <label htmlFor="dark-mode">dark mode</label>
@@ -105,10 +115,10 @@ const MyPage: React.FC = () => {
               <input type="radio" />
               <label htmlFor="light-mode">light mode</label>
             </div>
-          </form>
-        </section>
-      </div>
-    </div>
+          </ThemeSelectionForm>
+        </ThemeSelectionSection>
+      </MyPageContent>
+    </MyPageContainer>
   );
 };
 
