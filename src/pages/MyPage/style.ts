@@ -65,6 +65,7 @@ export const ProfileImage = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     .icon_image {
       width: 1.5rem;
