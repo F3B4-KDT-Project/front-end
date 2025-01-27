@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 
 export const Button = styled.button`
   background-color: var(--input);
-  color: var(--white);
   border: none;
   text-align: center;
   color: var(--white);
