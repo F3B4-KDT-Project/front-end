@@ -1,7 +1,7 @@
 export interface Message {
-  userId: string;
+  memberId: number;
   profileImage: string;
   name: string;
-  content: string;
-  time: string;
+  messageText: string;
+  sendTime: string;
 }

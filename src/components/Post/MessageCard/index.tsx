@@ -3,15 +3,14 @@ import { Message } from '../../../models/ChatData.type';
 import { Container, Content, ProfileImage, Time } from './style';
 
 const MessageCard: React.FC<Message> = ({
-  userId,
+  memberId,
   profileImage,
   name,
-  content,
-  time,
+  messageText,
+  sendTime,
 }) => {
-  
-  // 임시 함수: userId를 가공하거나 기본 출력용으로 활용
-  const getUserIdDisplay = (id: string | number) => {
+  // 임시 함수: memberId를 가공하거나 기본 출력용으로 활용
+  const getMemberIdDisplay = (id: string | number) => {
     return `User: ${id}`;
   };
 
@@ -20,11 +19,11 @@ const MessageCard: React.FC<Message> = ({
       <ProfileImage src={profileImage}></ProfileImage>
       <Content>
         <p>{name}</p>
-        <div>{content}</div>
+        <div>{messageText}</div>
         {/* userId를 출력하는 경우 */}
-        <p>{getUserIdDisplay(userId)}</p>
+        <p>{getMemberIdDisplay(memberId)}</p>
       </Content>
-      <Time>{time}</Time>
+      <Time>{sendTime}</Time>
     </Container>
   );
 };
