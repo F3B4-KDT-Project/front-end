@@ -15,7 +15,7 @@
         "token": "keyword.operator.class"
       },
       {
-        "foreground": "666969",
+        "foreground": "DAB135",
         "token": "constant.other"
       },
       {
@@ -23,7 +23,7 @@
         "token": "source.php.embedded.line"
       },
       {
-        "foreground": "c82829",
+        "foreground": "DAB135",
         "token": "variable"
       },
       {
@@ -55,7 +55,7 @@
         "token": "declaration.tag"
       },
       {
-        "foreground": "c82829",
+        "foreground": "901919",
         "token": "markup.deleted.git_gutter"
       },
       {
@@ -71,7 +71,7 @@
         "token": "support.constant"
       },
       {
-        "foreground": "f5871f",
+        "foreground": "DAB135",
         "token": "constant.character"
       },
       {
@@ -232,7 +232,7 @@
     "colors": {
       "editor.foreground": "#4D4D4C",
       "editor.background": "#2b2b2b",
-      "editor.selectionBackground": "#D6D6D6",
+      "editor.selectionBackground": "#505050",
       "editor.lineHighlightBackground": "#363636",
       "editorCursor.foreground": "#AEAFAD",
       "editorWhitespace.foreground": "#D1D1D1"
