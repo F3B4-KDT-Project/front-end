@@ -172,30 +172,6 @@ export const ThemeSelectionForm = styled.form`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-
-  div {
-    height: 2.8125rem;
-    display: flex;
-    gap: 0.94rem;
-    align-items: center;
-    border-radius: 0.4375rem;
-
-    &.selected {
-      background: var(--input);
-    }
-
-    input[type='radio'] {
-      accent-color: var(--white);
-    }
-
-    label {
-      color: var(--white);
-      font-family: 'Pretendard Variable';
-      font-size: 1.25rem;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-    }
   }
 `;
 
