@@ -5,42 +5,6 @@
 
   --transparent-opacity: 0.35;
 
-  /* [Black.ver] */
-  --bc-background: #2b2b2b;
-  --bc-white: #ffffff;
-  --bc-light-gray: #dadada;
-  --bc-gray: #5a5a5a;
-  --bc-black: #161616;
-
-  --bc-red: #d75656;
-  --bc-green: #3dbc8d;
-
-  --bc-red-input: rgba(215, 86, 86, var(--transparent-opacity));
-  --bc-green-input: rgba(61, 188, 141, var(--transparent-opacity));
-  --bc-input: rgba(218, 218, 218, var(--transparent-opacity));
-  --bc-modal-bg: rgba(43, 43, 43, var(--transparent-opacity));
-
-  --bc-container: #3b3b3b;
-  --bc-icon: #a4a3a3;
-
-  /* [White.ver] */
-  --wh-background: #fffefb;
-  --wh-white: #ffffff;
-  --wh-light-gray: #eae9e6;
-  --wh-gray: #9f9d98;
-  --wh-black: #4e4d4c;
-
-  --wh-red: #f26c6c;
-  --wh-green: #3dbc8d;
-
-  --wh-red-input: rgba(242, 108, 108, var(--transparent-opacity));
-  --wh-green-input: rgba(61, 188, 141, var(--transparent-opacity));
-  --wh-input: rgba(234, 233, 230, var(--transparent-opacity));
-  --wh-modal-bg: rgba(78, 77, 76, var(--transparent-opacity));
-
-  --wh-container: var(--wh-light-gray);
-  --wh-icon: var(--wh-gray);
-
   font-synthesis: none; /* 폰트 합성 방지 */
   text-rendering: optimizeLegibility; /* 텍스트 렌더링 최적화 */
   -webkit-font-smoothing: antialiased; /* 웹킷 브라우저 폰트 부드럽게 */
@@ -55,47 +19,49 @@
 body {
   min-width: 1180px;
   min-height: 100vh;
-  background-color: var(--bc-background);
-  color: var(--bc-white);
 
-  --background: var(--bc-background);
-  --white: var(--bc-white);
-  --light-gray: var(--bc-light-gray);
-  --gray: var(--bc-gray);
-  --black: var(--bc-black);
+  --background: #2b2b2b;
+  --white: #ffffff;
+  --light-gray: #dadada;
+  --gray: #5a5a5a;
+  --black: #161616;
 
-  --red: var(--bc-red);
-  --green: var(--bc-green);
+  --red: #d75656;
+  --green: #3dbc8d;
 
-  --red-input: var(--bc-red-input);
-  --green-input: var(--bc-green-input);
-  --input: var(--bc-input);
-  --modal-bg: var(--bc-modal-bg);
+  --red-input: rgba(215, 86, 86, var(--transparent-opacity));
+  --green-input: rgba(61, 188, 141, var(--transparent-opacity));
+  --input: rgba(218, 218, 218, var(--transparent-opacity));
+  --modal-bg: rgba(43, 43, 43, var(--transparent-opacity));
 
-  --container: var(--bc-container);
-  --icon: var(--bc-icon);
+  --container: #3b3b3b;
+  --icon: #a4a3a3;
+
+  background-color: var(--background);
+  color: var(--white);
 }
 
 body.light {
   min-width: 1180px;
   min-height: 100vh;
-  background-color: var(--wh-background);
-  color: var(--wh-black);
 
-  --background: var(--wh-background);
-  --white: var(--wh-white);
-  --light-gray: var(--wh-light-gray);
-  --gray: var(--wh-gray);
-  --black: var(--wh-black);
+  --background: #fffefb;
+  --white: #ffffff;
+  --light-gray: #eae9e6;
+  --gray: #9f9d98;
+  --black: #4e4d4c;
 
-  --red: var(--wh-red);
-  --green: var(--wh-green);
+  --red: #f26c6c;
+  --green: #3dbc8d;
 
-  --red-input: var(--wh-red-input);
-  --green-input: var(--wh-green-input);
-  --input: var(--wh-input);
-  --modal-bg: var(--wh-modal-bg);
+  --red-input: rgba(242, 108, 108, var(--transparent-opacity));
+  --green-input: rgba(61, 188, 141, var(--transparent-opacity));
+  --input: rgba(234, 233, 230, var(--transparent-opacity));
+  --modal-bg: rgba(78, 77, 76, var(--transparent-opacity));
 
-  --container: var(--wh-container);
-  --icon: var(--wh-icon);
+  --container: var(--light-gray);
+  --icon: var(--gray);
+
+  background-color: var(--background);
+  color: var(--black);
 }
