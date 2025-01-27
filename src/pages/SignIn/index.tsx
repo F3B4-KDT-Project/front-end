@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Input } from '../../components/common/Input';
 import { AuthButton } from '../../components/auth/Button';
 import {
-  SignInButtonWrapper,
+  SignInBody,
   SignInContainer,
+  SignInFooter,
   SignInForm,
-  SignInLogo,
+  SignInHeader,
 } from './style';
 import logo_black from '../../assets/icons/logo_black.svg';
 
-const SignIn:React.FC = () => {
+const SignIn: React.FC = () => {
   const [user, setUser] = useState({ id: '', password: '' });
   const [error, setError] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -32,39 +33,38 @@ const SignIn:React.FC = () => {
 
   return (
     <SignInContainer>
-      <SignInLogo>
+      <SignInHeader>
         <img src={logo_black} alt="Coedu logo" />
-        <div>
-          실시간 코드 편집기와 채팅 기능을 결합한 코딩 교육 보조 웹 서비스
-        </div>
-      </SignInLogo>
+        <p>실시간 코드 편집기와 채팅 기능을 결합한 코딩 교육 보조 웹 서비스</p>
+      </SignInHeader>
 
-      <SignInForm>
-        <Input
-          type="text"
-          id="id"
-          value={user.id}
-          onChange={handleChange}
-          placeholder="아이디를 입력하세요."
-        />
-        <Input
-          type="password"
-          id="password"
-          value={user.password}
-          onChange={handleChange}
-          placeholder="비밀번호를 입력하세요."
-          error={error}
-          message="틀린 비밀번호이거나 없는 계정입니다."
-        />
-      </SignInForm>
+      <SignInBody>
+        <SignInForm>
+          <Input
+            type="text"
+            id="id"
+            value={user.id}
+            onChange={handleChange}
+            placeholder="아이디를 입력하세요."
+          />
+          <Input
+            type="password"
+            id="password"
+            value={user.password}
+            onChange={handleChange}
+            placeholder="비밀번호를 입력하세요."
+            error={error}
+            message="틀린 비밀번호이거나 없는 계정입니다."
+          />
+        </SignInForm>
 
-      <SignInButtonWrapper>
         <AuthButton onClick={handleLogin} disabled={disabled} text="LOGIN" />
-        <div>
-          <span>아직 회원이 아니신가요?</span>
-          <button>회원가입</button>
-        </div>
-      </SignInButtonWrapper>
+      </SignInBody>
+
+      <SignInFooter>
+        <p>아직 회원이 아니신가요?</p>
+        <button>회원가입</button>
+      </SignInFooter>
     </SignInContainer>
   );
 };

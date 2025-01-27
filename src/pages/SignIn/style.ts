@@ -4,11 +4,11 @@ export const SignInContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   height: 100vh;
 `;
 
-export const SignInLogo = styled.section`
+export const SignInHeader = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +19,7 @@ export const SignInLogo = styled.section`
     height: 8.30244rem;
   }
 
-  div {
+  p {
     color: var(--white);
     text-align: center;
     font-family: 'Pretendard';
@@ -30,41 +30,45 @@ export const SignInLogo = styled.section`
   }
 `;
 
+export const SignInBody = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7.06rem;
+  margin-top: 5.25rem;
+  margin-bottom: 1.5rem;
+`;
+
 export const SignInForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.69rem;
 `;
 
-export const SignInButtonWrapper = styled.section`
+export const SignInFooter = styled.footer`
   display: flex;
-  flex-direction: column;
+  gap: 1.06rem;
   align-items: center;
-  gap: 1.5rem;
 
-  div {
-    display: flex;
-    gap: 1.06rem;
-    align-items: center;
+  p {
+    color: var(--white);
+    font-family: 'Pretendard';
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
 
-    span {
-      color: var(--white);
-      font-family: 'Pretendard';
-      font-size: 1.25rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-    }
-
-    button {
-      background-color: transparent;
-      border: none;
-      color: var(--white);
-      font-family: 'Pretendard';
-      font-size: 1.375rem;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-    }
+  button {
+    color: var(--white);
+    font-family: 'Pretendard';
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
   }
 `;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputProps } from '../../../models/Common';
-import { InputSection } from './style';
+import { InputContainer } from './style';
 
 export const Input: React.FC<InputProps> = ({
   type,
@@ -12,7 +12,7 @@ export const Input: React.FC<InputProps> = ({
   message,
 }) => {
   return (
-    <InputSection>
+    <InputContainer>
       <input
         type={type}
         id={id}
@@ -21,6 +21,6 @@ export const Input: React.FC<InputProps> = ({
         placeholder={placeholder}
       />
       {error && <div>{message}</div>}
-    </InputSection>
+    </InputContainer>
   );
 };
