@@ -194,6 +194,7 @@ export const RadioOption = styled.div<{ isChecked: boolean }>`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    cursor: pointer;
   }
 `;
 
