@@ -2,11 +2,17 @@ import React from 'react';
 import logo_black from '../../assets/icons/logo_black.svg';
 import { Input } from '../../components/common/Input';
 import { AuthButton } from '../../components/auth/Button';
+import {
+  SignUpContainer,
+  SignUpFieldset,
+  SignUpForm,
+  SignUpHeader,
+} from './style';
 
 const SignUp: React.FC = () => {
   return (
-    <div>
-      <header>
+    <SignUpContainer>
+      <SignUpHeader>
         <img src={logo_black} alt="logo" />
         <div>
           <p>
@@ -14,11 +20,11 @@ const SignUp: React.FC = () => {
           </p>
           <h1>회원가입</h1>
         </div>
-      </header>
+      </SignUpHeader>
 
       <section>
-        <form action="">
-          <fieldset>
+        <SignUpForm action="">
+          <SignUpFieldset>
             <Input
               type="text"
               id="id"
@@ -47,12 +53,12 @@ const SignUp: React.FC = () => {
               onChange={() => {}}
               placeholder="이름을 입력하세요"
             />
-          </fieldset>
+          </SignUpFieldset>
 
           <AuthButton onClick={() => {}} disabled text="SIGN IN" />
-        </form>
+        </SignUpForm>
       </section>
-    </div>
+    </SignUpContainer>
   );
 };
 
