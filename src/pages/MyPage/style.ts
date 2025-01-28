@@ -65,6 +65,7 @@ export const ProfileImage = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     .icon_image {
       width: 1.5rem;
@@ -77,6 +78,7 @@ export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.69rem;
+  margin-top: 2.2rem;
 `;
 
 export const ProfileInfoDetails = styled.div`
@@ -172,30 +174,6 @@ export const ThemeSelectionForm = styled.form`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-
-  div {
-    height: 2.8125rem;
-    display: flex;
-    gap: 0.94rem;
-    align-items: center;
-    border-radius: 0.4375rem;
-
-    &.selected {
-      background: var(--input);
-    }
-
-    input[type='radio'] {
-      accent-color: var(--white);
-    }
-
-    label {
-      color: var(--white);
-      font-family: 'Pretendard Variable';
-      font-size: 1.25rem;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-    }
   }
 `;
 
@@ -218,6 +196,7 @@ export const RadioOption = styled.div<{ isChecked: boolean }>`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    cursor: pointer;
   }
 `;
 
