@@ -4,6 +4,7 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  flex-grow: 1;
 
   input {
     border-radius: 2.1875rem;
