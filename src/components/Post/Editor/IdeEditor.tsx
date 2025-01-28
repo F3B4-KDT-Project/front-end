@@ -44,7 +44,7 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
 
   // 코드 하이라이트를 위한 변수
-  const monaco = useMonaco();
+  // const monaco = useMonaco();
 
   useEffect(()=>{
     // JSON 테마 파일 로드 및 Monaco Editor 초기화
