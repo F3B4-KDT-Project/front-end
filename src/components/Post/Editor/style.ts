@@ -68,7 +68,6 @@ export const HighlightButton = styled.div`
 export const GlobalStyle = styled.div`
   .highlighted-code {
     background-color: rgba(255, 255, 0, 0.5);
-    /* background-color: var(--input); */
     cursor: pointer;
   }
   

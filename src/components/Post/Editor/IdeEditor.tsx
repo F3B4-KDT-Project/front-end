@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Editor, { loader } from '@monaco-editor/react';
 // Monaco 타입 가져오기
 import * as monaco from 'monaco-editor';
-import { BsFillBrushFill } from 'react-icons/bs';
+import { BsFillBrushFill, BsTrash } from 'react-icons/bs';
 import { Container,ButtonContainer, CopyButton, SaveButton, HighlightButton, GlobalStyle } from './style';
 
 interface IdeEditorProps {
@@ -35,14 +35,14 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
 }) => {
   const [themeLoaded, setThemeLoaded] = useState(false);
   const [selectedRange, setSelectedRange] = useState<monaco.IRange | null>(null);
+  const [highlightedRanges, setHighlightedRanges] = useState<monaco.IRange[]>([])
   const [showHighlightButton, setShowHighlightButton] = useState(false);
   const [buttonPosition, setButtonPosition] = useState({x:0, y:0});
   // 코드 복사, 저장 : 명시적으로 monaco.editor.IStandaloneCodeEditor 타입 지정
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+  
+  // 아래 코드 주석?
   const decorationsRef = useRef<string[]>([]); // 저장된 하이라이터
-
-  // 코드 하이라이트를 위한 변수
-  // const monaco = useMonaco();
 
   useEffect(()=>{
     // JSON 테마 파일 로드 및 Monaco Editor 초기화
@@ -92,10 +92,23 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
         if (position){
           setSelectedRange(range);
           setButtonPosition({ x: position.left, y: position.top - 25 });
-          setShowHighlightButton(true);
+          
+          // 아래 코드 주석처리
+          // setShowHighlightButton(true);
+          const isHighlighted = highlightedRanges.some(
+            (highlighted) => {
+              highlighted.startLineNumber === range.startLineNumber &&
+              highlighted.startColumn === range.startColumn &&
+              highlighted.endLineNumber === range.endLineNumber &&
+              highlighted.endColumn === range.endColumn
+            }
+          );
 
-        } else {
-          console.warn("드래그된 영역 위치 계산 불가!")
+          setShowHighlightButton(true);
+          // 이미 하이라이트 된 경우 삭제버튼으로 교체체
+          if(isHighlighted){
+            setShowHighlightButton(false);
+          }
         }
       }
     })
@@ -104,27 +117,43 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
   const addHighlight = (range:monaco.IRange ) => {
     if (!editorRef.current) return;
 
-    const newDecoration = editorRef.current.deltaDecorations([],[
+    // 새 하이라이트 추가 및 ID 저장
+    const newDecorations = editorRef.current.deltaDecorations(decorationsRef.current, [
       {
         range,
-        options:{
-          inlineClassName:'highlighted-code',
+        options: {
+          inlineClassName: 'highlighted-code',
         },
       },
     ]);
-    decorationsRef.current.push(...newDecoration);
+    decorationsRef.current.push(...newDecorations); // ID를 저장
 
+    setHighlightedRanges((prev) => [...prev, range]);
     setShowHighlightButton(false);
 
-    // 추후 api 연동 작업 필요요
+    // 추후 api 연동 작업 필요
   };
 
-  const removeHighlight = () =>{
+  const removeHighlight = (range: monaco.IRange) =>{
     if (!editorRef.current) return;
 
+    // 제거할 하이라이트의 ID 가져오기
     const decorationsToRemove = decorationsRef.current;
-    editorRef.current.deltaDecorations(decorationsToRemove, []);
-    decorationsRef.current = [];
+    editorRef.current.deltaDecorations(decorationsToRemove, []); // ID를 사용하여 제거
+
+    decorationsRef.current = []; // ID 초기화
+    setHighlightedRanges((prev)=>
+      prev.filter(
+        (highlighted)=>!(
+          highlighted.startLineNumber !== range.startLineNumber &&
+          highlighted.startColumn !== range.startColumn &&
+          highlighted.endLineNumber !== range.endLineNumber &&
+          highlighted.endColumn !== range.endColumn
+        )
+      )
+    );
+
+    setShowHighlightButton(false);
 
     // 추후 소켓 연결하기기
   };
@@ -135,10 +164,9 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
     }
   };
 
-  const handleDeleeteHighlight = () => {
+  const handleDeleteHighlight = () => {
     if(selectedRange){
-      // removeHighlight(selectedRange);
-      removeHighlight();
+      removeHighlight(selectedRange);
     }
   };
 
@@ -198,13 +226,23 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
       {showHighlightButton && (
         <HighlightButton
           style={{ top: buttonPosition.y, left: buttonPosition.x }}
-          onClick={handleHighlightClick}
+          onClick={selectedRange ? handleHighlightClick : handleDeleteHighlight}
           onContextMenu={(e)=>{
             e.preventDefault();
-            handleDeleeteHighlight();
+            handleDeleteHighlight();
           }}
         >
-          <BsFillBrushFill />
+          {highlightedRanges.some(
+            (highlighted) =>
+              highlighted.startLineNumber === selectedRange?.startLineNumber &&
+              highlighted.startColumn === selectedRange?.startColumn &&
+              highlighted.endLineNumber === selectedRange?.endLineNumber &&
+              highlighted.endColumn === selectedRange?.endColumn
+          ) ? (
+            <BsTrash />
+          ) : (
+            <BsFillBrushFill />
+          )}
         </HighlightButton>
       )}
 
