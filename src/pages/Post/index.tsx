@@ -19,16 +19,10 @@ const Post: React.FC = () => {
     // props api와 미일치
     boardName : '9oorm_KDT',
     defaultValue:'// [FE] 모달창 컴포넌트 만들기2',
-    change_language:'typescript',
-    value:'let num:number = 10;',
-    theme:'vs-dark'
+    change_language:'javascript',
+    value:`// [FE] 모달창 컴포넌트 만들기2 code`,
+    theme:'custom-dark'
   }
-
-  // 테스트용
-  // const [value,setValue] = useState<string>(dummyData.defaultValue);
-  // const handleChangeValue = (newValue : string) : void => {
-  //   setValue(newValue);
-  // };
 
   return (
     <Container>
@@ -37,12 +31,6 @@ const Post: React.FC = () => {
         postName={dummyData.name}
       />
       <Body>
-        {/* 테스트 용 input */}
-        {/* <input 
-          type='text'
-          value={value}
-          onChange={(e)=>handleChangeValue(e.target.value)} // 상태 업데이트
-        /> */}
         <IdeEditor
           defaultLanguage={dummyData.language}
           defaultValue={dummyData.defaultValue}
