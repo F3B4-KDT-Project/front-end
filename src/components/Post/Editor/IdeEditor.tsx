@@ -2,10 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled from '@emotion/styled';
 import Editor, { loader, useMonaco } from '@monaco-editor/react';
 
-import { BsFiles,BsDownload,BsLightbulbFill, BsLightbulbOffFill } from 'react-icons/bs';
+import { BsFiles,BsDownload,
+  // BsLightbulbFill, 
+  // BsLightbulbOffFill
+ } from 'react-icons/bs';
 
 // Monaco 타입 가져오기
 import * as monaco from 'monaco-editor';
+
 
 interface IdeEditorProps {
   defaultLanguage: string;
@@ -48,14 +52,14 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
       try {
         const response = await fetch('/monaco-themes/dark.json'); // public 폴더 기준
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`HTTP error! 테마 로드 안됨!! Status: ${response.status}`);
         }
 
         // 'response.json()'의 결과를 CustomTheme 타입으로 캐스팅
         const customTheme = (await response.json()) as CustomTheme;
-
         const monaco = await loader.init(); // Monaco 로더 초기화
-        monaco.editor.defineTheme('vs-dark', customTheme); // 커스텀 테마 등록
+
+        monaco.editor.defineTheme('custom-dark', customTheme); // 커스텀 테마 등록
         setThemeLoaded(true); // 테마 로드 완료
       } catch (error) {
         console.error('Failed to load Monaco theme:', (error as Error).message);
