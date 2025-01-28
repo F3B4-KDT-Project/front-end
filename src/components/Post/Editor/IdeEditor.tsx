@@ -5,7 +5,7 @@ import Editor, { loader
    } from '@monaco-editor/react';
 
 import { BsFiles,BsDownload,
-  // BsLightbulbFill, 
+  BsFillBrushFill, 
   // BsLightbulbOffFill
  } from 'react-icons/bs';
 
@@ -42,8 +42,12 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
   theme,
 }) => {
   const [themeLoaded, setThemeLoaded] = useState(false);
+  const [selectedRange, setSelectedRange] = useState<monaco.IRange | null>(null);
+  const [showHighlightButton, setShowHighlightButton] = useState(false);
+  const [buttonPosition, setButtonPosition] = useState({x:0, y:0});
   // 코드 복사, 저장 : 명시적으로 monaco.editor.IStandaloneCodeEditor 타입 지정
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+  const decorationsRef = useRef<string[]>([]); // 저장된 하이라이터
 
   // 코드 하이라이트를 위한 변수
   // const monaco = useMonaco();
@@ -77,6 +81,73 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
 
   const handleEditorMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editorRef.current = editor;
+
+    /* 하이라이터 기능 */
+    // 드래그 이벤트 감지
+    editor.onMouseUp(()=>{
+      const selection = editor.getSelection();
+
+      if (selection && !selection.isEmpty()){
+        // IRange 객체 생성성
+        const range: monaco.IRange = {
+          startLineNumber: selection.startLineNumber,
+          startColumn: selection.startColumn,
+          endLineNumber: selection.endLineNumber,
+          endColumn: selection.endColumn,
+        };
+        // 선택 영역의 마지막 위치 계산산
+        const position = editor.getScrolledVisiblePosition(selection.getEndPosition());
+        if (position){
+          setSelectedRange(range);
+          setButtonPosition({ x: position.left, y: position.top - 25 });
+          setShowHighlightButton(true);
+
+        } else {
+          console.warn("드래그된 영역 위치 계산 불가!")
+        }
+      }
+    })
+  };
+
+  const addHighlight = (range:monaco.IRange ) => {
+    if (!editorRef.current) return;
+
+    const newDecoration = editorRef.current.deltaDecorations([],[
+      {
+        range,
+        options:{
+          inlineClassName:'highlighted-code',
+        },
+      },
+    ]);
+    decorationsRef.current.push(...newDecoration);
+
+    setShowHighlightButton(false);
+
+    // 추후 api 연동 작업 필요요
+  };
+
+  const removeHighlight = () =>{
+    if (!editorRef.current) return;
+
+    const decorationsToRemove = decorationsRef.current;
+    editorRef.current.deltaDecorations(decorationsToRemove, []);
+    decorationsRef.current = [];
+
+    // 추후 소켓 연결하기기
+  };
+
+  const handleHighlightClick = () => {
+    if(selectedRange){
+      addHighlight(selectedRange);
+    }
+  };
+
+  const handleDeleeteHighlight = () => {
+    if(selectedRange){
+      // removeHighlight(selectedRange);
+      removeHighlight();
+    }
   };
 
   const handleCopyButton = async () => {
@@ -132,11 +203,24 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
            }
         }}
       />
+      {showHighlightButton && (
+        <HighlightButton
+          style={{ top: buttonPosition.y, left: buttonPosition.x }}
+          onClick={handleHighlightClick}
+          onContextMenu={(e)=>{
+            e.preventDefault();
+            handleDeleeteHighlight();
+          }}
+        >
+          <BsFillBrushFill />
+        </HighlightButton>
+      )}
 
       <ButtonContainer>
         <CopyButton onClick={handleCopyButton} />
         <SaveButton onClick={handleSaveButton}/>
       </ButtonContainer>
+      <GlobalStyle />
     </Container>
   );
 };
@@ -195,4 +279,27 @@ const SaveButton=styled(BsDownload)`
   position: absolute;
   right: 1.5rem;
   bottom : 1.5rem;
+`;
+
+const HighlightButton = styled.div`
+  position: absolute;
+  z-index: 10;
+  background-color: var(--input);
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+`;
+
+// 전역 스타일 추가 (형광펜 스타일)
+const GlobalStyle = styled.div`
+  .highlighted-code {
+    background-color: rgba(255, 255, 0, 0.5);
+    /* background-color: var(--input); */
+    cursor: pointer;
+  }
+  
+  > svg{
+    color: var(--white);
+  }
 `;
