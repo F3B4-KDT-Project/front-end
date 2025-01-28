@@ -1,15 +1,10 @@
 import React from "react";
 import { SideBar, AddButton, ProfileButton } from "./style";
 
-import DarkAddIcon from '../../../assets/icons/addbtn_dark.svg';
-import LightAddIcon from '../../../assets/icons/addbtn_light.svg';
-import ProfileIcon from '../../../assets/icons/profilebtn.svg';
+import { IoIosAdd } from "react-icons/io";
+import { BsFillPersonFill } from "react-icons/bs"; 
 
-interface SidebarProps {
-  theme: "dark" | "light"; 
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ theme }) => {
+const Sidebar: React.FC = () => {
   const handleAddClick = () => {
   };    
 
@@ -22,23 +17,15 @@ const Sidebar: React.FC<SidebarProps> = ({ theme }) => {
     return null;
   }  
   
-    return (
-    <SideBar theme={theme}>
+  return (
+    <SideBar>
         <AddButton onClick={handleAddClick}>
-          {theme === "dark" ? (
-            <img src={DarkAddIcon} alt="Add" />
-          ) : (
-            <img src={LightAddIcon} alt="Add" />
-          )}
+          <IoIosAdd className="AddIcon"/>
         </AddButton>
 
-        <ProfileButton onClick={handleProfileClick}>
-            {theme === "dark" ? (
-            <img src={ProfileIcon} alt="Profile" />
-            ) : (
-            <img src={ProfileIcon} alt="Profile" />
-            )}
-        </ProfileButton>
+      <ProfileButton onClick={handleProfileClick}>
+        <BsFillPersonFill className="ProfileIcon"/>
+      </ProfileButton>
     </SideBar>
   );
 };
