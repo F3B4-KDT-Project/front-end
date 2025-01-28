@@ -19,9 +19,9 @@ const Post: React.FC = () => {
     // props api와 미일치
     boardName : '9oorm_KDT',
     defaultValue:'// [FE] 모달창 컴포넌트 만들기2',
-    change_language:'typescript',
+    change_language:'javascript',
     value:`// [FE] 모달창 컴포넌트 만들기2 code`,
-    theme:'vs-dark'
+    theme:'custom-dark'
   }
 
   return (
