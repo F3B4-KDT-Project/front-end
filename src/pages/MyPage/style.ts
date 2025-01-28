@@ -78,6 +78,7 @@ export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.69rem;
+  flex-grow: 1;
   margin-top: 2.2rem;
 `;
 
