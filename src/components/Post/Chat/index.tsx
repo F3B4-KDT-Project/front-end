@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { BsArrowUpCircleFill } from 'react-icons/bs';
 import { ChatSection, Container, InputSection } from './style';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Message } from '../../../models/ChatData.type';
+import { Client } from '@stomp/stompjs';
 import MessageCard from '../MessageCard';
 
 const Chat: React.FC = () => {
+  const stompClient = useRef<Client | null>(null);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [chat, setChat] = useState<string>(``);
   const [user, setUser] = useState({ id: 0, name: '' });
@@ -28,11 +30,43 @@ const Chat: React.FC = () => {
         sendTime: '19:34',
       },
     ];
+    setChatHistory(dummyChatHistory);
 
     // 더미데이터 추가 (추후 auth 전역 관리 시 계정 정보 받아올 예정)
     setUser({ id: 3, name: '정윤석' });
 
-    setChatHistory(dummyChatHistory);
+    // Stomp 클라이언트 생성
+    const client = new Client({
+      brokerURL:
+        'http://ec2-3-36-75-8.ap-northeast-2.compute.amazonaws.com:8080/chatting',
+      connectHeaders: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczNzg3NDI3MCwiaWF0IjoxNzM3ODcwNjcwfQ.kGxYLNZWeMJ9VGmelENQWh7VYNu6umuVqt8yBwRtTaY',
+      },
+      debug: (str) => console.log(str),
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+    });
+
+    client.onConnect = () => {
+      console.log('WebSocket 연결 성공');
+      // 채팅방 구독
+      client.subscribe('/room/1', (message) => {
+        console.log('받은 메세지:', JSON.parse(message.body));
+      });
+    };
+
+    client.activate();
+    stompClient.current = client;
+
+    // 언마운트 시 연결 해제
+    return () => {
+      if (stompClient.current?.connected) {
+        stompClient.current.deactivate();
+        console.log('WebSocket 연결 해제');
+      }
+    };
   }, []);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -51,6 +85,18 @@ const Chat: React.FC = () => {
   const handleSend = (): void => {
     if (!chat.trim()) {
       return;
+    }
+
+    if (stompClient.current?.connected) {
+      stompClient.current.publish({
+        destination: '/send/chat/1',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczNzg3NDI3MCwiaWF0IjoxNzM3ODcwNjcwfQ.kGxYLNZWeMJ9VGmelENQWh7VYNu6umuVqt8yBwRtTaY',
+        },
+        body: JSON.stringify({ senderId: 1, content: chat }),
+      });
+      console.log('보낸 메시지:', chat);
     }
 
     const newChat: Message = {
