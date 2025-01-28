@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from '@emotion/styled';
-import Editor, { loader, useMonaco } from '@monaco-editor/react';
+import Editor, { loader
+  //  ,useMonaco
+   } from '@monaco-editor/react';
 
 import { BsFiles,BsDownload,
   // BsLightbulbFill, 
