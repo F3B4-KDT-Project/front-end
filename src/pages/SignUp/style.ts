@@ -55,5 +55,6 @@ export const SignUpForm = styled.form`
 export const SignUpFieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
+  width: 38.4375rem;
   gap: 2.19rem;
 `;
