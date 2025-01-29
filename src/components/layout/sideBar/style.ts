@@ -2,14 +2,14 @@ import styled from "@emotion/styled";
 
 export const SideBar = styled.div`
     width: 7.875rem;
-    height: 100vh;
+    min-height: 100vh;
+    box-shadow: var(--navigation-bs) !important; 
     background: var(--navigation-gr);
-    box-shadow: var(--navigation-bs);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    `;
+`;
 
 export const AddButton = styled.div`
     display: flex;
@@ -34,13 +34,13 @@ export const AddButton = styled.div`
     }
 
     .AddIcon {
-            width: 5rem;
-            height: 5rem;
-            flex-shrink: 0;
-            transition: background-color 0.2s;
-            color: var(--light-gray);
+        width: 5rem;
+        height: 5rem;
+        flex-shrink: 0;
+        transition: background-color 0.2s;
+        color: var(--light-gray);
         }
-    `;
+`;
 
 export const ProfileButton = styled.div`
     display: flex;

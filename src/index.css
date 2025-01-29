@@ -25,6 +25,10 @@ body {
   --light-gray: #dadada;
   --gray: #5a5a5a;
   --black: #161616;
+  --post: #a4a3a3;
+  --post-hover: #d1d1d1;
+  --footer: #5a5a5a;
+  --footer-ar: #a4a3a3;
 
   --red: #d75656;
   --green: #3dbc8d;
@@ -52,6 +56,10 @@ body.light {
   --light-gray: #eae9e6;
   --gray: #9f9d98;
   --black: #4e4d4c;
+  --post: rgba(175, 174, 167, 0.35);
+  --post-hover: #afaea7;
+  --footer: #9f9d98;
+  --footer-ar: #9f9d98;
 
   --red: #f26c6c;
   --green: #3dbc8d;
