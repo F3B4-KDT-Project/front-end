@@ -10,12 +10,14 @@ const MessageCard = ({
   time,
 }: Message) => {
   // 임시 user data
-  const user_id = 1;
+  const user_id = '3';
+
+  const isMyMessage = userId == user_id;
 
   return (
-    <Container>
+    <Container isMyMessage={isMyMessage}>
       <ProfileImage src={profileImage} alt="profile image" />
-      <Content>
+      <Content isMyMessage={isMyMessage}>
         <p>{name}</p>
         <div>{content}</div>
       </Content>

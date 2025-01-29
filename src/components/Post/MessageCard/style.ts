@@ -1,11 +1,17 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
-  width: 85%;
+interface MessageProps {
+  isMyMessage: boolean;
+}
+
+export const Container = styled.div<MessageProps>`
   margin-top: 0.63rem;
   display: flex;
+  flex-direction: ${(props) => (props.isMyMessage ? 'row-reverse' : 'row')};
   align-items: flex-start;
   gap: 0.44rem;
+
+  align-self: ${(props) => (props.isMyMessage ? 'flex-end' : 'flex-start')};
 `;
 
 export const ProfileImage = styled.img`
@@ -17,10 +23,11 @@ export const ProfileImage = styled.img`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
-export const Content = styled.div`
+export const Content = styled.div<MessageProps>`
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: ${(props) => (props.isMyMessage ? 'flex-end' : 'flex-start')};
   gap: 0.19rem;
 
   > p {
@@ -34,7 +41,6 @@ export const Content = styled.div`
 
   > div {
     box-sizing: border-box;
-    width: 100%;
     padding: 0.6rem 0.7rem;
     white-space: pre-wrap;
 
