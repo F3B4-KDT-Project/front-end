@@ -42,6 +42,7 @@ export const SignInBody = styled.section`
 export const SignInForm = styled.form`
   display: flex;
   flex-direction: column;
+  width: 38.4375rem;
   gap: 1.69rem;
 `;
 
