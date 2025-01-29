@@ -55,8 +55,10 @@ export const SaveButton=styled(BsDownload)`
 `;
 
 export const HighlightButton = styled.div`
-  position: absolute;
   z-index: 10;
+  position: absolute;
+  align-items: center;
+
   background-color: var(--input);
   border: none;
   border-radius: 5px;
@@ -67,6 +69,7 @@ export const HighlightButton = styled.div`
 // 전역 스타일 추가 (형광펜 스타일)
 export const GlobalStyle = styled.div`
   .highlighted-code {
+    z-index: 5;
     background-color: rgba(255, 255, 0, 0.5);
     cursor: pointer;
   }
