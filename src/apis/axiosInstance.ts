@@ -27,7 +27,7 @@ axiosInstance.interceptors.request.use(
 
 // 응답 인터셉터
 axiosInstance.interceptors.response.use(
-  async (response) => response,
+  async (response) => response.data,
 
   async (error) => {
     // 에러 처리 로직 추가
