@@ -8,17 +8,12 @@ export const Container = styled.div`
   gap: 0.44rem;
 `;
 
-interface ProfileImageProps {
-  src: string;
-}
-
-export const ProfileImage = styled.div<ProfileImageProps>`
-  width: 10%;
+export const ProfileImage = styled.img`
+  width: 2.5rem;
+  height: 2.5rem;
   margin: 0 0.37rem;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-
-  background: ${({ src }) => `url(${src})`} lightgray 50% / cover no-repeat;
+  border-radius: 2.5rem;
+  object-fit: cover;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
