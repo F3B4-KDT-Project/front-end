@@ -22,10 +22,10 @@ import {
   UncheckedCircle,
   UserInfoSection,
 } from './style';
+import { useUserProfile } from '../../hooks/Auth/useUserProfile';
 
 const MyPage: React.FC = () => {
-  const userName = '유지희';
-  const userId = 'esder1310';
+  const { data, isLoading, error } = useUserProfile();
 
   const [isEditingId, setIsEditingId] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
@@ -35,10 +35,15 @@ const MyPage: React.FC = () => {
     setSelectedTheme(theme);
   };
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error...</div>;
+  console.log(data);
+
   return (
     <MyPageContainer>
       <MyPageHeader>
-        <MyPageHeaderUserName>{userName}</MyPageHeaderUserName>님의 마이페이지
+        <MyPageHeaderUserName>{data?.nickName}</MyPageHeaderUserName>님의
+        마이페이지
       </MyPageHeader>
 
       <MyPageContent>
@@ -48,7 +53,7 @@ const MyPage: React.FC = () => {
           </h2>
 
           <ProfileImage>
-            <img src={defaultImg} alt="프로필 이미지" />
+            <img src={data?.profileImage || defaultImg} alt="프로필 이미지" />
             <button aria-label="프로필 이미지 수정">
               <BsImageFill className="icon_image" />
             </button>
@@ -70,7 +75,7 @@ const MyPage: React.FC = () => {
                   <Input
                     type="id"
                     id="id"
-                    value={userId}
+                    value={data?.loginId ?? ''}
                     onChange={() => {}}
                     placeholder="수정할 아이디를 입력하세요."
                   />
@@ -79,7 +84,9 @@ const MyPage: React.FC = () => {
                   </button>
                 </EditInfo>
               ) : (
-                <ProfileInfoDetailsContent>{userId}</ProfileInfoDetailsContent>
+                <ProfileInfoDetailsContent>
+                  {data?.loginId}
+                </ProfileInfoDetailsContent>
               )}
             </ProfileInfoDetails>
 
@@ -98,7 +105,7 @@ const MyPage: React.FC = () => {
                   <Input
                     type="text"
                     id="name"
-                    value={userName}
+                    value={data?.nickName ?? ''}
                     onChange={() => {}}
                     placeholder="수정할 이름 입력하세요."
                   />
@@ -108,7 +115,7 @@ const MyPage: React.FC = () => {
                 </EditInfo>
               ) : (
                 <ProfileInfoDetailsContent>
-                  {userName}
+                  {data?.nickName}
                 </ProfileInfoDetailsContent>
               )}
             </ProfileInfoDetails>
