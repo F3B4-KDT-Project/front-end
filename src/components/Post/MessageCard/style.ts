@@ -1,8 +1,5 @@
 import styled from '@emotion/styled';
-
-interface MessageProps {
-  isMyMessage: boolean;
-}
+import { MessageProps } from '../../../models/ChatData.type';
 
 export const Container = styled.div<MessageProps>`
   margin-top: 0.63rem;
