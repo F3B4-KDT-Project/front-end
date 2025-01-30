@@ -9,7 +9,6 @@ const MessageCard: React.FC<Message> = ({
   content,
   time,
 }) => {
-  
   // 임시 함수: userId를 가공하거나 기본 출력용으로 활용
   const getUserIdDisplay = (id: string | number) => {
     return `User: ${id}`;

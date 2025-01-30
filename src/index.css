@@ -40,8 +40,14 @@ body {
 
   --container: #3b3b3b;
   --icon: #a4a3a3;
-  --navigation-gr: linear-gradient(180deg, #5a5a5a 0%, #4d4d4d 39.5%, #161616 100%);
-  --navigation-bs: 4px 0px 10px 5px rgba(0, 0, 0, 0.25), 0px 0px 4px 0px rgba(180, 180, 180, 0.25) inset;
+  --navigation-gr: linear-gradient(
+    180deg,
+    #5a5a5a 0%,
+    #4d4d4d 39.5%,
+    #161616 100%
+  );
+  --navigation-bs: 4px 0px 10px 5px rgba(0, 0, 0, 0.25),
+    0px 0px 4px 0px rgba(180, 180, 180, 0.25) inset;
 
   background-color: var(--background);
   color: var(--white);
@@ -72,7 +78,9 @@ body.light {
   --container: var(--light-gray);
   --icon: var(--gray);
   --navigation-gr: linear-gradient(180deg, #fff 0%, #cbcbcb 60%, #acacac 100%);
-  --navigation-bs: 4px 0px 10px 5px var(--wh_nav_dpshd, rgba(255, 255, 255, 0.50)), 0px 0px 4px 0px var(--bg_board_select, rgba(22, 22, 22, 0.35)) inset;
+  --navigation-bs: 4px 0px 10px 5px
+      var(--wh_nav_dpshd, rgba(255, 255, 255, 0.5)),
+    0px 0px 4px 0px var(--bg_board_select, rgba(22, 22, 22, 0.35)) inset;
 
   background-color: var(--background);
   color: var(--black);

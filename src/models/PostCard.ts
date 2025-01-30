@@ -1,5 +1,5 @@
 export interface PostCardProps {
-    postName: string; 
-    badgeCount: number; 
-    date: string; 
-  }
+  postName: string;
+  badgeCount: number;
+  date: string;
+}
