@@ -1,29 +1,16 @@
 import styled from '@emotion/styled';
 
-export const customModalStyles = {
-  content: {
-    width: '40rem',
-    margin: 'auto',
-    borderRadius: '10px',
-    padding: '2rem',
-    background: 'var(--background)',
-  },
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-};
-
-//export const ModalOverlay = styled.div`
-//  display: flex;
-//  position: fixed;
-//  top: 0;
-//  left: 7.875rem;
-//  width: 100%;
-//  min-height: 100vh;
-//  background: var(--modal-bg);
-//  justify-content: center;
-//  align-items: center;
-//`;
+export const ModalOverlay = styled.div`
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 7.875rem;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--modal-bg);
+  justify-content: center;
+  align-items: center;
+`;
 
 export const ModalContent = styled.div`
   display: flex;

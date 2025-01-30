@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import Modal from 'react-modal'; // react-modal import
 import {
-  customModalStyles,
+  ModalOverlay,
   ModalContent,
   ModalHeader,
   InputFieldWrapper,
@@ -14,7 +13,7 @@ import {
   SuccessMessage,
 } from './style';
 import { BsXLg } from 'react-icons/bs';
-import { BoardModalProps } from '../../../models/modal';
+import { BoardModalProps } from '../../../models/Modal';
 
 const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
   // 더미 데이터로 초기값 설정
@@ -59,15 +58,15 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
   const handleEditBoard = () => {
     console.log('수정된 게시판 이름:', boardName);
     console.log('수정된 참여자 이메일 목록:', emailList);
-    onClose(); // 모달 닫기
+    onClose();
   };
 
+  if (!isOpen) {
+    return null; // 모달이 열려있지 않으면 렌더링하지 않음
+  }
+
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      style={customModalStyles} // 스타일 적용
-    >
+    <ModalOverlay>
       <ModalContent>
         <ModalHeader>
           <h2>게시판 수정하기</h2>
@@ -114,7 +113,7 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
           <SubmitButton onClick={handleEditBoard}>게시판 수정</SubmitButton>
         </ButtonWrapper>
       </ModalContent>
-    </Modal>
+    </ModalOverlay>
   );
 };
 
