@@ -15,14 +15,16 @@ const Chat: React.FC = () => {
     const dummyChatHistory: Message[] = [
       {
         userId: '1',
-        profileImage: 'https://picsum.photos/200/300?random=1',
+        profileImage:
+          'https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png',
         name: '한채연',
         content: '아니 진짜?',
         time: '19:28',
       },
       {
         userId: '2',
-        profileImage: 'https://picsum.photos/200/300?random=2',
+        profileImage:
+          'https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png',
         name: '한승우',
         content: '진짜 가능?',
         time: '19:34',
@@ -55,7 +57,7 @@ const Chat: React.FC = () => {
 
     const newChat: Message = {
       userId: user.id,
-      profileImage: `https://picsum.photos/200/300?random=${user.id}`,
+      profileImage: `https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png`,
       name: user.name,
       content: chat,
       time: new Date().toLocaleTimeString([], {

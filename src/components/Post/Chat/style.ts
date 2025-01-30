@@ -21,6 +21,7 @@ export const ChatSection = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 `;
 
 export const InputSection = styled.form`
