@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   ModalOverlay,
   ModalContent,
@@ -11,12 +11,13 @@ import {
   Line,
   ErrorMessage,
   SuccessMessage,
-} from "./style";
-import { BsXLg } from "react-icons/bs";
+} from './style';
+import { BsXLg } from 'react-icons/bs';
+import { BoardModalProps } from '../../../models/Modal';
 
-const AddBoardModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [boardName, setBoardName] = useState("");
-  const [email, setEmail] = useState("");
+const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
+  const [boardName, setBoardName] = useState('');
+  const [email, setEmail] = useState('');
   const [emailList, setEmailList] = useState<string[]>([]);
   const [emailError, setEmailError] = useState(false);
   const [emailSuccess, setEmailSuccess] = useState(false);
@@ -26,16 +27,15 @@ const AddBoardModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     return emailRegex.test(email);
   };
 
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       e.preventDefault(); // 기본 엔터 동작 방지
       if (validateEmail(email)) {
         if (!emailList.includes(email)) {
           setEmailList([...emailList, email]);
           setEmailSuccess(true);
           setEmailError(false);
-          setEmail(""); // 입력 초기화
+          setEmail(''); // 입력 초기화
         } else {
           setEmailError(true);
           setEmailSuccess(false);
@@ -52,8 +52,8 @@ const AddBoardModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   };
 
   const handleCreateBoard = () => {
-    console.log("게시판 이름:", boardName);
-    console.log("참여자 이메일 목록:", emailList);
+    console.log('게시판 이름:', boardName);
+    console.log('참여자 이메일 목록:', emailList);
     onClose(); // 모달 닫기
   };
 
@@ -61,15 +61,15 @@ const AddBoardModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-            <h2>게시판 생성하기</h2>
-            <BsXLg className="CloseButton" onClick={onClose} />
+          <h2>게시판 생성하기</h2>
+          <BsXLg className="CloseButton" onClick={onClose} />
         </ModalHeader>
         <Line />
         <InputField
           type="text"
           placeholder="게시판 이름을 입력하세요."
           value={boardName}
-          onChange={(e) => setBoardName(e.target.value)}    
+          onChange={(e) => setBoardName(e.target.value)}
         />
         <h3>참여자 초대하기</h3>
         <InputFieldWrapper>
@@ -80,22 +80,29 @@ const AddBoardModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             onChange={(e) => setEmail(e.target.value)}
             onKeyDown={handleKeyDown}
             style={{
-              borderColor: emailError ? "var(--red)" : "var(--light-gray)",
+              borderColor: emailError ? 'var(--red)' : 'var(--light-gray)',
             }}
           />
-          {emailSuccess && <SuccessMessage>초대가 완료되었습니다.</SuccessMessage>}
-          {emailError && <ErrorMessage>틀린 이메일이거나 없는 이메일입니다.</ErrorMessage>}
+          {emailSuccess && (
+            <SuccessMessage>초대가 완료되었습니다.</SuccessMessage>
+          )}
+          {emailError && (
+            <ErrorMessage>틀린 이메일이거나 없는 이메일입니다.</ErrorMessage>
+          )}
         </InputFieldWrapper>
         <EmailList>
           {emailList.map((item, index) => (
             <div key={index} className="email-item">
               {item}
-              <BsXLg className="CloseEmailButton" onClick={() => handleRemoveEmail(item)} />
+              <BsXLg
+                className="CloseEmailButton"
+                onClick={() => handleRemoveEmail(item)}
+              />
             </div>
           ))}
-        </EmailList> 
+        </EmailList>
         <ButtonWrapper>
-            <SubmitButton onClick={handleCreateBoard}>게시판 생성</SubmitButton>
+          <SubmitButton onClick={handleCreateBoard}>게시판 생성</SubmitButton>
         </ButtonWrapper>
       </ModalContent>
     </ModalOverlay>
