@@ -5,38 +5,18 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { Message } from '../../../models/ChatData.type';
 import { Client } from '@stomp/stompjs';
 import MessageCard from '../MessageCard';
+import axios from 'axios';
 
 const Chat: React.FC = () => {
   const stompClient = useRef<Client | null>(null);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [chat, setChat] = useState<string>(``);
-  const [user, setUser] = useState({ id: 0, name: '' });
+  const user = { id: 3, name: '정윤석' };
+  const roomId = 1;
   const WS_URL = import.meta.env.VITE_WEBSOCKET_URL;
 
   useEffect(() => {
-    // 더미데이터 추가 (추후 채팅 내역 api로 요청 예정)
-    const dummyChatHistory: Message[] = [
-      {
-        senderId: 1,
-        memberProfileImageUrl:
-          'https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png',
-        memberNickname: '한채연',
-        messageText: '아니 진짜?',
-        sendTime: '19:28',
-      },
-      {
-        senderId: 2,
-        memberProfileImageUrl:
-          'https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png',
-        memberNickname: '한승우',
-        messageText: '진짜 가능?',
-        sendTime: '19:34',
-      },
-    ];
-    setChatHistory(dummyChatHistory);
-
-    // 더미데이터 추가 (추후 auth 전역 관리 시 계정 정보 받아올 예정)
-    setUser({ id: 3, name: '정윤석' });
+    fetchChatHistory();
 
     // Stomp 클라이언트 생성
     const client = new Client({
@@ -54,7 +34,7 @@ const Chat: React.FC = () => {
     client.onConnect = () => {
       console.log('WebSocket 연결 성공');
       // 채팅방 구독
-      client.subscribe('/room/1', (message) => {
+      client.subscribe(`/room/${roomId}`, (message) => {
         console.log('받은 메세지:', JSON.parse(message.body));
       });
     };
@@ -70,6 +50,23 @@ const Chat: React.FC = () => {
       }
     };
   }, []);
+
+  const fetchChatHistory = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/chat/${roomId}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIwNzMxMSwiaWF0IjoxNzM4MjAzNzExfQ.q-4uhPUH6dUrXc9zuD_b1LdRFlkXtdC4F9yhc_HMgYA`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      setChatHistory(response.data);
+    } catch (err: any) {
+      console.error(err);
+    }
+  };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setChat(e.target.value);
@@ -91,7 +88,7 @@ const Chat: React.FC = () => {
 
     if (stompClient.current?.connected) {
       stompClient.current.publish({
-        destination: '/send/chat/1',
+        destination: `/send/chat/${roomId}`,
         headers: {
           Authorization:
             'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIwNzMxMSwiaWF0IjoxNzM4MjAzNzExfQ.q-4uhPUH6dUrXc9zuD_b1LdRFlkXtdC4F9yhc_HMgYA',

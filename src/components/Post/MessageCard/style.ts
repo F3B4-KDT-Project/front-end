@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { MessageProps } from '../../../models/ChatData.type';
 
 export const Container = styled.div<MessageProps>`
-  margin-top: 0.63rem;
   display: flex;
   flex-direction: ${(props) => (props.isMyMessage ? 'row-reverse' : 'row')};
   align-items: flex-start;

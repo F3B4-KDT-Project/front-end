@@ -17,11 +17,16 @@ export const ChatSection = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 91%;
-  padding: 0.43rem 1.25rem 0 0.88rem;
+  padding: 1.06rem 1.31rem;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: flex-start;
+  gap: 0.63rem;
 `;
 
 export const InputSection = styled.form`
