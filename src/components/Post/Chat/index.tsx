@@ -11,6 +11,7 @@ const Chat: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [chat, setChat] = useState<string>(``);
   const [user, setUser] = useState({ id: 0, name: '' });
+  const WS_URL = import.meta.env.VITE_WEBSOCKET_URL;
 
   useEffect(() => {
     // 더미데이터 추가 (추후 채팅 내역 api로 요청 예정)
@@ -39,11 +40,10 @@ const Chat: React.FC = () => {
 
     // Stomp 클라이언트 생성
     const client = new Client({
-      brokerURL:
-        'http://ec2-3-36-75-8.ap-northeast-2.compute.amazonaws.com:8080/chatting',
+      brokerURL: WS_URL,
       connectHeaders: {
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczNzg3NDI3MCwiaWF0IjoxNzM3ODcwNjcwfQ.kGxYLNZWeMJ9VGmelENQWh7VYNu6umuVqt8yBwRtTaY',
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIwNzMxMSwiaWF0IjoxNzM4MjAzNzExfQ.q-4uhPUH6dUrXc9zuD_b1LdRFlkXtdC4F9yhc_HMgYA',
       },
       debug: (str) => console.log(str),
       reconnectDelay: 5000,
@@ -94,7 +94,7 @@ const Chat: React.FC = () => {
         destination: '/send/chat/1',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczNzg3NDI3MCwiaWF0IjoxNzM3ODcwNjcwfQ.kGxYLNZWeMJ9VGmelENQWh7VYNu6umuVqt8yBwRtTaY',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIwNzMxMSwiaWF0IjoxNzM4MjAzNzExfQ.q-4uhPUH6dUrXc9zuD_b1LdRFlkXtdC4F9yhc_HMgYA',
         },
         body: JSON.stringify({ senderId: 1, content: chat }),
       });
