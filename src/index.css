@@ -25,6 +25,10 @@ body {
   --light-gray: #dadada;
   --gray: #5a5a5a;
   --black: #161616;
+  --post: #a4a3a3;
+  --post-hover: #d1d1d1;
+  --footer: #5a5a5a;
+  --footer-ar: #a4a3a3;
 
   --red: #d75656;
   --green: #3dbc8d;
@@ -36,7 +40,14 @@ body {
 
   --container: #3b3b3b;
   --icon: #a4a3a3;
-  --navigation-gr: linear-gradient(180deg, #fff 0%, #d2d1cc 100%);
+  --navigation-gr: linear-gradient(
+    180deg,
+    #5a5a5a 0%,
+    #4d4d4d 39.5%,
+    #161616 100%
+  );
+  --navigation-bs: 4px 0px 10px 5px rgba(0, 0, 0, 0.25),
+    0px 0px 4px 0px rgba(180, 180, 180, 0.25) inset;
 
   background-color: var(--background);
   color: var(--white);
@@ -51,6 +62,10 @@ body.light {
   --light-gray: #eae9e6;
   --gray: #9f9d98;
   --black: #4e4d4c;
+  --post: rgba(175, 174, 167, 0.35);
+  --post-hover: #afaea7;
+  --footer: #9f9d98;
+  --footer-ar: #9f9d98;
 
   --red: #f26c6c;
   --green: #3dbc8d;
@@ -62,7 +77,10 @@ body.light {
 
   --container: var(--light-gray);
   --icon: var(--gray);
-  --navigation-gr: linear-gradient(180deg, #fff 0%, #d2d1cc 100%);
+  --navigation-gr: linear-gradient(180deg, #fff 0%, #cbcbcb 60%, #acacac 100%);
+  --navigation-bs: 4px 0px 10px 5px
+      var(--wh_nav_dpshd, rgba(255, 255, 255, 0.5)),
+    0px 0px 4px 0px var(--bg_board_select, rgba(22, 22, 22, 0.35)) inset;
 
   background-color: var(--background);
   color: var(--black);

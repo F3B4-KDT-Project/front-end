@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <AppContainer>
-        <Sidebar theme="dark" /> 
+        <Sidebar /> 
         <ContentWrapper>
           <Routes>
             <Route path="/sign-up" element={<SignUp />} />
