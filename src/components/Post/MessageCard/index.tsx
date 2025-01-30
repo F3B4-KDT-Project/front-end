@@ -7,6 +7,7 @@ const MessageCard = ({
   name,
   content,
   time,
+
 }: Message) => {
   // 임시 user data
   const user_id = '3';
