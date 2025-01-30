@@ -52,8 +52,6 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
   };
 
   const handleCreateBoard = () => {
-    console.log('게시판 이름:', boardName);
-    console.log('참여자 이메일 목록:', emailList);
     onClose(); // 모달 닫기
   };
 
@@ -61,13 +59,13 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h2>게시판 생성하기</h2>
+          <h2>교실 생성하기</h2>
           <BsXLg className="CloseButton" onClick={onClose} />
         </ModalHeader>
         <Line />
         <InputField
           type="text"
-          placeholder="게시판 이름을 입력하세요."
+          placeholder="교실 이름을 입력하세요."
           value={boardName}
           onChange={(e) => setBoardName(e.target.value)}
         />
@@ -102,7 +100,7 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
           ))}
         </EmailList>
         <ButtonWrapper>
-          <SubmitButton onClick={handleCreateBoard}>게시판 생성</SubmitButton>
+          <SubmitButton onClick={handleCreateBoard}>교실 생성</SubmitButton>
         </ButtonWrapper>
       </ModalContent>
     </ModalOverlay>

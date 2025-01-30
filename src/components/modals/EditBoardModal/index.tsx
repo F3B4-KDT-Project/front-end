@@ -56,8 +56,6 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
   };
 
   const handleEditBoard = () => {
-    console.log('수정된 게시판 이름:', boardName);
-    console.log('수정된 참여자 이메일 목록:', emailList);
     onClose();
   };
 
@@ -69,13 +67,13 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h2>게시판 수정하기</h2>
+          <h2>교실 수정하기</h2>
           <BsXLg className="CloseButton" onClick={onClose} />
         </ModalHeader>
         <Line />
         <InputField
           type="text"
-          placeholder="게시판 이름을 입력하세요."
+          placeholder="교실 이름을 입력하세요."
           value={boardName}
           onChange={(e) => setBoardName(e.target.value)}
         />
@@ -110,7 +108,7 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
           ))}
         </EmailList>
         <ButtonWrapper>
-          <SubmitButton onClick={handleEditBoard}>게시판 수정</SubmitButton>
+          <SubmitButton onClick={handleEditBoard}>교실 수정</SubmitButton>
         </ButtonWrapper>
       </ModalContent>
     </ModalOverlay>
