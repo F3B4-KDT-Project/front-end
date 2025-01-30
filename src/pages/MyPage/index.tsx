@@ -27,9 +27,10 @@ import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
 
 const MyPage: React.FC = () => {
   const { data, isLoading, error, refetch } = useUserProfile();
-  const { patchUserNickName } = useUpdateProfile();
+  const { patchUserNickName, patchUserLoginId } = useUpdateProfile();
 
   const [isEditingId, setIsEditingId] = useState(false);
+  const [id, setId] = useState(data?.loginId ?? '');
 
   const [isEditingNickName, setIsEditingNickName] = useState(false);
   const [nickName, setNickName] = useState(data?.nickName ?? '');
@@ -50,9 +51,24 @@ const MyPage: React.FC = () => {
     }
   };
 
+  const handleIdChange = async () => {
+    try {
+      await patchUserLoginId(id);
+      setIsEditingId(false);
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('loginId');
+
+      alert('아이디가 변경되었습니다. 다시 로그인해주세요.');
+      location.href = '/sign-in';
+    } catch (error) {
+      console.error('아이디 수정 실패', error);
+    }
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error...</div>;
-  console.log(data);
 
   return (
     <MyPageContainer>
@@ -90,13 +106,13 @@ const MyPage: React.FC = () => {
                   <Input
                     type="id"
                     id="id"
-                    value={data?.loginId ?? ''}
-                    onChange={() => {}}
+                    value={id}
+                    onChange={(e) => {
+                      setId(e.target.value);
+                    }}
                     placeholder="수정할 아이디를 입력하세요."
                   />
-                  <button onClick={() => setIsEditingId(false)}>
-                    수정완료
-                  </button>
+                  <button onClick={handleIdChange}>수정완료</button>
                 </EditInfo>
               ) : (
                 <ProfileInfoDetailsContent>

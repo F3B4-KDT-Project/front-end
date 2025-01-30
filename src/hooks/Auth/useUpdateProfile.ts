@@ -7,4 +7,11 @@ export const useUpdateProfile = () => ({
     });
     return data;
   },
+
+  patchUserLoginId: async (loginId: string) => {
+    const data = await http.patch('/api/auth/profile/login-id', null, {
+      params: { loginId },
+    });
+    return data;
+  },
 });
