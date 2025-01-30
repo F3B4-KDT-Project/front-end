@@ -23,16 +23,31 @@ import {
   UserInfoSection,
 } from './style';
 import { useUserProfile } from '../../hooks/Auth/useUserProfile';
+import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
 
 const MyPage: React.FC = () => {
-  const { data, isLoading, error } = useUserProfile();
+  const { data, isLoading, error, refetch } = useUserProfile();
+  const { patchUserNickName } = useUpdateProfile();
 
   const [isEditingId, setIsEditingId] = useState(false);
-  const [isEditingName, setIsEditingName] = useState(false);
+
+  const [isEditingNickName, setIsEditingNickName] = useState(false);
+  const [nickName, setNickName] = useState(data?.nickName ?? '');
+
   const [selectedTheme, setSelectedTheme] = useState('dark');
 
   const handleThemeChange = (theme: string) => {
     setSelectedTheme(theme);
+  };
+
+  const handleNickNameChange = async () => {
+    try {
+      await patchUserNickName(nickName);
+      setIsEditingNickName(false);
+      refetch();
+    } catch (error) {
+      console.error('닉네임 수정 실패', error);
+    }
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -92,26 +107,26 @@ const MyPage: React.FC = () => {
 
             <ProfileInfoDetails>
               <label htmlFor="name">
-                | 사용자 이름
+                | 사용자 닉네임
                 <button
-                  onClick={() => setIsEditingName(true)}
-                  aria-label="사용자 이름 수정"
+                  onClick={() => setIsEditingNickName(true)}
+                  aria-label="사용자 닉네임 수정"
                 >
                   <BsPencilFill className="icon_edit" />
                 </button>
               </label>
-              {isEditingName ? (
+              {isEditingNickName ? (
                 <EditInfo>
                   <Input
                     type="text"
                     id="name"
-                    value={data?.nickName ?? ''}
-                    onChange={() => {}}
-                    placeholder="수정할 이름 입력하세요."
+                    value={nickName}
+                    onChange={(e) => {
+                      setNickName(e.target.value);
+                    }}
+                    placeholder="수정할 닉네임을 입력하세요."
                   />
-                  <button onClick={() => setIsEditingName(false)}>
-                    수정완료
-                  </button>
+                  <button onClick={handleNickNameChange}>수정완료</button>
                 </EditInfo>
               ) : (
                 <ProfileInfoDetailsContent>
