@@ -5,3 +5,7 @@ export interface Message {
   messageText: string;
   sendTime: string;
 }
+
+export interface MessageProps {
+  isMyMessage: boolean;
+}

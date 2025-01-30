@@ -1,31 +1,30 @@
 import styled from '@emotion/styled';
+import { MessageProps } from '../../../models/ChatData.type';
 
-export const Container = styled.div`
-  width: 85%;
+export const Container = styled.div<MessageProps>`
   margin-top: 0.63rem;
   display: flex;
+  flex-direction: ${(props) => (props.isMyMessage ? 'row-reverse' : 'row')};
   align-items: flex-start;
   gap: 0.44rem;
+
+  align-self: ${(props) => (props.isMyMessage ? 'flex-end' : 'flex-start')};
 `;
 
-interface ProfileImageProps {
-  src: string;
-}
-
-export const ProfileImage = styled.div<ProfileImageProps>`
-  width: 10%;
+export const ProfileImage = styled.img`
+  width: 2.5rem;
+  height: 2.5rem;
   margin: 0 0.37rem;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-
-  background: ${({ src }) => `url(${src})`} lightgray 50% / cover no-repeat;
+  border-radius: 2.5rem;
+  object-fit: cover;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
-export const Content = styled.div`
+export const Content = styled.div<MessageProps>`
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: ${(props) => (props.isMyMessage ? 'flex-end' : 'flex-start')};
   gap: 0.19rem;
 
   > p {
@@ -39,7 +38,6 @@ export const Content = styled.div`
 
   > div {
     box-sizing: border-box;
-    width: 100%;
     padding: 0.6rem 0.7rem;
     white-space: pre-wrap;
 
