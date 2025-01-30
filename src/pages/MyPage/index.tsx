@@ -27,7 +27,10 @@ import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
 
 const MyPage: React.FC = () => {
   const { data, isLoading, error, refetch } = useUserProfile();
-  const { patchUserNickName, patchUserLoginId } = useUpdateProfile();
+  const { patchUserNickName, patchUserLoginId, patchUserProfileImage } =
+    useUpdateProfile();
+
+  const profileImageUploadRef = React.useRef<HTMLInputElement>(null);
 
   const [isEditingId, setIsEditingId] = useState(false);
   const [id, setId] = useState(data?.loginId ?? '');
@@ -39,6 +42,23 @@ const MyPage: React.FC = () => {
 
   const handleThemeChange = (theme: string) => {
     setSelectedTheme(theme);
+  };
+
+  const handleProfileImageUploadButtonClick = () => {
+    profileImageUploadRef.current?.click();
+  };
+
+  const handleProfileImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files && event.target.files[0]) {
+      try {
+        const file = event.target.files[0];
+        await patchUserProfileImage(file);
+      } catch (error) {
+        console.error('프로필 이미지 수정 실패:', error);
+      }
+    }
   };
 
   const handleNickNameChange = async () => {
@@ -85,7 +105,18 @@ const MyPage: React.FC = () => {
 
           <ProfileImage>
             <img src={data?.profileImage || defaultImg} alt="프로필 이미지" />
-            <button aria-label="프로필 이미지 수정">
+            <button
+              aria-label="프로필 이미지 수정"
+              onClick={handleProfileImageUploadButtonClick}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                id="profileImageUpload"
+                onChange={handleProfileImageChange}
+                ref={profileImageUploadRef}
+                style={{ display: 'none' }}
+              />
               <BsImageFill className="icon_image" />
             </button>
           </ProfileImage>
