@@ -35,7 +35,7 @@ const DeleteBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
         </ModalHeader>
         <Line />
         <Body>
-          <h1>boardName={dummyData.boardName}</h1>
+          <h1>{dummyData.boardName}</h1>
           <h3>
             해당 게시판을 삭제하시겠습니까?
             <br />

@@ -14,6 +14,8 @@ export const ModalOverlay = styled.div`
 
 export const ModalContent = styled.div`
   display: flex;
+  min-width: 36rem;
+  flex-shrink: 0;
   flex-direction: column;
   flex-shrink: 0;
   border-radius: 0.9375rem;
@@ -61,10 +63,10 @@ export const Line = styled.div`
 `;
 
 export const Body = styled.div`
-  margin-top: 3.31rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   h1 {
     color: var(--red);
@@ -74,6 +76,7 @@ export const Body = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    margin-bottom: 3.31rem;
   }
 
   h3 {
@@ -83,8 +86,7 @@ export const Body = styled.div`
     font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
-    gap: 0.81rem;
+    line-height: 2.81rem;
   }
 `;
 
@@ -92,7 +94,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 6.25rem;
+  margin-top: 5.25rem;
 `;
 
 export const SubmitButton = styled.button`
@@ -113,6 +115,7 @@ export const SubmitButton = styled.button`
   line-height: normal;
   border: none;
   cursor: pointer;
+  margin-bottom: 0.5rem;
 
   &:hover {
     background: var(--black);
