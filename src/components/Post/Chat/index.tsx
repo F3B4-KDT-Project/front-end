@@ -17,18 +17,18 @@ const Chat: React.FC = () => {
     // 더미데이터 추가 (추후 채팅 내역 api로 요청 예정)
     const dummyChatHistory: Message[] = [
       {
-        memberId: 1,
-        profileImage:
+        senderId: 1,
+        memberProfileImageUrl:
           'https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png',
-        name: '한채연',
+        memberNickname: '한채연',
         messageText: '아니 진짜?',
         sendTime: '19:28',
       },
       {
-        memberId: 2,
-        profileImage:
+        senderId: 2,
+        memberProfileImageUrl:
           'https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png',
-        name: '한승우',
+        memberNickname: '한승우',
         messageText: '진짜 가능?',
         sendTime: '19:34',
       },
@@ -102,9 +102,9 @@ const Chat: React.FC = () => {
     }
 
     const newChat: Message = {
-      memberId: user.id,
-      profileImage: `https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png`,
-      name: user.name,
+      senderId: user.id,
+      memberProfileImageUrl: `https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png`,
+      memberNickname: user.name,
       messageText: chat,
       sendTime: new Date().toLocaleTimeString([], {
         hour: '2-digit',
