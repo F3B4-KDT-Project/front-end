@@ -1,4 +1,4 @@
-export interface ModalProps {
+export interface BoardModalProps {
   isOpen: boolean;
   onClose: () => void;
 }

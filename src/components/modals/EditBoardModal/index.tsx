@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import Modal from 'react-modal'; // react-modal import
 import {
-  ModalOverlay,
+  customModalStyles,
   ModalContent,
   ModalHeader,
   InputFieldWrapper,
@@ -13,8 +14,9 @@ import {
   SuccessMessage,
 } from './style';
 import { BsXLg } from 'react-icons/bs';
+import { BoardModalProps } from '../../../models/modal';
 
-const EditBoardModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
   // 더미 데이터로 초기값 설정
   const [boardName, setBoardName] = useState('9oorm_KDT');
   const [email, setEmail] = useState('');
@@ -61,7 +63,11 @@ const EditBoardModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   };
 
   return (
-    <ModalOverlay>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      style={customModalStyles} // 스타일 적용
+    >
       <ModalContent>
         <ModalHeader>
           <h2>게시판 수정하기</h2>
@@ -108,7 +114,7 @@ const EditBoardModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <SubmitButton onClick={handleEditBoard}>게시판 수정</SubmitButton>
         </ButtonWrapper>
       </ModalContent>
-    </ModalOverlay>
+    </Modal>
   );
 };
 
