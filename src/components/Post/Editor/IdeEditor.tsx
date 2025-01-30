@@ -43,19 +43,6 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
       editorRef.current.focus(); // 마운트 시 code 창에 자동으로 포커스
     }
 
-    // Monaco Editor 하이라이트 스타일을 전역에 추가
-    const style = document.createElement("style");
-    style.innerHTML = `
-      .highlighted-code {
-        background-color: rgba(255, 255, 0, 0.15); /* 형광펜 색상 */
-        color : white;
-        padding: 0.5px;
-        cursor: pointer;
-        font-weight:600;
-      }
-    `;
-    document.head.appendChild(style);
-
     // Websocket 연결 설정
     stompClientRef.current = new Client({
       brokerURL: // [필수] 연결할 서버 주소 명시
@@ -63,7 +50,7 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
       connectHeaders : { Authorization : token },
       debug: (str)=> console.log(`[ WebSocket Debug ] : ${str}`),
       onConnect:()=>{
-        console.log("[ 성공 ]Connected IDE");
+        console.log("[ ✅ 성공 ]Connected IDE");
 
         // 코드 변경 이벤트 구독
         stompClientRef.current?.subscribe(`/ide/edit/${postId}`,(message)=>{
@@ -71,8 +58,6 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
           console.log(`[📥 수신] 코드 업데이트:`, receivedData);
           if(editorRef.current){
             editorRef.current.setValue(receivedData);
-          } else {
-            console.log('[코드 변경 이벤트 구독 에러]')
           }
         });
 
@@ -105,15 +90,31 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
 
     editor.onDidChangeModelContent(()=>{
       if(!editorRef.current)return;
-      const updateCode = editorRef.current.getValue();
+      // const updateCode = editorRef.current.getValue();
+      // const messageContent = {
+      //   Id: postId,
+      //   newContent: updateCode,
+      // };
+      // console.log('[📤 전송] 코드 업데이트:', messageContent);
+      // stompClientRef.current?.publish({
+      //   destination: `/send/posts/edit/${postId}`,
+      //   headers: { Authorization: token, 'content-type': 'application/json' },
+      //   body: JSON.stringify(messageContent),
+      // });
+      const updateCode = editorRef.current?.getValue() || "";  // 값이 없을 경우 빈 문자열로 설정
       const messageContent = {
-        Id: postId,
-        newContent: updateCode,
+        Id: postId,  // 숫자 확인
+        newContent: updateCode, // 문자열 값으로 보장
       };
-      console.log('[📤 전송] 코드 업데이트:', messageContent);
+
+      console.log("[📤 전송] 코드 업데이트:", messageContent);
+
       stompClientRef.current?.publish({
         destination: `/send/posts/edit/${postId}`,
-        headers: { Authorization: token, 'content-type': 'application/json' },
+        headers: { 
+          Authorization: token, 
+          'content-type': 'application/json' 
+        },
         body: JSON.stringify(messageContent),
       });
     });
