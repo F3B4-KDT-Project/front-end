@@ -5,3 +5,7 @@ export interface Message {
   content: string;
   time: string;
 }
+
+export interface MessageProps {
+  isMyMessage: boolean;
+}
