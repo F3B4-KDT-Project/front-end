@@ -11,7 +11,6 @@ const Chat: React.FC = () => {
   const stompClient = useRef<Client | null>(null);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [chat, setChat] = useState<string>(``);
-  const user = { id: 3, name: '정윤석' };
   const roomId = 1;
   const WS_URL = import.meta.env.VITE_WEBSOCKET_URL;
 
@@ -23,7 +22,7 @@ const Chat: React.FC = () => {
       brokerURL: WS_URL,
       connectHeaders: {
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIwNzMxMSwiaWF0IjoxNzM4MjAzNzExfQ.q-4uhPUH6dUrXc9zuD_b1LdRFlkXtdC4F9yhc_HMgYA',
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc',
       },
       debug: (str) => console.log(str),
       reconnectDelay: 5000,
@@ -35,7 +34,8 @@ const Chat: React.FC = () => {
       console.log('WebSocket 연결 성공');
       // 채팅방 구독
       client.subscribe(`/room/${roomId}`, (message) => {
-        console.log('받은 메세지:', JSON.parse(message.body));
+        const parsedMessage: Message = JSON.parse(message.body);
+        setChatHistory((chatHistory) => [parsedMessage, ...chatHistory]);
       });
     };
 
@@ -57,7 +57,7 @@ const Chat: React.FC = () => {
         `${import.meta.env.VITE_BASE_URL}/api/chat/${roomId}`,
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIwNzMxMSwiaWF0IjoxNzM4MjAzNzExfQ.q-4uhPUH6dUrXc9zuD_b1LdRFlkXtdC4F9yhc_HMgYA`,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc`,
             'Content-Type': 'application/json',
           },
         }
@@ -91,26 +91,13 @@ const Chat: React.FC = () => {
         destination: `/send/chat/${roomId}`,
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIwNzMxMSwiaWF0IjoxNzM4MjAzNzExfQ.q-4uhPUH6dUrXc9zuD_b1LdRFlkXtdC4F9yhc_HMgYA',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc',
         },
         body: JSON.stringify({ senderId: 1, content: chat }),
       });
       console.log('보낸 메시지:', chat);
     }
 
-    const newChat: Message = {
-      senderId: user.id,
-      memberProfileImageUrl: `https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png`,
-      memberNickname: user.name,
-      messageText: chat,
-      sendTime: new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }),
-    };
-
-    setChatHistory((chatHistory) => [...chatHistory, newChat]);
     setChat('');
   };
 
