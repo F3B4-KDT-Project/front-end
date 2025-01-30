@@ -5,7 +5,7 @@ import {
   ModalHeader,
   InputFieldWrapper,
   InputField,
-  EmailList,
+  IdList,
   ButtonWrapper,
   SubmitButton,
   Line,
@@ -18,45 +18,37 @@ import { BoardModalProps } from '../../../models/Modal';
 const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
   // 더미 데이터로 초기값 설정
   const [boardName, setBoardName] = useState('9oorm_KDT');
-  const [email, setEmail] = useState('');
-  const [emailList, setEmailList] = useState<string[]>([
-    'esder1310@hufs.ac.kr',
-    'imi21123@gmail.com',
-  ]);
-  const [emailError, setEmailError] = useState(false);
-  const [emailSuccess, setEmailSuccess] = useState(false);
-
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  const [id, setId] = useState('');
+  const [idList, setIdList] = useState<string[]>(['user1', 'user2']);
+  const [idError, setIdError] = useState(false);
+  const [idSuccess, setIdSuccess] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      e.preventDefault();
-      if (validateEmail(email)) {
-        if (!emailList.includes(email)) {
-          setEmailList([...emailList, email]);
-          setEmailSuccess(true);
-          setEmailError(false);
-          setEmail('');
+      e.preventDefault(); // 기본 엔터 동작 방지
+      if (id.trim()) {
+        if (!idList.includes(id)) {
+          setIdList([...idList, id]);
+          setIdSuccess(true); // 성공 메시지 표시
+          setIdError(false); // 에러 메시지 제거
+          setId(''); // 입력 초기화
         } else {
-          setEmailError(true);
-          setEmailSuccess(false);
+          setIdError(true); // 중복된 ID 입력 시 에러 표시
+          setIdSuccess(false); // 성공 메시지 제거
         }
       } else {
-        setEmailError(true);
-        setEmailSuccess(false);
+        setIdError(true); // 빈 입력 값에 대한 에러 표시
+        setIdSuccess(false); // 성공 메시지 제거
       }
     }
   };
 
-  const handleRemoveEmail = (targetEmail: string) => {
-    setEmailList(emailList.filter((item) => item !== targetEmail));
+  const handleRemoveId = (targetId: string) => {
+    setIdList(idList.filter((item) => item !== targetId));
   };
 
   const handleEditBoard = () => {
-    onClose();
+    onClose(); // 모달 닫기
   };
 
   if (!isOpen) {
@@ -81,32 +73,30 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
         <InputFieldWrapper>
           <InputField
             type="text"
-            placeholder="초대하려는 사용자의 이메일을 입력하세요."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="초대하려는 사용자의 아이디를 입력하세요."
+            value={id}
+            onChange={(e) => setId(e.target.value)}
             onKeyDown={handleKeyDown}
             style={{
-              borderColor: emailError ? 'var(--red)' : 'var(--light-gray)',
+              borderColor: idError ? 'var(--red)' : 'var(--light-gray)',
             }}
           />
-          {emailSuccess && (
-            <SuccessMessage>초대가 완료되었습니다.</SuccessMessage>
-          )}
-          {emailError && (
-            <ErrorMessage>틀린 이메일이거나 없는 이메일입니다.</ErrorMessage>
+          {idSuccess && <SuccessMessage>초대가 완료되었습니다.</SuccessMessage>}
+          {idError && (
+            <ErrorMessage>틀린 아이디거나 없는 아이디입니다..</ErrorMessage>
           )}
         </InputFieldWrapper>
-        <EmailList>
-          {emailList.map((item, index) => (
+        <IdList>
+          {idList.map((item, index) => (
             <div key={index} className="email-item">
               {item}
               <BsXLg
                 className="CloseEmailButton"
-                onClick={() => handleRemoveEmail(item)}
+                onClick={() => handleRemoveId(item)}
               />
             </div>
           ))}
-        </EmailList>
+        </IdList>
         <ButtonWrapper>
           <SubmitButton onClick={handleEditBoard}>교실 수정</SubmitButton>
         </ButtonWrapper>

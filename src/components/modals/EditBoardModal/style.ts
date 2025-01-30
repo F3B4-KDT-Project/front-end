@@ -118,7 +118,7 @@ export const SuccessMessage = styled.div`
   right: 0;
 `;
 
-export const EmailList = styled.div`
+export const IdList = styled.div`
   display: flex; /* flex container 설정 */
   flex-direction: row; /* 가로 정렬 */
   gap: 0.5rem; /* 아이템 간 간격 */
