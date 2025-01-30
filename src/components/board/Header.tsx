@@ -1,21 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { BsTrashFill, BsThreeDotsVertical } from 'react-icons/bs';
+import EditBoardModal from '../modals/EditBoardModal';
+import DeleteBoardModal from '../modals/DeleteBoardModal';
 
 interface BoardHeader {
   boardName: string;
 }
 
 const Header: React.FC<BoardHeader> = ({ boardName }) => {
-  const handleEditButton = () => {
-    /* 추후 api 연동 */
-    alert('수정하기 버튼을 눌렀습니다.');
-  };
-
-  const handleDeleteButton = () => {
-    /* 추후 api 연동 */
-    alert('삭제하기 버튼을 눌렀습니다.');
-  };
+  const [isEditBoardModalOpen, setEditBoardModalOpen] = useState(false);
+  const [isDeleteBoardModalOpen, setDeleteBoardModalOpen] = useState(false);
 
   const handleCreateButton = () => {
     /* 추후 api 연동 */
@@ -28,10 +23,20 @@ const Header: React.FC<BoardHeader> = ({ boardName }) => {
         <Title>
           <Board>{boardName}</Board>
         </Title>
-        <EditButton onClick={handleEditButton} />
-        <DeleteButton onClick={handleDeleteButton} />
+        <EditButton onClick={() => setEditBoardModalOpen(true)} />
+        <DeleteButton onClick={() => setDeleteBoardModalOpen(true)} />
       </Info>
       <CreateButton onClick={handleCreateButton}>수업 생성</CreateButton>
+
+      {/* 모달 컴포넌트 */}
+      <EditBoardModal
+        isOpen={isEditBoardModalOpen}
+        onClose={() => setEditBoardModalOpen(false)}
+      />
+      <DeleteBoardModal
+        isOpen={isDeleteBoardModalOpen}
+        onClose={() => setDeleteBoardModalOpen(false)}
+      />
     </Container>
   );
 };

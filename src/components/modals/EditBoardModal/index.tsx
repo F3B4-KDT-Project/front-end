@@ -15,10 +15,11 @@ import {
 import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
 
-const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
-  const [boardName, setBoardName] = useState('');
+const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
+  // 더미 데이터로 초기값 설정
+  const [boardName, setBoardName] = useState('9oorm_KDT');
   const [id, setId] = useState('');
-  const [idList, setIdList] = useState<string[]>([]);
+  const [idList, setIdList] = useState<string[]>(['user1', 'user2']);
   const [idError, setIdError] = useState(false);
   const [idSuccess, setIdSuccess] = useState(false);
 
@@ -46,15 +47,19 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
     setIdList(idList.filter((item) => item !== targetId));
   };
 
-  const handleCreateBoard = () => {
+  const handleEditBoard = () => {
     onClose(); // 모달 닫기
   };
+
+  if (!isOpen) {
+    return null; // 모달이 열려있지 않으면 렌더링하지 않음
+  }
 
   return (
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h2>교실 생성하기</h2>
+          <h2>교실 수정하기</h2>
           <BsXLg className="CloseButton" onClick={onClose} />
         </ModalHeader>
         <Line />
@@ -78,7 +83,7 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
           />
           {idSuccess && <SuccessMessage>초대가 완료되었습니다.</SuccessMessage>}
           {idError && (
-            <ErrorMessage>틀린 아이디거나 없는 아이디입니다.</ErrorMessage>
+            <ErrorMessage>틀린 아이디거나 없는 아이디입니다..</ErrorMessage>
           )}
         </InputFieldWrapper>
         <IdList>
@@ -93,11 +98,11 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
           ))}
         </IdList>
         <ButtonWrapper>
-          <SubmitButton onClick={handleCreateBoard}>교실 생성</SubmitButton>
+          <SubmitButton onClick={handleEditBoard}>교실 수정</SubmitButton>
         </ButtonWrapper>
       </ModalContent>
     </ModalOverlay>
   );
 };
 
-export default AddBoardModal;
+export default EditBoardModal;

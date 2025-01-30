@@ -34,7 +34,9 @@ const Sidebar: React.FC = () => {
       <ProfileButton onClick={handleProfileClick}>
         <BsFillPersonFill className="ProfileIcon" />
       </ProfileButton>
-      {isModalOpen && <AddBoardModal onClose={handleCloseModal} />}
+      {isModalOpen && (
+        <AddBoardModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      )}
     </SideBar>
   );
 };
