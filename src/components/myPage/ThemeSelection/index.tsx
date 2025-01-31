@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   RadioOption,
   ThemeSelectionForm,
@@ -6,35 +6,21 @@ import {
   UncheckedCircle,
 } from './style';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
+import { ThemeSelectionProps } from '../../../models/MyPage';
 
-export const ThemeSelection: React.FC = () => {
-  const [selectedTheme, setSelectedTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'dark';
-  });
-
-  const handleThemeChange = (theme: string) => {
-    setSelectedTheme(theme);
-
-    if (theme === 'light') {
-      localStorage.setItem('theme', theme);
-    } else {
-      localStorage.removeItem('theme');
-    }
-  };
-
-  useEffect(() => {
-    document.body.className = selectedTheme;
-  }, [selectedTheme]);
-
+export const ThemeSelection: React.FC<ThemeSelectionProps> = ({
+  theme,
+  setTheme,
+}) => {
   return (
     <ThemeSelectionSection aria-labelledby="theme-selection">
       <h2 id="theme-selection">테마 선택</h2>
       <ThemeSelectionForm action="">
         <RadioOption
-          isChecked={selectedTheme === 'dark'}
-          onClick={() => handleThemeChange('dark')}
+          isChecked={theme === 'dark'}
+          onClick={() => setTheme('dark')}
         >
-          {selectedTheme === 'dark' ? (
+          {theme === 'dark' ? (
             <BsFillCheckCircleFill size="1.5rem" />
           ) : (
             <UncheckedCircle />
@@ -42,10 +28,10 @@ export const ThemeSelection: React.FC = () => {
           <label>Dark Mode</label>
         </RadioOption>
         <RadioOption
-          isChecked={selectedTheme === 'light'}
-          onClick={() => handleThemeChange('light')}
+          isChecked={theme === 'light'}
+          onClick={() => setTheme('light')}
         >
-          {selectedTheme === 'light' ? (
+          {theme === 'light' ? (
             <BsFillCheckCircleFill size="1.5rem" />
           ) : (
             <UncheckedCircle />
