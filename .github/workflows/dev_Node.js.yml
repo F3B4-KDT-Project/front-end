@@ -1,0 +1,21 @@
+name: Node.js CI (Dev)
+
+on:
+  push:
+    branches: [ "dev" ]  # dev 브랜치에 푸시될 때 워크플로우 실행
+  pull_request:
+    branches: [ "dev" ]  # dev 브랜치로의 PR 생성 시 워크플로우 실행
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 최신 우분투 환경에서 실행
+
+    steps:
+    - uses: actions/checkout@v4  # 코드 체크아웃
+    - name: Use Node.js '18.x'  # 지정된 Node.js 버전 사용
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'   # 설정할 Node.js 버전
+        cache: 'npm'  # 의존성 캐싱 활성화
+    - run: npm install  # 의존성 설치 (CI 환경에서 npm ci는 npm install보다 빠르고 안정적)
+    - run: npm run build --if-present  # 빌드 실행 (빌드 스크립트가 있을 때만 실행)
