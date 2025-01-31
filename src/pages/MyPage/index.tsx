@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import { BsPencilFill, BsFillCheckCircleFill } from 'react-icons/bs';
-import { Input } from '../../components/common/Input';
+import { BsFillCheckCircleFill } from 'react-icons/bs';
 import {
-  EditInfo,
   MyPageContainer,
   MyPageContent,
   MyPageHeader,
   MyPageHeaderUserName,
   ProfileInfo,
-  ProfileInfoDetails,
-  ProfileInfoDetailsContent,
   RadioOption,
   ThemeSelectionForm,
   ThemeSelectionSection,
@@ -19,6 +15,7 @@ import {
 import { useUserProfile } from '../../hooks/Auth/useUserProfile';
 import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
 import { ProfileImg } from '../../components/myPage/ProfileImage';
+import { ProfileDetails } from '../../components/myPage/ProfileDetails';
 
 const MyPage: React.FC = () => {
   const { data, isLoading, error, refetch } = useUserProfile();
@@ -85,65 +82,27 @@ const MyPage: React.FC = () => {
           />
 
           <ProfileInfo>
-            <ProfileInfoDetails>
-              <label htmlFor="id">
-                | 사용자 아이디
-                <button
-                  onClick={() => setIsEditingId(true)}
-                  aria-label="사용자 아이디 수정"
-                >
-                  <BsPencilFill className="icon_edit" />
-                </button>
-              </label>
-              {isEditingId ? (
-                <EditInfo>
-                  <Input
-                    type="id"
-                    id="id"
-                    value={id}
-                    onChange={(e) => {
-                      setId(e.target.value);
-                    }}
-                    placeholder="수정할 아이디를 입력하세요."
-                  />
-                  <button onClick={handleIdChange}>수정완료</button>
-                </EditInfo>
-              ) : (
-                <ProfileInfoDetailsContent>
-                  {data?.loginId}
-                </ProfileInfoDetailsContent>
-              )}
-            </ProfileInfoDetails>
+            <ProfileDetails
+              label="사용자 아이디"
+              isEditing={isEditingId}
+              setIsEditing={setIsEditingId}
+              value={id}
+              setValue={setId}
+              placeholder="수정할 아이디를 입력하세요."
+              handleChange={handleIdChange}
+              detail={data?.loginId ?? ''}
+            />
 
-            <ProfileInfoDetails>
-              <label htmlFor="name">
-                | 사용자 닉네임
-                <button
-                  onClick={() => setIsEditingNickName(true)}
-                  aria-label="사용자 닉네임 수정"
-                >
-                  <BsPencilFill className="icon_edit" />
-                </button>
-              </label>
-              {isEditingNickName ? (
-                <EditInfo>
-                  <Input
-                    type="text"
-                    id="name"
-                    value={nickName}
-                    onChange={(e) => {
-                      setNickName(e.target.value);
-                    }}
-                    placeholder="수정할 닉네임을 입력하세요."
-                  />
-                  <button onClick={handleNickNameChange}>수정완료</button>
-                </EditInfo>
-              ) : (
-                <ProfileInfoDetailsContent>
-                  {data?.nickName}
-                </ProfileInfoDetailsContent>
-              )}
-            </ProfileInfoDetails>
+            <ProfileDetails
+              label="사용자 닉네임"
+              isEditing={isEditingNickName}
+              setIsEditing={setIsEditingNickName}
+              value={nickName}
+              setValue={setNickName}
+              placeholder="수정할 닉네임을 입력하세요."
+              handleChange={handleNickNameChange}
+              detail={data?.nickName ?? ''}
+            />
           </ProfileInfo>
         </UserInfoSection>
 
