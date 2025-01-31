@@ -2,7 +2,8 @@ import axiosInstance from "./axiosInstance";
 
 export const editPost = async(postData:any)=>{
     try{
-        const response = await axiosInstance.put(`/api/posts/{id}/update`)
+        const response = await axiosInstance.put(`/api/posts/{id}/update`,postData);
+        return response.data;
     } catch(error) {
         console.error('[ 🚨 Error ] edit post : ',error)
     }
