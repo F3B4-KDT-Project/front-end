@@ -1,44 +1,42 @@
-import React from "react";
-import { SideBar, AddButton, ProfileButton } from "./style";
+import React, { useState } from 'react';
+import { SideBar, AddButton, ProfileButton } from './style';
+import { IoIosAdd } from 'react-icons/io';
+import { BsFillPersonFill } from 'react-icons/bs';
+import AddBoardModal from '../../modals/AddBoardModal';
 
-import DarkAddIcon from '../../../assets/icons/addbtn_dark.svg';
-import LightAddIcon from '../../../assets/icons/addbtn_light.svg';
-import ProfileIcon from '../../../assets/icons/profilebtn.svg';
+const Sidebar: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-interface SidebarProps {
-  theme: "dark" | "light"; 
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ theme }) => {
   const handleAddClick = () => {
-  };    
-
-  const handleProfileClick = () => {
+    setIsModalOpen(true);
   };
 
-  const hiddenPaths: string[] = ["/sign-in", "/sign-up"];
+  const handleCloseModal = () => {
+    console.log('모달 닫기 클릭됨!');
+
+    setIsModalOpen(false);
+  };
+
+  const handleProfileClick = () => {};
+
+  const hiddenPaths: string[] = ['/sign-in', '/sign-up'];
 
   if (hiddenPaths.includes(location.pathname)) {
     return null;
-  }  
-  
-    return (
-    <SideBar theme={theme}>
-        <AddButton onClick={handleAddClick}>
-          {theme === "dark" ? (
-            <img src={DarkAddIcon} alt="Add" />
-          ) : (
-            <img src={LightAddIcon} alt="Add" />
-          )}
-        </AddButton>
+  }
 
-        <ProfileButton onClick={handleProfileClick}>
-            {theme === "dark" ? (
-            <img src={ProfileIcon} alt="Profile" />
-            ) : (
-            <img src={ProfileIcon} alt="Profile" />
-            )}
-        </ProfileButton>
+  return (
+    <SideBar>
+      <AddButton onClick={handleAddClick}>
+        <IoIosAdd className="AddIcon" />
+      </AddButton>
+
+      <ProfileButton onClick={handleProfileClick}>
+        <BsFillPersonFill className="ProfileIcon" />
+      </ProfileButton>
+      {isModalOpen && (
+        <AddBoardModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      )}
     </SideBar>
   );
 };
