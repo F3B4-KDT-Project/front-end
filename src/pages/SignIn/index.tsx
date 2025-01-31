@@ -9,8 +9,10 @@ import {
   SignInHeader,
 } from './style';
 import logo_black from '../../assets/icons/logo_black.svg';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn: React.FC = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({ id: '', password: '' });
   const [error, setError] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -63,7 +65,7 @@ const SignIn: React.FC = () => {
 
       <SignInFooter>
         <p>아직 회원이 아니신가요?</p>
-        <button>회원가입</button>
+        <button onClick={() => navigate('/sign-up')}>회원가입</button>
       </SignInFooter>
     </SignInContainer>
   );
