@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
-import { BsFillCheckCircleFill } from 'react-icons/bs';
 import {
   MyPageContainer,
   MyPageContent,
   MyPageHeader,
   MyPageHeaderUserName,
   ProfileInfo,
-  RadioOption,
-  ThemeSelectionForm,
-  ThemeSelectionSection,
-  UncheckedCircle,
   UserInfoSection,
 } from './style';
 import { useUserProfile } from '../../hooks/Auth/useUserProfile';
 import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
 import { ProfileImg } from '../../components/myPage/ProfileImage';
 import { ProfileDetails } from '../../components/myPage/ProfileDetails';
+import { ThemeSelection } from '../../components/myPage/ThemeSelection';
 
 const MyPage: React.FC = () => {
   const { data, isLoading, error, refetch } = useUserProfile();
@@ -27,12 +23,6 @@ const MyPage: React.FC = () => {
 
   const [isEditingNickName, setIsEditingNickName] = useState(false);
   const [nickName, setNickName] = useState(data?.nickName ?? '');
-
-  const [selectedTheme, setSelectedTheme] = useState('dark');
-
-  const handleThemeChange = (theme: string) => {
-    setSelectedTheme(theme);
-  };
 
   const handleNickNameChange = async () => {
     try {
@@ -106,33 +96,7 @@ const MyPage: React.FC = () => {
           </ProfileInfo>
         </UserInfoSection>
 
-        <ThemeSelectionSection aria-labelledby="theme-selection">
-          <h2 id="theme-selection">테마 선택</h2>
-          <ThemeSelectionForm action="">
-            <RadioOption
-              isChecked={selectedTheme === 'dark'}
-              onClick={() => handleThemeChange('dark')}
-            >
-              {selectedTheme === 'dark' ? (
-                <BsFillCheckCircleFill size="1.5rem" />
-              ) : (
-                <UncheckedCircle />
-              )}
-              <label>Dark Mode</label>
-            </RadioOption>
-            <RadioOption
-              isChecked={selectedTheme === 'light'}
-              onClick={() => handleThemeChange('light')}
-            >
-              {selectedTheme === 'light' ? (
-                <BsFillCheckCircleFill size="1.5rem" />
-              ) : (
-                <UncheckedCircle />
-              )}
-              <label>Light Mode</label>
-            </RadioOption>
-          </ThemeSelectionForm>
-        </ThemeSelectionSection>
+        <ThemeSelection />
       </MyPageContent>
     </MyPageContainer>
   );
