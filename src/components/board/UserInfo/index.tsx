@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  UserContainer,
-  ProfileImage,
-  Info,
-  Id,
-  Nickname,
-  RemoveButton,
-} from './style';
+import { UserContainer, ProfileImage, Info, Id, Nickname } from './style';
 import { BsXLg } from 'react-icons/bs';
 import { UserInfoProps } from '../../../models/PostCard';
 
@@ -23,9 +16,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
         <Id>{id}</Id>
         <Nickname>{nickName}</Nickname>
       </Info>
-      <RemoveButton onClick={onRemove}>
-        <BsXLg />
-      </RemoveButton>
+      <BsXLg className="CloseButton" onClick={onRemove} />
     </UserContainer>
   );
 };

@@ -3,46 +3,55 @@ import styled from '@emotion/styled';
 export const UserContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  background: var(--input);
+  width: 30rem;
+  height: 2.8125rem;
   border: 1px solid var(--light-gray);
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  margin-bottom: 0.5rem;
+  background: var(--input, rgba(218, 218, 218, 0.35));
+  border-radius: 1.875rem;
+  padding: 0.5rem 0.94rem;
+  margin-bottom: 0.62rem;
 `;
 
 export const ProfileImage = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 1.875rem;
 `;
 
 export const Info = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
+  gap: 8rem;
 `;
 
 export const Id = styled.p`
-  color: var(--white);
-  font-size: 1rem;
-  font-weight: 700;
-  margin: 0;
+  color: var(--light-gray);
+  font-family: 'Pretendard';
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 export const Nickname = styled.p`
   color: var(--light-gray);
-  font-size: 0.875rem;
-  margin: 0;
+  font-family: 'Pretendard';
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 export const RemoveButton = styled.button`
-  background: none;
-  border: none;
-  color: var(--red);
-  cursor: pointer;
-  font-size: 1.5rem;
-
-  &:hover {
-    color: var(--white);
+  .CloseButton {
+    display: flex;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--light-gray);
+    width: 1.125rem;
+    height: 1.125rem;
+    cursor: pointer;
   }
 `;

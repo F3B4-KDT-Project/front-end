@@ -4,10 +4,12 @@ import {
   ModalContent,
   ModalHeader,
   Body,
+  PartWrapper,
   InputFieldWrapper,
   InputField,
   ButtonWrapper,
   SubmitButton,
+  AddButton,
   Line,
 } from './style';
 import { BsXLg } from 'react-icons/bs';
@@ -62,27 +64,31 @@ const ParticipantModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
         <Body>
           {!isAdding ? (
             <>
-              {participants.map((participant) => (
-                <UserInfo
-                  key={participant.id}
-                  profileImage={participant.profileImage}
-                  id={participant.id}
-                  nickName={participant.nickName}
-                  onRemove={() => handleRemove(participant.id)}
-                />
-              ))}
+              <PartWrapper>
+                {participants.map((participant) => (
+                  <UserInfo
+                    key={participant.id}
+                    profileImage={participant.profileImage}
+                    id={participant.id}
+                    nickName={participant.nickName}
+                    onRemove={() => handleRemove(participant.id)}
+                  />
+                ))}
+              </PartWrapper>
             </>
           ) : (
             <>
-              {participants.map((participant) => (
-                <UserInfo
-                  key={participant.id}
-                  profileImage={participant.profileImage}
-                  id={participant.id}
-                  nickName={participant.nickName}
-                  onRemove={() => handleRemove(participant.id)}
-                />
-              ))}
+              <PartWrapper>
+                {participants.map((participant) => (
+                  <UserInfo
+                    key={participant.id}
+                    profileImage={participant.profileImage}
+                    id={participant.id}
+                    nickName={participant.nickName}
+                    onRemove={() => handleRemove(participant.id)}
+                  />
+                ))}
+              </PartWrapper>
               <InputFieldWrapper>
                 <InputField
                   type="text"
@@ -90,9 +96,7 @@ const ParticipantModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
                   value={newId}
                   onChange={(e) => setNewId(e.target.value)}
                 />
-                <SubmitButton onClick={handleAddParticipant}>
-                  추가하기
-                </SubmitButton>
+                <AddButton onClick={handleAddParticipant}>추가하기</AddButton>
               </InputFieldWrapper>
             </>
           )}
