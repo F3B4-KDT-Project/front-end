@@ -1,9 +1,9 @@
 export interface Message {
-  userId: string;
-  profileImage: string;
-  name: string;
-  content: string;
-  time: string;
+  senderId: number;
+  memberProfileImageUrl: string;
+  memberNickname: string;
+  messageText: string;
+  sendTime: string;
 }
 
 export interface MessageProps {
