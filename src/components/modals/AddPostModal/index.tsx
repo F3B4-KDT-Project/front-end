@@ -12,19 +12,28 @@ import {
 import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
 
-const AddPostModal: React.FC<BoardModalProps> = ({ onClose }) => {
+const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
   const [postName, setPostName] = useState('');
   const [selectedLang, setSelectedLang] = useState<string | null>(null);
 
   const languages = ['JavaScript', 'TypeScript', 'Java'];
 
   const handleLangClick = (lang: string) => {
-    setSelectedLang(lang); // 선택한 언어를 설정
+    setSelectedLang(lang);
   };
 
   const handleCreatePost = () => {
+    if (!postName || !selectedLang) {
+      alert('교실 이름과 언어를 모두 선택해주세요.');
+      return;
+    }
+    console.log('교실 생성:', postName, '선택된 언어:', selectedLang);
     onClose(); // 모달 닫기
   };
+
+  if (!isOpen) {
+    return null; // 모달이 열리지 않으면 렌더링하지 않음
+  }
 
   return (
     <ModalOverlay>

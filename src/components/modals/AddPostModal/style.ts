@@ -73,19 +73,22 @@ export const Line = styled.div`
 
 export const LangFieldWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
   gap: 1rem;
   margin-bottom: 1.5rem;
 
   .lang-button {
-    padding: 0.5rem 1.5rem;
-    border: 2px solid var(--light-gray);
-    border-radius: 1.5rem;
-    background-color: var(--background);
+    padding: 0.7rem 1.5rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 1.875rem;
+    background-color: var(--input);
     color: var(--white);
+    text-align: center;
     font-family: 'Pretendard';
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.125rem;
+    font-weight: 400;
+    font-style: normal;
+    line-height: normal;
     cursor: pointer;
     transition: all 0.3s ease;
 
@@ -94,7 +97,7 @@ export const LangFieldWrapper = styled.div`
     }
 
     &.active {
-      background-color: var(--green); /* 선택된 버튼 색상 */
+      background-color: var(--green);
       border-color: var(--green);
       color: var(--background);
     }
