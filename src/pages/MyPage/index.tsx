@@ -12,8 +12,9 @@ import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
 import { ProfileImg } from '../../components/myPage/ProfileImage';
 import { ProfileDetails } from '../../components/myPage/ProfileDetails';
 import { ThemeSelection } from '../../components/myPage/ThemeSelection';
+import { MyPageProps } from '../../models/MyPage';
 
-const MyPage: React.FC = () => {
+const MyPage: React.FC<MyPageProps> = ({ theme, setTheme }) => {
   const { data, isLoading, error, refetch } = useUserProfile();
   const { patchUserNickName, patchUserLoginId, patchUserProfileImage } =
     useUpdateProfile();
@@ -96,7 +97,7 @@ const MyPage: React.FC = () => {
           </ProfileInfo>
         </UserInfoSection>
 
-        <ThemeSelection />
+        <ThemeSelection theme={theme} setTheme={setTheme} />
       </MyPageContent>
     </MyPageContainer>
   );
