@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   RadioOption,
   ThemeSelectionForm,
@@ -8,11 +8,23 @@ import {
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 
 export const ThemeSelection: React.FC = () => {
-  const [selectedTheme, setSelectedTheme] = useState('dark');
+  const [selectedTheme, setSelectedTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
 
   const handleThemeChange = (theme: string) => {
     setSelectedTheme(theme);
+
+    if (theme === 'light') {
+      localStorage.setItem('theme', theme);
+    } else {
+      localStorage.removeItem('theme');
+    }
   };
+
+  useEffect(() => {
+    document.body.className = selectedTheme;
+  }, [selectedTheme]);
 
   return (
     <ThemeSelectionSection aria-labelledby="theme-selection">
