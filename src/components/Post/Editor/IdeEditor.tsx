@@ -15,7 +15,8 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null); // 코드 복사, 저장 : 명시적으로 monaco.editor.IStandaloneCodeEditor 타입 지정
   const stompClientRef = useRef<Client | null>(null); // Websocket 클라이언트
   const postId = 1;
-  const token = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczNzg3NDI3MCwiaWF0IjoxNzM3ODcwNjcwfQ.kGxYLNZWeMJ9VGmelENQWh7VYNu6umuVqt8yBwRtTaY';
+  const id= 1
+  const token = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6ImNvZWR1Iiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODMzMTYxNiwiaWF0IjoxNzM4MzI4MDE2fQ.ROqA_UZL-9l8RE_1qU_yKe6VQmzWFz7Erw9urJuRjXU';
 
   useEffect(()=>{
     // JSON 테마 파일 로드 및 Monaco Editor 초기화
@@ -53,17 +54,33 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
         console.log("[ ✅ 성공 ]Connected IDE");
 
         // 코드 변경 이벤트 구독
-        stompClientRef.current?.subscribe(`/ide/edit/${postId}`,(message)=>{
-          const receivedData = JSON.parse(message.body);
-          console.log(`[📥 수신] 코드 업데이트:`, receivedData);
-          if(editorRef.current){
-            editorRef.current.setValue(receivedData);
+        // stompClientRef.current?.subscribe(`/ide/edit/${postId}`,(message)=>{
+        //   const receivedData = JSON.parse(message.body);
+        //   console.log(`[📥 수신] 코드 업데이트:`, receivedData);
+        //   if(editorRef.current){
+        //     editorRef.current.setValue(receivedData);
+        //   }
+        // });
+        stompClientRef.current?.subscribe(`/ide/edit/${postId}`, (message) => {
+          try {
+            const receivedData = JSON.parse(message.body);
+            console.log(`[📥 수신] 코드 업데이트:`, receivedData);
+            if (editorRef.current) {
+              editorRef.current.setValue(receivedData);
+            }
+          } catch (error) {
+            console.error("❌ JSON 파싱 오류: 서버 응답이 올바르지 않습니다.", message.body);
           }
         });
 
       },
       onStompError: (frame) => {
         console.error('[❌ STOMP 오류]', frame);
+        if (frame.headers?.message?.includes("Not authenticated")) {
+          alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+          // ✅ 로그인 페이지로 리디렉트 가능
+          window.location.href = "/sign-in"; 
+        }
       },
       onDisconnect:()=>{
         console.log("🔥 웹 소켓 연결 끊어짐 ");
@@ -77,6 +94,10 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
 
     return ()=>{
       stompClientRef.current?.deactivate();
+      if (stompClientRef.current) {
+        console.log("💡 WebSocket 연결 해제");
+        stompClientRef.current.deactivate();
+      }
     };
   },[]);
 
@@ -89,34 +110,39 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
   const handleEditorMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
 
     editor.onDidChangeModelContent(()=>{
-      if(!editorRef.current)return;
-      // const updateCode = editorRef.current.getValue();
-      // const messageContent = {
-      //   Id: postId,
-      //   newContent: updateCode,
-      // };
-      // console.log('[📤 전송] 코드 업데이트:', messageContent);
-      // stompClientRef.current?.publish({
-      //   destination: `/send/posts/edit/${postId}`,
-      //   headers: { Authorization: token, 'content-type': 'application/json' },
-      //   body: JSON.stringify(messageContent),
-      // });
-      const updateCode = editorRef.current?.getValue() || "";  // 값이 없을 경우 빈 문자열로 설정
+      if(!editorRef.current) return;
+      const updateCode = editorRef.current?.getValue() || 'print(\"test\") ';  // 값이 없을 경우 문자열로 설정
+      
       const messageContent = {
-        Id: postId,  // 숫자 확인
+        // Authorization:token,
+        // destination:'/send/posts/edit/1',
+        id: id,  // 숫자 확인
         newContent: updateCode, // 문자열 값으로 보장
       };
 
-      console.log("[📤 전송] 코드 업데이트:", messageContent);
+      console.log("[ 📤 전송 ] 코드 업데이트:", messageContent);
 
-      stompClientRef.current?.publish({
-        destination: `/send/posts/edit/${postId}`,
-        headers: { 
-          Authorization: token, 
-          'content-type': 'application/json' 
-        },
-        body: JSON.stringify(messageContent),
-      });
+      if (!stompClientRef.current) return;
+      if (stompClientRef.current) {
+        stompClientRef.current.publish({
+          destination: `/send/posts/edit/${postId}`,
+          headers: { 
+            Authorization: token, 
+            'content-type': 'application/json' 
+          },
+          body: JSON.stringify(messageContent),
+        });
+      } else {
+        console.warn("⚠️ WebSocket 클라이언트가 아직 초기화되지 않았습니다.");
+      }
+      // stompClientRef.current?.publish({
+      //   destination: `/send/posts/edit/${postId}`,
+      //   headers: { 
+      //     Authorization: token, 
+      //     'content-type': 'application/json' 
+      //   },
+      //   body: JSON.stringify(messageContent),
+      // });
     });
 
   };
@@ -126,10 +152,9 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
       const currentCode = editorRef.current.getValue();
       try {
         await navigator.clipboard.writeText(currentCode);
-        alert('코드가 클립보드에 복사되었습니다!');
+        console.log('[ ✅ 성공 ] 코드가 클립보드에 복사되었습니다!');
       } catch (error) {
-        console.error('클립보드 복사 실패:', error);
-        alert('클립보드 복사에 실패했습니다.');
+        console.error('[ ❌ 실패 ] 클립보드 복사 실패 :', error);
       }
     } else {
       alert('Editor가 초기화되지 않았습니다.');
