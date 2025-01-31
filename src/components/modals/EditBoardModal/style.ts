@@ -90,6 +90,10 @@ export const InputField = styled.input`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  ::placeholder {
+    color: var(--white);
+  }
 `;
 
 export const ErrorMessage = styled.div`
