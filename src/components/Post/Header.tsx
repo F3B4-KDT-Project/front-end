@@ -1,29 +1,35 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { PostHeader } from '../../models/PostHeader.type';
+
+import { deletePost } from '../../apis/postInstance';
+
 import { BsTrashFill, BsThreeDotsVertical } from 'react-icons/bs';
 
-interface PostHeader {
-  boardName: string;
-  postName: string;
-}
-
-const Header: React.FC<PostHeader> = ({ boardName, postName }) => {
+const Header: React.FC<PostHeader> = ({ boardId, postId }) => {
   const handleEditButton = () => {
     /* 추후 api 연동 */
     alert('수정하기 버튼을 눌렀습니다.');
   };
 
-  const handleDeleteButton = () => {
-    /* 추후 api 연동 */
-    alert('삭제하기 버튼을 눌렀습니다.');
+  const handleDeleteButton = async () => {
+    try {
+      const postData = { boardId, postId };
+      const response = await deletePost(postData);
+      console.log('[ API ] Delete Post : ', response);
+      alert('[ API ] Delete Post');
+    } catch (error) {
+      console.error('[ 🚨 Error ] API Delete post fail : ', error);
+      alert('[ 🚨 Error ] API Delete post fail');
+    }
   };
 
   return (
     <Container>
       <Info>
         <Title>
-          <Board>{boardName}</Board>
-          <Post>{postName}</Post>
+          <Board>{boardId}</Board>
+          <Post>{postId}</Post>
         </Title>
         <EditButton onClick={handleEditButton} />
       </Info>

@@ -2,26 +2,25 @@ import { Message } from '../../../models/ChatData.type';
 import { Container, Content, ProfileImage, Time } from './style';
 
 const MessageCard = ({
-  userId,
-  profileImage,
-  name,
-  content,
-  time,
-
+  senderId,
+  memberProfileImageUrl,
+  memberNickname,
+  messageText,
+  sendTime,
 }: Message) => {
   // 임시 user data
-  const user_id = '3';
+  const user_id = 3;
 
-  const isMyMessage = userId == user_id;
+  const isMyMessage = senderId == user_id;
 
   return (
     <Container isMyMessage={isMyMessage}>
-      <ProfileImage src={profileImage} alt="profile image" />
+      <ProfileImage src={memberProfileImageUrl} alt="profile image" />
       <Content isMyMessage={isMyMessage}>
-        <p>{name}</p>
-        <div>{content}</div>
+        <p>{memberNickname}</p>
+        <div>{messageText}</div>
       </Content>
-      <Time>{time}</Time>
+      <Time>{sendTime}</Time>
     </Container>
   );
 };

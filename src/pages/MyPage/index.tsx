@@ -22,23 +22,79 @@ import {
   UncheckedCircle,
   UserInfoSection,
 } from './style';
+import { useUserProfile } from '../../hooks/Auth/useUserProfile';
+import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
 
 const MyPage: React.FC = () => {
-  const userName = '유지희';
-  const userId = 'esder1310';
+  const { data, isLoading, error, refetch } = useUserProfile();
+  const { patchUserNickName, patchUserLoginId, patchUserProfileImage } =
+    useUpdateProfile();
+
+  const profileImageUploadRef = React.useRef<HTMLInputElement>(null);
 
   const [isEditingId, setIsEditingId] = useState(false);
-  const [isEditingName, setIsEditingName] = useState(false);
+  const [id, setId] = useState(data?.loginId ?? '');
+
+  const [isEditingNickName, setIsEditingNickName] = useState(false);
+  const [nickName, setNickName] = useState(data?.nickName ?? '');
+
   const [selectedTheme, setSelectedTheme] = useState('dark');
 
   const handleThemeChange = (theme: string) => {
     setSelectedTheme(theme);
   };
 
+  const handleProfileImageUploadButtonClick = () => {
+    profileImageUploadRef.current?.click();
+  };
+
+  const handleProfileImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files && event.target.files[0]) {
+      try {
+        const file = event.target.files[0];
+        await patchUserProfileImage(file);
+      } catch (error) {
+        console.error('프로필 이미지 수정 실패:', error);
+      }
+    }
+  };
+
+  const handleNickNameChange = async () => {
+    try {
+      await patchUserNickName(nickName);
+      setIsEditingNickName(false);
+      refetch();
+    } catch (error) {
+      console.error('닉네임 수정 실패', error);
+    }
+  };
+
+  const handleIdChange = async () => {
+    try {
+      await patchUserLoginId(id);
+      setIsEditingId(false);
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('loginId');
+
+      alert('아이디가 변경되었습니다. 다시 로그인해주세요.');
+      location.href = '/sign-in';
+    } catch (error) {
+      console.error('아이디 수정 실패', error);
+    }
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error...</div>;
+
   return (
     <MyPageContainer>
       <MyPageHeader>
-        <MyPageHeaderUserName>{userName}</MyPageHeaderUserName>님의 마이페이지
+        <MyPageHeaderUserName>{data?.nickName}</MyPageHeaderUserName>님의
+        마이페이지
       </MyPageHeader>
 
       <MyPageContent>
@@ -48,8 +104,19 @@ const MyPage: React.FC = () => {
           </h2>
 
           <ProfileImage>
-            <img src={defaultImg} alt="프로필 이미지" />
-            <button aria-label="프로필 이미지 수정">
+            <img src={data?.profileImage || defaultImg} alt="프로필 이미지" />
+            <button
+              aria-label="프로필 이미지 수정"
+              onClick={handleProfileImageUploadButtonClick}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                id="profileImageUpload"
+                onChange={handleProfileImageChange}
+                ref={profileImageUploadRef}
+                style={{ display: 'none' }}
+              />
               <BsImageFill className="icon_image" />
             </button>
           </ProfileImage>
@@ -70,45 +137,47 @@ const MyPage: React.FC = () => {
                   <Input
                     type="id"
                     id="id"
-                    value={userId}
-                    onChange={() => {}}
+                    value={id}
+                    onChange={(e) => {
+                      setId(e.target.value);
+                    }}
                     placeholder="수정할 아이디를 입력하세요."
                   />
-                  <button onClick={() => setIsEditingId(false)}>
-                    수정완료
-                  </button>
+                  <button onClick={handleIdChange}>수정완료</button>
                 </EditInfo>
               ) : (
-                <ProfileInfoDetailsContent>{userId}</ProfileInfoDetailsContent>
+                <ProfileInfoDetailsContent>
+                  {data?.loginId}
+                </ProfileInfoDetailsContent>
               )}
             </ProfileInfoDetails>
 
             <ProfileInfoDetails>
               <label htmlFor="name">
-                | 사용자 이름
+                | 사용자 닉네임
                 <button
-                  onClick={() => setIsEditingName(true)}
-                  aria-label="사용자 이름 수정"
+                  onClick={() => setIsEditingNickName(true)}
+                  aria-label="사용자 닉네임 수정"
                 >
                   <BsPencilFill className="icon_edit" />
                 </button>
               </label>
-              {isEditingName ? (
+              {isEditingNickName ? (
                 <EditInfo>
                   <Input
                     type="text"
                     id="name"
-                    value={userName}
-                    onChange={() => {}}
-                    placeholder="수정할 이름 입력하세요."
+                    value={nickName}
+                    onChange={(e) => {
+                      setNickName(e.target.value);
+                    }}
+                    placeholder="수정할 닉네임을 입력하세요."
                   />
-                  <button onClick={() => setIsEditingName(false)}>
-                    수정완료
-                  </button>
+                  <button onClick={handleNickNameChange}>수정완료</button>
                 </EditInfo>
               ) : (
                 <ProfileInfoDetailsContent>
-                  {userName}
+                  {data?.nickName}
                 </ProfileInfoDetailsContent>
               )}
             </ProfileInfoDetails>

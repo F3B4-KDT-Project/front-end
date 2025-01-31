@@ -1,41 +1,72 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { BsArrowUpCircleFill } from 'react-icons/bs';
 import { ChatSection, Container, InputSection } from './style';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Message } from '../../../models/ChatData.type';
+import { Client } from '@stomp/stompjs';
 import MessageCard from '../MessageCard';
+import axios from 'axios';
 
 const Chat: React.FC = () => {
+  const stompClient = useRef<Client | null>(null);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [chat, setChat] = useState<string>(``);
-  const [user, setUser] = useState({ id: '', name: '' });
+  const roomId = 1;
+  const WS_URL = import.meta.env.VITE_WEBSOCKET_URL;
 
   useEffect(() => {
-    // 더미데이터 추가 (추후 채팅 내역 api로 요청 예정)
-    const dummyChatHistory: Message[] = [
-      {
-        userId: '1',
-        profileImage:
-          'https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png',
-        name: '한채연',
-        content: '아니 진짜?',
-        time: '19:28',
-      },
-      {
-        userId: '2',
-        profileImage:
-          'https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png',
-        name: '한승우',
-        content: '진짜 가능?',
-        time: '19:34',
-      },
-    ];
+    fetchChatHistory();
 
-    // 더미데이터 추가 (추후 auth 전역 관리 시 계정 정보 받아올 예정)
-    setUser({ id: '3', name: '정윤석' });
+    // Stomp 클라이언트 생성
+    const client = new Client({
+      brokerURL: WS_URL,
+      connectHeaders: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc',
+      },
+      debug: (str) => console.log(str),
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+    });
 
-    setChatHistory(dummyChatHistory);
+    client.onConnect = () => {
+      console.log('WebSocket 연결 성공');
+      // 채팅방 구독
+      client.subscribe(`/room/${roomId}`, (message) => {
+        const parsedMessage: Message = JSON.parse(message.body);
+        setChatHistory((chatHistory) => [parsedMessage, ...chatHistory]);
+      });
+    };
+
+    client.activate();
+    stompClient.current = client;
+
+    // 언마운트 시 연결 해제
+    return () => {
+      if (stompClient.current?.connected) {
+        stompClient.current.deactivate();
+        console.log('WebSocket 연결 해제');
+      }
+    };
   }, []);
+
+  const fetchChatHistory = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/chat/${roomId}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      setChatHistory(response.data);
+    } catch (err: any) {
+      console.error(err);
+    }
+  };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setChat(e.target.value);
@@ -55,19 +86,18 @@ const Chat: React.FC = () => {
       return;
     }
 
-    const newChat: Message = {
-      userId: user.id,
-      profileImage: `https://ide-project-bucket.s3.ap-northeast-2.amazonaws.com/profile-image/4510b03e-aded-43f1-b063-ccda7c734681_79516d5a-bdb1-4fbd-918e-6c56a38705c75070529700289430514_코에듀_기본_프로필.png`,
-      name: user.name,
-      content: chat,
-      time: new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }),
-    };
+    if (stompClient.current?.connected) {
+      stompClient.current.publish({
+        destination: `/send/chat/${roomId}`,
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc',
+        },
+        body: JSON.stringify({ senderId: 1, content: chat }),
+      });
+      console.log('보낸 메시지:', chat);
+    }
 
-    setChatHistory((chatHistory) => [...chatHistory, newChat]);
     setChat('');
   };
 

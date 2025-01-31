@@ -1,6 +1,4 @@
-import React
-// { useState }
- from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 
 import Header from '../../components/Post/Header';
@@ -27,8 +25,8 @@ const Post: React.FC = () => {
   return (
     <Container>
       <Header 
-        boardName={dummyData.boardName}
-        postName={dummyData.name}
+        boardId={dummyData.boardName}
+        postId={dummyData.name}
       />
       <Body>
         <IdeEditor
