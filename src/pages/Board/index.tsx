@@ -19,6 +19,7 @@ import {
   Pagination,
   PageNumber,
 } from './style';
+import InvitePersonModal from '../../components/modals/InvitePersonModal';
 
 // 더미 데이터
 const dummyData = {
@@ -50,6 +51,8 @@ const dummyData = {
 const ITEMS_PER_PAGE = 6;
 
 const Board: React.FC = () => {
+  const [isInvitePersonModalOpen, setInvitePersonModalOpen] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(dummyData.posts.length / ITEMS_PER_PAGE);
@@ -58,10 +61,6 @@ const Board: React.FC = () => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
-  };
-  const handlePartEditButton = () => {
-    /* 추후 api 연동 */
-    alert('참여자 추가하기 버튼을 눌렀습니다.');
   };
 
   const paginatedPosts = dummyData.posts.slice(
@@ -116,7 +115,7 @@ const Board: React.FC = () => {
       {/* 게시글 리스트 */}
       <BodyContainer>
         {/* 참여자 수 */}
-        <Participants onClick={handlePartEditButton}>
+        <Participants onClick={() => setInvitePersonModalOpen(true)}>
           <BsFillPeopleFill className="PartIcon" />
           {dummyData.participants}
         </Participants>
@@ -154,6 +153,10 @@ const Board: React.FC = () => {
           />
         </Pagination>
       </BodyContainer>
+      <InvitePersonModal
+        isOpen={isInvitePersonModalOpen}
+        onClose={() => setInvitePersonModalOpen(false)}
+      />
     </BoardContainer>
   );
 };
