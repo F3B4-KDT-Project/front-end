@@ -8,4 +8,5 @@ export interface UserInfoProps {
   profileImage: string;
   id: string;
   nickName: string;
+  onRemove: () => void;
 }
