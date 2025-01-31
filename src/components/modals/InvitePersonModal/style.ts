@@ -71,6 +71,43 @@ export const Line = styled.div`
   margin-bottom: 1.37rem;
 `;
 
+export const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 15rem; /* 적절한 높이 설정 */
+  overflow-y: auto; /* 스크롤 가능 */
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+`;
+
+export const InputFieldWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+export const InputField = styled.input`
+  flex-grow: 1; /* 남은 공간 채우기 */
+  height: 2.5rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 0.4375rem;
+  background: var(--input);
+  color: var(--white);
+  font-family: 'Pretendard';
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 0.5rem 1rem;
+  outline: none;
+
+  &:focus {
+    border-color: var(--green);
+  }
+`;
+
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;

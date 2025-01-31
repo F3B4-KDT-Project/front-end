@@ -12,7 +12,7 @@ export const UserContainer = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-export const Avatar = styled.img`
+export const ProfileImage = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
