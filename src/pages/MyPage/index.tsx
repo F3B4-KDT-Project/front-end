@@ -40,9 +40,8 @@ const MyPage: React.FC<MyPageProps> = ({ theme, setTheme }) => {
       await patchUserLoginId(id);
       setIsEditingId(false);
 
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
-      localStorage.removeItem('loginId');
 
       alert('아이디가 변경되었습니다. 다시 로그인해주세요.');
       location.href = '/sign-in';
