@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Board from './pages/Board';
@@ -10,7 +10,25 @@ import Sidebar from './components/layout/sideBar';
 import { AppContainer, ContentWrapper } from './components/layout/style';
 import { useEffect, useState } from 'react';
 
+const RequireAuth = ({ children }: { children: JSX.Element }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken'); // 토큰 가져오기
+    if (!token) {
+      navigate('/sign-in', { replace: true }); // 토큰이 없으면 로그인 페이지로 이동
+    }
+  }, [navigate]);
+
+  return children;
+};
+
 function App() {
+  const location = useLocation(); // 현재 경로 가져오기
+  const hiddenPaths: string[] = ['/sign-in', '/sign-up']; // 사이드바 숨길 경로
+
+  const shouldShowSidebar = !hiddenPaths.includes(location.pathname); // 숨길 경로에 해당하지 않을 때만 true
+
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark'; // 기본값은 'dark'
   });
@@ -29,23 +47,41 @@ function App() {
   };
 
   return (
-    <Router>
-      <AppContainer>
-        <Sidebar />
-        <ContentWrapper>
-          <Routes>
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/" element={<Board />} />
-            <Route path="/post" element={<Post />} />
-            <Route
-              path="/my-page"
-              element={<MyPage theme={theme} setTheme={handleThemeChange} />}
-            />
-          </Routes>
-        </ContentWrapper>
-      </AppContainer>
-    </Router>
+    <AppContainer>
+      {/* shouldShowSidebar가 true일 때만 Sidebar 렌더링 */}
+      {shouldShowSidebar && <Sidebar />}
+      <ContentWrapper>
+        <Routes>
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
+
+          <Route
+            path="/"
+            element={
+              <RequireAuth>
+                <Board />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/post"
+            element={
+              <RequireAuth>
+                <Post />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/my-page"
+            element={
+              <RequireAuth>
+                <MyPage theme={theme} setTheme={handleThemeChange} />
+              </RequireAuth>
+            }
+          />
+        </Routes>
+      </ContentWrapper>
+    </AppContainer>
   );
 }
 
