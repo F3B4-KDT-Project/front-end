@@ -27,6 +27,7 @@ const SignUp: React.FC = () => {
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
     mutate(user);
+    window.location.replace('/sign-in');
   };
 
   return (
