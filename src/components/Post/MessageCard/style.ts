@@ -62,3 +62,24 @@ export const Time = styled.p`
   font-weight: 400;
   line-height: normal;
 `;
+
+export const Spacer = styled.div`
+  width: 3rem;
+`;
+
+export const SkeletonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.44rem;
+`;
+
+export const SkeletonProfileImage = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0.5rem 0.37rem;
+  border-radius: 2.5rem;
+  background-color: gray;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+`;

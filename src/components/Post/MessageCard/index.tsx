@@ -1,5 +1,14 @@
+import { useUserProfile } from '../../../hooks/Auth/useUserProfile';
 import { Message } from '../../../models/ChatData.type';
-import { Container, Content, ProfileImage, Time } from './style';
+import {
+  Container,
+  Content,
+  ProfileImage,
+  SkeletonContainer,
+  SkeletonProfileImage,
+  Spacer,
+  Time,
+} from './style';
 
 const MessageCard = ({
   senderId,
@@ -8,10 +17,17 @@ const MessageCard = ({
   messageText,
   sendTime,
 }: Message) => {
-  // 임시 user data
-  const user_id = 3;
+  const { data, isLoading } = useUserProfile();
 
-  const isMyMessage = senderId == user_id;
+  if (isLoading) {
+    return (
+      <SkeletonContainer>
+        <SkeletonProfileImage />
+      </SkeletonContainer>
+    );
+  }
+
+  const isMyMessage = senderId === data?.memberId;
 
   return (
     <Container isFlexRight={isMyMessage}>
@@ -20,7 +36,8 @@ const MessageCard = ({
         <p>{memberNickname}</p>
         <div>{messageText}</div>
       </Content>
-      <Time>{sendTime}</Time>
+      <Time>{sendTime.split(' ')[1].slice(0, 5)}</Time>
+      <Spacer />
     </Container>
   );
 };
