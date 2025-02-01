@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo_black from '../../assets/icons/logo_black.svg';
 import { Input } from '../../components/common/Input';
 import { AuthButton } from '../../components/auth/Button';
@@ -8,8 +8,27 @@ import {
   SignUpForm,
   SignUpHeader,
 } from './style';
+import { useSignUp } from '../../hooks/Auth/useSignUp';
 
 const SignUp: React.FC = () => {
+  const { mutate } = useSignUp();
+  const [user, setUser] = useState({
+    loginId: '',
+    nickName: '',
+    password: '',
+    password2: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setUser({ ...user, [id]: value });
+  };
+
+  const handleSignUp = (e: React.FormEvent) => {
+    e.preventDefault();
+    mutate(user);
+  };
+
   return (
     <SignUpContainer>
       <SignUpHeader>
@@ -23,39 +42,48 @@ const SignUp: React.FC = () => {
       </SignUpHeader>
 
       <section>
-        <SignUpForm action="">
+        <SignUpForm onSubmit={handleSignUp}>
           <SignUpFieldset>
             <Input
               type="text"
-              id="id"
-              value=""
-              onChange={() => {}}
+              id="loginId"
+              value={user.loginId}
+              onChange={handleChange}
               placeholder="아이디를 입력하세요"
             />
             <Input
               type="password"
               id="password"
-              value=""
-              onChange={() => {}}
+              value={user.password}
+              onChange={handleChange}
               placeholder="비밀번호를 입력하세요"
             />
             <Input
               type="password"
-              id="passwordConfirm"
-              value=""
-              onChange={() => {}}
+              id="password2"
+              value={user.password2}
+              onChange={handleChange}
               placeholder="비밀번호를 다시 입력하세요"
             />
             <Input
               type="text"
-              id="name"
-              value=""
-              onChange={() => {}}
-              placeholder="이름을 입력하세요"
+              id="nickName"
+              value={user.nickName}
+              onChange={handleChange}
+              placeholder="닉네임을 입력하세요"
             />
           </SignUpFieldset>
 
-          <AuthButton onClick={() => {}} disabled text="SIGN IN" />
+          <AuthButton
+            onClick={handleSignUp}
+            disabled={
+              !user.loginId ||
+              !user.nickName ||
+              !user.password ||
+              !user.password2
+            }
+            text="SIGN IN"
+          />
         </SignUpForm>
       </section>
     </SignUpContainer>

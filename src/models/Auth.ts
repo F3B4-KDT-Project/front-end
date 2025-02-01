@@ -26,3 +26,17 @@ export interface SignInResponse {
     key: string;
   };
 }
+
+export interface SignUpRequest {
+  loginId: string;
+  nickName: string;
+  password: string;
+  password2: string;
+}
+
+export interface SignUpResponse {
+  memberId: number;
+  loginId: string;
+  nickName: string;
+  profileImage: string;
+}
