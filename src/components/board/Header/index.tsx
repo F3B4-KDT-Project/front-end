@@ -13,11 +13,7 @@ import {
   Title,
 } from './style';
 
-interface BoardHeader {
-  boardName: string;
-}
-
-const Header: React.FC<BoardHeader> = ({ boardName }) => {
+const Header: React.FC<{ boardName: string }> = ({ boardName }) => {
   const [isEditBoardModalOpen, setEditBoardModalOpen] = useState(false);
   const [isDeleteBoardModalOpen, setDeleteBoardModalOpen] = useState(false);
   const [isAddPostModalOpen, setAddPostModalOpen] = useState(false);
