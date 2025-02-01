@@ -13,6 +13,7 @@ const Chat: React.FC = () => {
   const [chat, setChat] = useState<string>(``);
   const roomId = 1;
   const WS_URL = import.meta.env.VITE_WEBSOCKET_URL;
+  const token = localStorage.getItem('accessToken');
 
   useEffect(() => {
     fetchChatHistory();
@@ -21,8 +22,7 @@ const Chat: React.FC = () => {
     const client = new Client({
       brokerURL: WS_URL,
       connectHeaders: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc',
+        Authorization: `Bearer ${token}`,
       },
       debug: (str) => console.log(str),
       reconnectDelay: 5000,
@@ -57,7 +57,7 @@ const Chat: React.FC = () => {
         `${import.meta.env.VITE_BASE_URL}/api/chat/${roomId}`,
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         }
@@ -90,8 +90,7 @@ const Chat: React.FC = () => {
       stompClient.current.publish({
         destination: `/send/chat/${roomId}`,
         headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ senderId: 1, content: chat }),
       });
