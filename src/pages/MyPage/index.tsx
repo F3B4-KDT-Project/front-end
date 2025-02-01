@@ -12,8 +12,9 @@ import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
 import { ProfileImg } from '../../components/myPage/ProfileImage';
 import { ProfileDetails } from '../../components/myPage/ProfileDetails';
 import { ThemeSelection } from '../../components/myPage/ThemeSelection';
+import { MyPageProps } from '../../models/MyPage';
 
-const MyPage: React.FC = () => {
+const MyPage: React.FC<MyPageProps> = ({ theme, setTheme }) => {
   const { data, isLoading, error, refetch } = useUserProfile();
   const { patchUserNickName, patchUserLoginId, patchUserProfileImage } =
     useUpdateProfile();
@@ -39,9 +40,8 @@ const MyPage: React.FC = () => {
       await patchUserLoginId(id);
       setIsEditingId(false);
 
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
-      localStorage.removeItem('loginId');
 
       alert('아이디가 변경되었습니다. 다시 로그인해주세요.');
       location.href = '/sign-in';
@@ -96,7 +96,7 @@ const MyPage: React.FC = () => {
           </ProfileInfo>
         </UserInfoSection>
 
-        <ThemeSelection />
+        <ThemeSelection theme={theme} setTheme={setTheme} />
       </MyPageContent>
     </MyPageContainer>
   );
