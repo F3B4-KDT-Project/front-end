@@ -14,9 +14,9 @@ const MessageCard = ({
   const isMyMessage = senderId == user_id;
 
   return (
-    <Container isMyMessage={isMyMessage}>
+    <Container isFlexRight={isMyMessage}>
       <ProfileImage src={memberProfileImageUrl} alt="profile image" />
-      <Content isMyMessage={isMyMessage}>
+      <Content isFlexRight={isMyMessage}>
         <p>{memberNickname}</p>
         <div>{messageText}</div>
       </Content>

@@ -3,11 +3,11 @@ import { MessageProps } from '../../../models/ChatData.type';
 
 export const Container = styled.div<MessageProps>`
   display: flex;
-  flex-direction: ${(props) => (props.isMyMessage ? 'row-reverse' : 'row')};
+  flex-direction: ${(props) => (props.isFlexRight ? 'row-reverse' : 'row')};
   align-items: flex-start;
   gap: 0.44rem;
 
-  align-self: ${(props) => (props.isMyMessage ? 'flex-end' : 'flex-start')};
+  align-self: ${(props) => (props.isFlexRight ? 'flex-end' : 'flex-start')};
 `;
 
 export const ProfileImage = styled.img`
@@ -23,7 +23,7 @@ export const Content = styled.div<MessageProps>`
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: ${(props) => (props.isMyMessage ? 'flex-end' : 'flex-start')};
+  align-items: ${(props) => (props.isFlexRight ? 'flex-end' : 'flex-start')};
   gap: 0.19rem;
 
   > p {
