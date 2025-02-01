@@ -30,7 +30,7 @@ const refreshAccessToken = async () => {
     // 새롭게 발급받은 토큰을 저장
     const { accessToken, refreshToken: newRefreshToken } =
       response.data.tokenResponse;
-    localStorage.setItem('token', accessToken);
+    localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', newRefreshToken);
 
     return accessToken;
@@ -46,11 +46,11 @@ const refreshAccessToken = async () => {
 axiosInstance.interceptors.request.use(
   async (config) => {
     // 토큰 추가
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     } else {
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('loginId');
       location.href = '/sign-in';
