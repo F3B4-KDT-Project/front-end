@@ -10,27 +10,24 @@ import {
 } from './style';
 import logo_black from '../../assets/icons/logo_black.svg';
 import { useNavigate } from 'react-router-dom';
+import { useSignIn } from '../../hooks/Auth/useSignIn';
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
+
+  const { mutate, error } = useSignIn();
   const [user, setUser] = useState({ id: '', password: '' });
-  const [error, setError] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const isFormValid = user.id.trim() !== '' && user.password.trim() !== '';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setUser({ ...user, [id]: value });
   };
 
-  const handleLogin = () => {
-    // 임시 함수: 에러 상태를 true로 설정
-    setError(true);
-
-    // 임시 함수: 로그인 버튼 비활성화
-    setDisabled(true);
-
-    // 추가적인 로직
-    console.log('로그인 시도:', user);
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    mutate({ loginId: user.id, password: user.password });
+    window.location.replace('/');
   };
 
   return (
@@ -55,12 +52,16 @@ const SignIn: React.FC = () => {
             value={user.password}
             onChange={handleChange}
             placeholder="비밀번호를 입력하세요."
-            error={error}
+            error={error || undefined}
             message="틀린 비밀번호이거나 없는 계정입니다."
           />
         </SignInForm>
 
-        <AuthButton onClick={handleLogin} disabled={disabled} text="LOGIN" />
+        <AuthButton
+          onClick={handleLogin}
+          disabled={!isFormValid}
+          text="LOGIN"
+        />
       </SignInBody>
 
       <SignInFooter>
