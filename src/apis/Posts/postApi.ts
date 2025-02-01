@@ -33,3 +33,9 @@ export const updatePost = async (
   const response = await http.put<string>(`/api/posts/${id}/update`, postData);
   return response;
 };
+
+// 게시글 삭제
+export const deletePost = async (id: number): Promise<string> => {
+  const response = await http.delete<string>(`/api/posts/${id}`);
+  return response;
+};
