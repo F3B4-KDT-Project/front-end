@@ -10,33 +10,28 @@ const axiosInstance = axios.create({
 });
 
 // 로그인 API를 다시 호출하여 새로운 토큰 발급
-const refreshAccessToken = async () => {
+const refreshAccessToken = async (): Promise<string | null> => {
   try {
     const refreshToken = localStorage.getItem('refreshToken');
-    const loginId = localStorage.getItem('loginId'); // 로그인 시 저장해둔 ID
 
-    if (!refreshToken || !loginId) {
-      throw new Error('Refresh Token 또는 로그인 ID 없음');
+    if (!refreshToken) {
+      throw new Error('Refresh Token 없음');
     }
 
-    // 로그인 API 재호출
+    // 엑세스 토큰 재발급 API 재호출
     const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/api/auth/login`,
-      {
-        loginId, // 기존 로그인 ID를 함께 전달
-      }
+      '/api/auth/refresh',
+      { refreshToken },
+      { baseURL: import.meta.env.VITE_BASE_URL }
     );
-
-    // 새롭게 발급받은 토큰을 저장
-    const { accessToken, refreshToken: newRefreshToken } =
-      response.data.tokenResponse;
+    const { accessToken } = response.data;
     localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', newRefreshToken);
 
     return accessToken;
   } catch (error) {
-    console.error('토큰 갱신 실패:', error);
-    localStorage.clear();
+    console.error('토큰 재발급 실패:', error);
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     location.href = '/sign-in';
     return null;
   }
@@ -52,7 +47,6 @@ axiosInstance.interceptors.request.use(
     } else {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
-      localStorage.removeItem('loginId');
       // location.href = '/sign-in';
     }
     return config;
