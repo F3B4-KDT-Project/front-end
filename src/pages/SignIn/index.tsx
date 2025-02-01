@@ -15,20 +15,31 @@ import { useSignIn } from '../../hooks/Auth/useSignIn';
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
 
-  const { mutate, error } = useSignIn();
+  const { mutate } = useSignIn();
   const [user, setUser] = useState({ id: '', password: '' });
+  const [errorMessage, setErrorMessage] = useState('');
   const isFormValid = user.id.trim() !== '' && user.password.trim() !== '';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setUser({ ...user, [id]: value });
+    setErrorMessage(''); // 입력값이 변경될 때 에러 메시지 초기화
   };
 
   const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-      mutate({ loginId: user.id, password: user.password });
-      navigate('/', { replace: true });
+      mutate(
+        { loginId: user.id, password: user.password },
+        {
+          onSuccess: () => {
+            navigate('/', { replace: true });
+          },
+          onError: () => {
+            setErrorMessage('틀린 비밀번호이거나 없는 계정입니다.');
+          },
+        }
+      );
     } catch (error) {
       console.error('로그인 실패:', error);
     }
@@ -56,8 +67,8 @@ const SignIn: React.FC = () => {
             value={user.password}
             onChange={handleChange}
             placeholder="비밀번호를 입력하세요."
-            error={error || undefined}
-            message="틀린 비밀번호이거나 없는 계정입니다."
+            error={!!errorMessage}
+            message={errorMessage}
           />
         </SignInForm>
 
