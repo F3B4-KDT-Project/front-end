@@ -9,8 +9,11 @@ import {
   SignUpHeader,
 } from './style';
 import { useSignUp } from '../../hooks/Auth/useSignUp';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp: React.FC = () => {
+  const navigate = useNavigate();
+
   const { mutate } = useSignUp();
   const [user, setUser] = useState({
     loginId: '',
@@ -18,17 +21,56 @@ const SignUp: React.FC = () => {
     password: '',
     password2: '',
   });
+  const [errors, setErrors] = useState({
+    password: '',
+    password2: '',
+  });
+
+  const validatePassword = (password: string): string => {
+    const regex = /^(?=.*[a-zA-Z]).{8,}$/; // 영문자 포함, 8자 이상
+    if (!regex.test(password)) {
+      return '비밀번호는 영문자를 포함하여 8자 이상이어야 합니다.';
+    }
+    return '';
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setUser({ ...user, [id]: value });
+
+    // 비밀번호 유효성 검사
+    if (id === 'password') {
+      const error = validatePassword(value);
+      setErrors((prevErrors) => ({ ...prevErrors, password: error }));
+    }
+
+    // 비밀번호 확인 유효성 검사
+    if (id === 'password2') {
+      const error =
+        value !== user.password ? '비밀번호가 일치하지 않습니다.' : '';
+      setErrors((prevErrors) => ({ ...prevErrors, password2: error }));
+    }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
     try {
       e.preventDefault();
+
+      // 최종 유효성 검사
+      const passwordError = validatePassword(user.password);
+      const passwordMatchError =
+        user.password !== user.password2 ? '비밀번호가 일치하지 않습니다.' : '';
+
+      if (passwordError || passwordMatchError) {
+        setErrors({
+          password: passwordError,
+          password2: passwordMatchError,
+        });
+        return;
+      }
+
       mutate(user);
-      window.location.replace('/sign-in');
+      navigate('/sign-in', { replace: true });
     } catch (error) {
       console.error('회원가입 실패:', error);
     }
@@ -62,6 +104,8 @@ const SignUp: React.FC = () => {
               value={user.password}
               onChange={handleChange}
               placeholder="비밀번호를 입력하세요"
+              error={!!errors.password}
+              message={errors.password}
             />
             <Input
               type="password"
@@ -69,6 +113,8 @@ const SignUp: React.FC = () => {
               value={user.password2}
               onChange={handleChange}
               placeholder="비밀번호를 다시 입력하세요"
+              error={!!errors.password2}
+              message={errors.password2}
             />
             <Input
               type="text"
