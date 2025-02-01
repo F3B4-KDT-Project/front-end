@@ -20,6 +20,7 @@ import {
   PageNumber,
 } from './style';
 import InvitePersonModal from '../../components/modals/InvitePersonModal';
+import { usePosts } from '../../hooks/Posts/usePosts';
 
 // 더미 데이터
 const dummyData = {
@@ -52,8 +53,11 @@ const ITEMS_PER_PAGE = 6;
 
 const Board: React.FC = () => {
   const [isInvitePersonModalOpen, setInvitePersonModalOpen] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
+  const { data: posts, isLoading, error } = usePosts(selectedBoardId || 0);
+  console.log(posts);
 
   const totalPages = Math.ceil(dummyData.posts.length / ITEMS_PER_PAGE);
 
