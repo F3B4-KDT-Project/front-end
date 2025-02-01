@@ -1,4 +1,3 @@
-// hooks/Posts/useUpdatePost.ts
 import { useMutation } from '@tanstack/react-query';
 import { updatePost } from '../../apis/Posts/postApi';
 
