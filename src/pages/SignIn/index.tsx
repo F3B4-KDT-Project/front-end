@@ -24,10 +24,14 @@ const SignIn: React.FC = () => {
     setUser({ ...user, [id]: value });
   };
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    mutate({ loginId: user.id, password: user.password });
-    window.location.replace('/');
+  const handleLogin = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      mutate({ loginId: user.id, password: user.password });
+      navigate('/', { replace: true });
+    } catch (error) {
+      console.error('로그인 실패:', error);
+    }
   };
 
   return (

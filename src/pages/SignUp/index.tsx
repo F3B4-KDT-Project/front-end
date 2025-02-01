@@ -24,10 +24,14 @@ const SignUp: React.FC = () => {
     setUser({ ...user, [id]: value });
   };
 
-  const handleSignUp = (e: React.FormEvent) => {
-    e.preventDefault();
-    mutate(user);
-    window.location.replace('/sign-in');
+  const handleSignUp = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      mutate(user);
+      window.location.replace('/sign-in');
+    } catch (error) {
+      console.error('회원가입 실패:', error);
+    }
   };
 
   return (
