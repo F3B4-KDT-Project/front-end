@@ -5,19 +5,21 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { Message } from '../../../models/ChatData.type';
 import { Client } from '@stomp/stompjs';
 import MessageCard from '../MessageCard';
-import axios from 'axios';
+import { useChatHistory } from '../../../hooks/Post/useChatHistory';
 
 const Chat: React.FC = () => {
   const stompClient = useRef<Client | null>(null);
+
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [chat, setChat] = useState<string>(``);
+
   const roomId = 1;
   const WS_URL = import.meta.env.VITE_WEBSOCKET_URL;
-  const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken') ?? '';
+
+  const { data } = useChatHistory(roomId, token);
 
   useEffect(() => {
-    fetchChatHistory();
-
     // Stomp 클라이언트 생성
     const client = new Client({
       brokerURL: WS_URL,
@@ -51,22 +53,11 @@ const Chat: React.FC = () => {
     };
   }, []);
 
-  const fetchChatHistory = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/chat/${roomId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      setChatHistory(response.data);
-    } catch (err: any) {
-      console.error(err);
+  useEffect(() => {
+    if (data) {
+      setChatHistory(data);
     }
-  };
+  }, [data]);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setChat(e.target.value);
