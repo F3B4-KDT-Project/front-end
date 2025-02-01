@@ -64,7 +64,15 @@ function App() {
             }
           />
           <Route
-            path="/post"
+            path="/:boardId"
+            element={
+              <RequireAuth>
+                <Board />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/:boardId/:postId"
             element={
               <RequireAuth>
                 <Post />
