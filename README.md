@@ -43,15 +43,11 @@
 │  ├─ assets/		   // 정적 Asset 파일 (이미지, 폰트, 기타 등)
 │     ├─ icons/		 // 아이콘 파일 (svg로 저장)
 │     ├─ fonts/		 // 폰트 파일
-│  ├─ apis/		     // API 함수
+│  ├─ apis/		     // API 호출 함수
 │  ├─ components/	 // 재사용 컴포넌트
-│  ├─ constants/	 // 상수 (API Key, Dump Data 등)
-│  ├─ hooks/		   // 커스텀 리액트 훅
+│  ├─ hooks/		   // React Query 훅
 │  ├─ models/		   // 추가적으로 필요한 타입 선언
-│  ├─ stores/		   // jotai
-│  ├─ utils/		   // Util 함수
 │  ├─ pages/       // 연결 페이지
-├─ types/          // TypeScript 부가 설정 (가능한 건들이지 않는 폴더)
 ├─ ...
 ```
 </br>
