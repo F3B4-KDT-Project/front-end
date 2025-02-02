@@ -5,24 +5,31 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { Message } from '../../../models/ChatData.type';
 import { Client } from '@stomp/stompjs';
 import MessageCard from '../MessageCard';
-import axios from 'axios';
+import { useChatHistory } from '../../../hooks/Post/useChatHistory';
 
 const Chat: React.FC = () => {
   const stompClient = useRef<Client | null>(null);
+
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [chat, setChat] = useState<string>(``);
+
   const roomId = 1;
   const WS_URL = import.meta.env.VITE_WEBSOCKET_URL;
+  const token = localStorage.getItem('accessToken') ?? '';
+
+  const { data } = useChatHistory(roomId, token);
 
   useEffect(() => {
-    fetchChatHistory();
-
     // Stomp 클라이언트 생성
     const client = new Client({
       brokerURL: WS_URL,
       connectHeaders: {
+<<<<<<< HEAD:src/components/Post/Chat/index.tsx
         Authorization:
           'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6ImNvZWR1Iiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODM0NTgwMiwiaWF0IjoxNzM4MzQyMjAyfQ.VK-nYG62qOxPnAdvmyPJGBoDV5rH13cvypIuBMH7Pzo"',
+=======
+        Authorization: `Bearer ${token}`,
+>>>>>>> dev:src/components/post/Chat/index.tsx
       },
       debug: (str) => console.log(str),
       reconnectDelay: 5000,
@@ -51,6 +58,7 @@ const Chat: React.FC = () => {
     };
   }, []);
 
+<<<<<<< HEAD:src/components/Post/Chat/index.tsx
   const fetchChatHistory = async () => {
     try {
       const response = await axios.get(
@@ -65,8 +73,13 @@ const Chat: React.FC = () => {
       setChatHistory(response.data);
     } catch (err: any) {
       console.error(err);
+=======
+  useEffect(() => {
+    if (data) {
+      setChatHistory(data);
+>>>>>>> dev:src/components/post/Chat/index.tsx
     }
-  };
+  }, [data]);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setChat(e.target.value);
@@ -90,8 +103,12 @@ const Chat: React.FC = () => {
       stompClient.current.publish({
         destination: `/send/chat/${roomId}`,
         headers: {
+<<<<<<< HEAD:src/components/Post/Chat/index.tsx
           Authorization:
             'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6ImNvZWR1Iiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODM0NTgwMiwiaWF0IjoxNzM4MzQyMjAyfQ.VK-nYG62qOxPnAdvmyPJGBoDV5rH13cvypIuBMH7Pzo"',
+=======
+          Authorization: `Bearer ${token}`,
+>>>>>>> dev:src/components/post/Chat/index.tsx
         },
         body: JSON.stringify({ senderId: 1, content: chat }),
       });

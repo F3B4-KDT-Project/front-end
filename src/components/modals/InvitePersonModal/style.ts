@@ -130,6 +130,10 @@ export const InputField = styled.input`
   font-weight: 400;
   line-height: normal;
   outline: none;
+
+  ::placeholder {
+    color: var(--white);
+  }
 `;
 
 export const AddButton = styled.button`

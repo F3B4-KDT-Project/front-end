@@ -9,26 +9,40 @@ import {
   SignInHeader,
 } from './style';
 import logo_black from '../../assets/icons/logo_black.svg';
+import { useNavigate } from 'react-router-dom';
+import { useSignIn } from '../../hooks/Auth/useSignIn';
 
 const SignIn: React.FC = () => {
+  const navigate = useNavigate();
+
+  const { mutate } = useSignIn();
   const [user, setUser] = useState({ id: '', password: '' });
-  const [error, setError] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const isFormValid = user.id.trim() !== '' && user.password.trim() !== '';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setUser({ ...user, [id]: value });
+    setErrorMessage(''); // 입력값이 변경될 때 에러 메시지 초기화
   };
 
-  const handleLogin = () => {
-    // 임시 함수: 에러 상태를 true로 설정
-    setError(true);
-
-    // 임시 함수: 로그인 버튼 비활성화
-    setDisabled(true);
-
-    // 추가적인 로직
-    console.log('로그인 시도:', user);
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      mutate(
+        { loginId: user.id, password: user.password },
+        {
+          onSuccess: () => {
+            navigate('/', { replace: true });
+          },
+          onError: () => {
+            setErrorMessage('틀린 비밀번호이거나 없는 계정입니다.');
+          },
+        }
+      );
+    } catch (error) {
+      console.error('로그인 실패:', error);
+    }
   };
 
   return (
@@ -53,17 +67,21 @@ const SignIn: React.FC = () => {
             value={user.password}
             onChange={handleChange}
             placeholder="비밀번호를 입력하세요."
-            error={error}
-            message="틀린 비밀번호이거나 없는 계정입니다."
+            error={!!errorMessage}
+            message={errorMessage}
           />
         </SignInForm>
 
-        <AuthButton onClick={handleLogin} disabled={disabled} text="LOGIN" />
+        <AuthButton
+          onClick={handleLogin}
+          disabled={!isFormValid}
+          text="LOGIN"
+        />
       </SignInBody>
 
       <SignInFooter>
         <p>아직 회원이 아니신가요?</p>
-        <button>회원가입</button>
+        <button onClick={() => navigate('/sign-up')}>회원가입</button>
       </SignInFooter>
     </SignInContainer>
   );

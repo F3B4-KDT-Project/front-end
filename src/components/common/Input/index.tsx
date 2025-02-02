@@ -20,7 +20,7 @@ export const Input: React.FC<InputProps> = ({
         onChange={onChange}
         placeholder={placeholder}
       />
-      {error && <div>{message}</div>}
+      {error !== undefined && <div>{message}</div>}
     </InputContainer>
   );
 };

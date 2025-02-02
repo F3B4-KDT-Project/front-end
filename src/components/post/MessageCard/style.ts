@@ -3,11 +3,11 @@ import { MessageProps } from '../../../models/ChatData.type';
 
 export const Container = styled.div<MessageProps>`
   display: flex;
-  flex-direction: ${(props) => (props.isMyMessage ? 'row-reverse' : 'row')};
+  flex-direction: ${(props) => (props.isFlexRight ? 'row-reverse' : 'row')};
   align-items: flex-start;
   gap: 0.44rem;
 
-  align-self: ${(props) => (props.isMyMessage ? 'flex-end' : 'flex-start')};
+  align-self: ${(props) => (props.isFlexRight ? 'flex-end' : 'flex-start')};
 `;
 
 export const ProfileImage = styled.img`
@@ -23,7 +23,7 @@ export const Content = styled.div<MessageProps>`
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: ${(props) => (props.isMyMessage ? 'flex-end' : 'flex-start')};
+  align-items: ${(props) => (props.isFlexRight ? 'flex-end' : 'flex-start')};
   gap: 0.19rem;
 
   > p {
@@ -61,4 +61,25 @@ export const Time = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+`;
+
+export const Spacer = styled.div`
+  width: 3rem;
+`;
+
+export const SkeletonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.44rem;
+`;
+
+export const SkeletonProfileImage = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0.5rem 0.37rem;
+  border-radius: 2.5rem;
+  background-color: gray;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 `;
