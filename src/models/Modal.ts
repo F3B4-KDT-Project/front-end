@@ -1,3 +1,8 @@
+export interface BoardModalProps {
+  onClose: () => void;
+  onAddBoard: (boardName: string) => void;
+}
+
 export interface AddBoardModalProps {
   onClose: () => void;
   onAddBoard: (boardName: string) => void;
