@@ -13,11 +13,14 @@ import {
   SuccessMessage,
 } from './style';
 import { BsXLg } from 'react-icons/bs';
-import { BoardModalProps } from '../../../models/Modal';
+import { AddBoardModalProps } from '../../../models/Modal';
 import { useBoardInvite } from '../../../hooks/Board/useBoardInvite';
 import { useCreateBoard } from '../../../hooks/Board/useCreateBoard';
 
-const AddBoardModal: React.FC<BoardModalProps> = ({ onClose, onAddBoard }) => {
+const AddBoardModal: React.FC<AddBoardModalProps> = ({
+  onClose,
+  onAddBoard,
+}) => {
   const [boardName, setBoardName] = useState('');
   const [id, setId] = useState('');
   const [idList, setIdList] = useState<string[]>([]);

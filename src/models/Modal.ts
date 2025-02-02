@@ -1,6 +1,11 @@
-export interface BoardModalProps {
+export interface AddBoardModalProps {
   onClose: () => void;
   onAddBoard: (boardName: string) => void;
+}
+
+export interface InvitePersonModalProps {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export interface InviteRequest {
