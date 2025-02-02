@@ -1,6 +1,6 @@
 export interface BoardModalProps {
   onClose: () => void;
-  onAddBoard: (boardName: string) => void;
+  onAddBoard?: (boardName: string) => void; // 선택적 속성으로 변경
   isOpen: boolean;
 }
 
