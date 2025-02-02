@@ -22,7 +22,7 @@ const Chat: React.FC = () => {
       brokerURL: WS_URL,
       connectHeaders: {
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc',
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6ImNvZWR1Iiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODM0NTgwMiwiaWF0IjoxNzM4MzQyMjAyfQ.VK-nYG62qOxPnAdvmyPJGBoDV5rH13cvypIuBMH7Pzo"',
       },
       debug: (str) => console.log(str),
       reconnectDelay: 5000,
@@ -57,7 +57,7 @@ const Chat: React.FC = () => {
         `${import.meta.env.VITE_BASE_URL}/api/chat/${roomId}`,
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc`,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6ImNvZWR1Iiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODM0NTgwMiwiaWF0IjoxNzM4MzQyMjAyfQ.VK-nYG62qOxPnAdvmyPJGBoDV5rH13cvypIuBMH7Pzo"`,
             'Content-Type': 'application/json',
           },
         }
@@ -91,7 +91,7 @@ const Chat: React.FC = () => {
         destination: `/send/chat/${roomId}`,
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6InRlc3QxIiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODIxMjE2NiwiaWF0IjoxNzM4MjA4NTY2fQ.q9v5AnowMsn96J4mG_6xD7nJBRoWzPiOkcb2wN8Hgzc',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6ImNvZWR1Iiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODM0NTgwMiwiaWF0IjoxNzM4MzQyMjAyfQ.VK-nYG62qOxPnAdvmyPJGBoDV5rH13cvypIuBMH7Pzo"',
         },
         body: JSON.stringify({ senderId: 1, content: chat }),
       });
@@ -101,12 +101,30 @@ const Chat: React.FC = () => {
     setChat('');
   };
 
+  // return (
+  //   <Container>
+  //     <ChatSection>
+  //       {chatHistory.map((message, index) => (
+  //         <MessageCard key={index} {...message} />
+  //       ))}
+  //     </ChatSection>
+  //     <InputSection>
+  //       <textarea
+  //         value={chat}
+  //         onChange={handleChange}
+  //         onKeyDown={handleEnterKey}
+  //       />
+  //       <BsArrowUpCircleFill onClick={handleSend} />
+  //     </InputSection>
+  //   </Container>
+  // );
   return (
     <Container>
       <ChatSection>
-        {chatHistory.map((message, index) => (
-          <MessageCard key={index} {...message} />
-        ))}
+        {chatHistory?.map &&
+          chatHistory.map((message, index) => (
+            <MessageCard key={index} {...message} />
+          ))}
       </ChatSection>
       <InputSection>
         <textarea
