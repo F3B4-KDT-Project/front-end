@@ -24,12 +24,7 @@ const Chat: React.FC = () => {
     const client = new Client({
       brokerURL: WS_URL,
       connectHeaders: {
-<<<<<<< HEAD:src/components/Post/Chat/index.tsx
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6ImNvZWR1Iiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODM0NTgwMiwiaWF0IjoxNzM4MzQyMjAyfQ.VK-nYG62qOxPnAdvmyPJGBoDV5rH13cvypIuBMH7Pzo"',
-=======
         Authorization: `Bearer ${token}`,
->>>>>>> dev:src/components/post/Chat/index.tsx
       },
       debug: (str) => console.log(str),
       reconnectDelay: 5000,
@@ -58,26 +53,9 @@ const Chat: React.FC = () => {
     };
   }, []);
 
-<<<<<<< HEAD:src/components/Post/Chat/index.tsx
-  const fetchChatHistory = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/chat/${roomId}`,
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6ImNvZWR1Iiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODM0NTgwMiwiaWF0IjoxNzM4MzQyMjAyfQ.VK-nYG62qOxPnAdvmyPJGBoDV5rH13cvypIuBMH7Pzo"`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      setChatHistory(response.data);
-    } catch (err: any) {
-      console.error(err);
-=======
   useEffect(() => {
     if (data) {
       setChatHistory(data);
->>>>>>> dev:src/components/post/Chat/index.tsx
     }
   }, [data]);
 
@@ -103,12 +81,7 @@ const Chat: React.FC = () => {
       stompClient.current.publish({
         destination: `/send/chat/${roomId}`,
         headers: {
-<<<<<<< HEAD:src/components/Post/Chat/index.tsx
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MSwibG9naW5JZCI6ImNvZWR1Iiwicm9sZSI6WyJVU0VSIl0sImV4cCI6MTczODM0NTgwMiwiaWF0IjoxNzM4MzQyMjAyfQ.VK-nYG62qOxPnAdvmyPJGBoDV5rH13cvypIuBMH7Pzo"',
-=======
           Authorization: `Bearer ${token}`,
->>>>>>> dev:src/components/post/Chat/index.tsx
         },
         body: JSON.stringify({ senderId: 1, content: chat }),
       });
