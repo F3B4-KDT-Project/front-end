@@ -21,57 +21,28 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
   const token = `Bearer ${localStorage.getItem('accessToken')}`;
 
   useEffect(() => {
-    // JSON 테마 파일 로드 및 Monaco Editor 초기화
-    const loadCustomTheme = async () => {
-      try {
-        const response = await fetch('/monaco-themes/dark.json'); // public 폴더 기준
-        if (!response.ok) {
-          throw new Error(
-            `HTTP error! 테마 로드 안됨!! Status: ${response.status}`
-          );
-        }
-
-        // 'response.json()'의 결과를 CustomTheme 타입으로 캐스팅
-        const customTheme = (await response.json()) as CustomTheme;
-        const monaco = await loader.init(); // Monaco 로더 초기화
-
-        monaco.editor.defineTheme('custom-dark', customTheme); // 커스텀 테마 등록
-        setThemeLoaded(true); // 테마 로드 완료
-      } catch (error) {
-        console.error('Failed to load Monaco theme:', (error as Error).message);
-      }
-    };
-
-    loadCustomTheme();
-
-    if (editorRef.current) {
-      editorRef.current.focus(); // 마운트 시 code 창에 자동으로 포커스
-    }
-
-    // Websocket 연결 설정
+    // 1️⃣ Websocket 연결 설정
     stompClientRef.current = new Client({
       // [필수] 연결할 서버 주소 명시
       brokerURL:
         'ws://ec2-3-36-75-8.ap-northeast-2.compute.amazonaws.com:8080/chatting',
-      connectHeaders: { Authorization: token },
-      debug: (str) => console.log(`[ WebSocket Debug ] : ${str}`),
-      onConnect: () => {
-        console.log('[ ✅ 성공 ]Connected IDE');
+      connectHeaders : { Authorization : token },
+      debug: (str)=> console.log(`[ 🔍 WebSocket Debug ] : ${str}`),
+      onConnect:()=>{
+        console.log("[ ✅ 성공 ] Connected IDE");
 
         // 코드 변경 이벤트 구독
-        // stompClientRef.current?.subscribe(`/ide/edit/${postId}`,(message)=>{
-        //   const receivedData = JSON.parse(message.body);
-        //   console.log(`[📥 수신] 코드 업데이트:`, receivedData);
-        //   if(editorRef.current){
-        //     editorRef.current.setValue(receivedData);
-        //   }
-        // });
-        stompClientRef.current?.subscribe(`/ide/edit/${postId}`, (message) => {
-          try {
+        stompClientRef.current?.subscribe(`/ide/edit/${postId}`,(message)=>{
+          try{
             const receivedData = JSON.parse(message.body);
             console.log(`[📥 수신] 코드 업데이트:`, receivedData);
             if (editorRef.current) {
-              editorRef.current.setValue(receivedData);
+              const currentCode = editorRef.current.getValue();
+
+              // 동일한 코드라면 업데이트 방지
+              if (currentCode === receivedData.newContent) return;
+
+              editorRef.current.setValue(receivedData.newContent);
             }
           } catch (error) {
             console.error(
@@ -99,7 +70,28 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
 
     stompClientRef.current.activate();
 
-    return () => {
+    // 2️⃣ JSON 테마 파일 로드 및 Monaco Editor 초기화
+    const loadCustomTheme = async () => {
+      try {
+        const response = await fetch('/monaco-themes/dark.json'); // public 폴더 기준
+        if (!response.ok) {
+          throw new Error(`[ ❌ HTTP 오류 ] 테마 로드 안됨. Status: ${response.status}`);
+        }
+
+        // 'response.json()'의 결과를 CustomTheme 타입으로 캐스팅
+        const customTheme = (await response.json()) as CustomTheme;
+        const monaco = await loader.init(); // Monaco 로더 초기화
+
+        monaco.editor.defineTheme('custom-dark', customTheme); // 커스텀 테마 등록
+        setThemeLoaded(true); // 테마 로드 완료
+      } catch (error) {
+        console.error('[ ❌ HTTP 오류 ] 테마 로드 안됨 :', (error as Error).message);
+      }
+    };
+
+    loadCustomTheme();
+
+    return ()=>{
       stompClientRef.current?.deactivate();
       if (stompClientRef.current) {
         console.log('💡 WebSocket 연결 해제');
@@ -117,10 +109,14 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
   }
 
   const handleEditorMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
-    editor.onDidChangeModelContent(() => {
-      if (!editorRef.current) return;
-      const updateCode = editorRef.current?.getValue() || 'print(\"test\") '; // 값이 없을 경우 문자열로 설정
+    editorRef.current = editor;
 
+
+    editor.onDidChangeModelContent(()=>{
+      if(!editorRef.current || !stompClientRef.current) return;
+
+      // 변경된 코드 가져오기
+      const updateCode = editorRef.current.getValue();  
       const messageContent = {
         // Authorization:token,
         // destination:'/send/posts/edit/1',
@@ -132,7 +128,7 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
 
       if (!stompClientRef.current) return;
       if (stompClientRef.current) {
-        stompClientRef.current.publish({
+        stompClientRef.current?.publish({
           destination: `/send/posts/edit/${postId}`,
           headers: {
             Authorization: token,
@@ -143,14 +139,6 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
       } else {
         console.warn('⚠️ WebSocket 클라이언트가 아직 초기화되지 않았습니다.');
       }
-      // stompClientRef.current?.publish({
-      //   destination: `/send/posts/edit/${postId}`,
-      //   headers: {
-      //     Authorization: token,
-      //     'content-type': 'application/json'
-      //   },
-      //   body: JSON.stringify(messageContent),
-      // });
     });
   };
 
