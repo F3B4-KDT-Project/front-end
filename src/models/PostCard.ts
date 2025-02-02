@@ -2,6 +2,8 @@ export interface PostCardProps {
   postName: string;
   badgeCount: number;
   date: string;
+  boardId: number;
+  postId: number;
 }
 
 export interface UserInfoProps {

@@ -91,23 +91,6 @@ const Chat: React.FC = () => {
     setChat('');
   };
 
-  // return (
-  //   <Container>
-  //     <ChatSection>
-  //       {chatHistory.map((message, index) => (
-  //         <MessageCard key={index} {...message} />
-  //       ))}
-  //     </ChatSection>
-  //     <InputSection>
-  //       <textarea
-  //         value={chat}
-  //         onChange={handleChange}
-  //         onKeyDown={handleEnterKey}
-  //       />
-  //       <BsArrowUpCircleFill onClick={handleSend} />
-  //     </InputSection>
-  //   </Container>
-  // );
   return (
     <Container>
       <ChatSection>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { PostHeader } from '../../models/PostHeader.type';
 
-import { deletePost } from '../../apis/postInstance';
+import { deletePost } from '../../apis/Posts/postApi';
 
 import { BsTrashFill, BsThreeDotsVertical } from 'react-icons/bs';
 
@@ -15,7 +15,7 @@ const Header: React.FC<PostHeader> = ({ boardId, postId }) => {
   const handleDeleteButton = async () => {
     try {
       const postData = { boardId, postId };
-      const response = await deletePost(postData);
+      const response = await deletePost(postData.postId);
       console.log('[ API ] Delete Post : ', response);
       alert('[ API ] Delete Post');
     } catch (error) {
