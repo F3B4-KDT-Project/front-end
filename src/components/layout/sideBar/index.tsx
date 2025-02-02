@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import { SideBar, AddButton, ProfileButton } from './style';
+import { SideBar, AddButton, ProfileButton, BoardItem } from './style';
 import { IoIosAdd } from 'react-icons/io';
 import { BsFillPersonFill } from 'react-icons/bs';
 import AddBoardModal from '../../modals/AddBoardModal';
 
 const Sidebar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [boards, setBoards] = useState<string[]>([]);
 
   const handleAddClick = () => {
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    console.log('모달 닫기 클릭됨!');
-
     setIsModalOpen(false);
+  };
+
+  const handleAddBoard = (boardName: string) => {
+    const truncatedName =
+      boardName.length > 5 ? `${boardName.slice(0, 5)}...` : boardName;
+    setBoards([truncatedName, ...boards]); // 새로운 게시판을 맨 위에 추가
   };
 
   const handleProfileClick = () => {};
@@ -27,15 +32,19 @@ const Sidebar: React.FC = () => {
 
   return (
     <SideBar>
-      <AddButton onClick={handleAddClick}>
-        <IoIosAdd className="AddIcon" />
-      </AddButton>
-
+      <div>
+        {boards.map((board, index) => (
+          <BoardItem key={index}>{board}</BoardItem>
+        ))}
+        <AddButton onClick={handleAddClick}>
+          <IoIosAdd className="AddIcon" />
+        </AddButton>
+      </div>
       <ProfileButton onClick={handleProfileClick}>
         <BsFillPersonFill className="ProfileIcon" />
       </ProfileButton>
       {isModalOpen && (
-        <AddBoardModal isOpen={isModalOpen} onClose={handleCloseModal} />
+        <AddBoardModal onClose={handleCloseModal} onAddBoard={handleAddBoard} />
       )}
     </SideBar>
   );

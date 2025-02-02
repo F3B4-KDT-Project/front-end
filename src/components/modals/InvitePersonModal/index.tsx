@@ -13,10 +13,13 @@ import {
   Line,
 } from './style';
 import { BsXLg } from 'react-icons/bs';
-import { BoardModalProps } from '../../../models/Modal';
+import { InvitePersonModalProps } from '../../../models/Modal';
 import UserInfo from '../../../components/board/UserInfo';
 
-const ParticipantModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
+const ParticipantModal: React.FC<InvitePersonModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [isAdding, setIsAdding] = useState(false); // 화면 전환 상태
   const [participants, setParticipants] = useState([
     {
