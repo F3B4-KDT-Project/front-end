@@ -15,8 +15,9 @@ import {
 import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
 import { useBoardInvite } from '../../../hooks/Board/useBoardInvite';
+import { useCreateBoard } from '../../../hooks/Board/useCreateBoard';
 
-const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
+const AddBoardModal: React.FC<BoardModalProps> = ({ onClose, onAddBoard }) => {
   const [boardName, setBoardName] = useState('');
   const [id, setId] = useState('');
   const [idList, setIdList] = useState<string[]>([]);
@@ -24,26 +25,25 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
   const [idSuccess, setIdSuccess] = useState(false);
 
   const { mutate: inviteUser } = useBoardInvite();
+  const { mutate: createBoard } = useCreateBoard();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault(); // 기본 Enter 동작 방지
-      if (id.trim() && !idList.includes(id)) {
+      if (id.trim() && id.trim() && !idList.includes(id)) {
         // API 호출
         inviteUser(
-          { boardId: 1 /* 실제 boardId를 전달해야 합니다 */, loginId: id },
+          { boardId: 1, loginId: id },
           {
-            onSuccess: (data) => {
-              setIdList([...idList, id]); // 초대 성공 시 리스트에 추가
+            onSuccess: () => {
+              setIdList([...idList, id]);
               setIdSuccess(true);
               setIdError(false);
-              setId(''); // 입력 초기화
-              console.log(`초대 성공: ${data.message}`);
+              setId('');
             },
-            onError: (error) => {
+            onError: () => {
               setIdError(true);
               setIdSuccess(false);
-              console.error(`초대 실패:`, error);
             },
           }
         );
@@ -60,10 +60,23 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
 
   const handleCreateBoard = () => {
     if (!boardName.trim()) {
-      alert('게시판 이름을 입력하세요.');
+      alert('교실 이름을 입력하세요.');
       return;
     }
-    onClose(); // 모달 닫기
+
+    createBoard(
+      { title: boardName },
+      {
+        onSuccess: () => {
+          onAddBoard(boardName); // Sidebar에 교실 이름 전달
+          onClose(); // 모달 닫기
+        },
+        onError: (error) => {
+          console.error('교실 생성 실패:', error);
+          alert('교실 생성에 실패했습니다. 다시 시도해주세요.');
+        },
+      }
+    );
   };
 
   return (

@@ -9,13 +9,13 @@ export const SideBar = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  padding: 2rem 0rem;
 `;
 
 export const AddButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
   cursor: pointer;
   transition: transform 0.2s;
   background-color: var(--input);
@@ -45,7 +45,6 @@ export const AddButton = styled.div`
 export const ProfileButton = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s;
@@ -69,4 +68,21 @@ export const ProfileButton = styled.div`
     transition: background-color 0.2s;
     color: var(--light-gray);
   }
+`;
+
+export const BoardItem = styled.div`
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 2rem;
+  border-radius: 50%;
+  background: var(--input);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  font-family: 'Pretendard';
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: normal;
 `;

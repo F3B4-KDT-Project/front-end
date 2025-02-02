@@ -1,6 +1,6 @@
 export interface BoardModalProps {
-  isOpen: boolean;
   onClose: () => void;
+  onAddBoard: (boardName: string) => void;
 }
 
 export interface InviteRequest {
@@ -11,4 +11,15 @@ export interface InviteRequest {
 export interface InviteResponse {
   status: number;
   message: string;
+}
+
+export interface CreateBoardRequest {
+  title: string;
+}
+
+export interface CreateBoardResponse {
+  id: number;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
 }
