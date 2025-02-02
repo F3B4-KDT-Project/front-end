@@ -7,5 +7,5 @@ export interface Message {
 }
 
 export interface MessageProps {
-  isMyMessage: boolean;
+  isFlexRight: boolean;
 }
