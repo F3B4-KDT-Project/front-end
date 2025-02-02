@@ -1,6 +1,7 @@
 export interface BoardModalProps {
   onClose: () => void;
   onAddBoard: (boardName: string) => void;
+  isOpen: boolean;
 }
 
 export interface AddBoardModalProps {
