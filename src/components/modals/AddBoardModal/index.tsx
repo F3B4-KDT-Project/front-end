@@ -14,6 +14,7 @@ import {
 } from './style';
 import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
+import { useBoardInvite } from '../../../hooks/Board/useBoardInvite';
 
 const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
   const [boardName, setBoardName] = useState('');
@@ -22,22 +23,33 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
   const [idError, setIdError] = useState(false);
   const [idSuccess, setIdSuccess] = useState(false);
 
+  const { mutate: inviteUser } = useBoardInvite();
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // 기본 엔터 동작 방지
-      if (id.trim()) {
-        if (!idList.includes(id)) {
-          setIdList([...idList, id]);
-          setIdSuccess(true); // 성공 메시지 표시
-          setIdError(false); // 에러 메시지 제거
-          setId(''); // 입력 초기화
-        } else {
-          setIdError(true); // 중복된 ID 입력 시 에러 표시
-          setIdSuccess(false); // 성공 메시지 제거
-        }
+      e.preventDefault(); // 기본 Enter 동작 방지
+      if (id.trim() && !idList.includes(id)) {
+        // API 호출
+        inviteUser(
+          { boardId: 1 /* 실제 boardId를 전달해야 합니다 */, loginId: id },
+          {
+            onSuccess: (data) => {
+              setIdList([...idList, id]); // 초대 성공 시 리스트에 추가
+              setIdSuccess(true);
+              setIdError(false);
+              setId(''); // 입력 초기화
+              console.log(`초대 성공: ${data.message}`);
+            },
+            onError: (error) => {
+              setIdError(true);
+              setIdSuccess(false);
+              console.error(`초대 실패:`, error);
+            },
+          }
+        );
       } else {
-        setIdError(true); // 빈 입력 값에 대한 에러 표시
-        setIdSuccess(false); // 성공 메시지 제거
+        setIdError(true); // 빈 입력값 또는 중복 ID 에러
+        setIdSuccess(false);
       }
     }
   };
@@ -47,6 +59,10 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
   };
 
   const handleCreateBoard = () => {
+    if (!boardName.trim()) {
+      alert('게시판 이름을 입력하세요.');
+      return;
+    }
     onClose(); // 모달 닫기
   };
 
