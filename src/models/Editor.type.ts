@@ -4,6 +4,8 @@ export interface IdeEditorProps {
     language: string;
     value: string;
     theme: string;
+    boardName:string;
+    postName:string;
 }
 
 // custom theme json 파일 구조 정의
