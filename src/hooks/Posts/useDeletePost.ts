@@ -6,7 +6,7 @@ export const useDeletePost = (boardId: number) => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (id: number) => deletePost(id),
+    mutationFn: (id: string) => deletePost(id),
     onSuccess: () => {
       navigate(`/:${boardId}`, { replace: true });
     },

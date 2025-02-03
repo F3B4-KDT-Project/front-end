@@ -1,17 +1,7 @@
-import { useUserProfile } from '../../../hooks/Auth/useUserProfile';
 import { MessageCardProps } from '../../../models/ChatData.type';
-import {
-  Container,
-  Content,
-  ProfileImage,
-  SkeletonContainer,
-  SkeletonProfileImage,
-  Spacer,
-  Time,
-} from './style';
+import { Container, Content, ProfileImage, Spacer, Time } from './style';
 
 const MessageCard = ({
-  senderId,
   memberProfileImageUrl,
   memberNickname,
   messageText,

@@ -102,7 +102,7 @@ const Board: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
-  const { data: posts, isLoading, error } = usePosts(selectedBoardId || 0);
+  const { data: posts } = usePosts(selectedBoardId || 0);
   console.log(posts);
 
   const totalPages = Math.ceil(dummyData.posts.length / ITEMS_PER_PAGE);
@@ -118,8 +118,14 @@ const Board: React.FC = () => {
     currentPage * ITEMS_PER_PAGE
   );
 
+  const handleSelectBoard = (boardId: number) => {
+    setSelectedBoardId(boardId);
+    console.log(`선택한 보드 ID: ${boardId}`);
+  };
+
   // 게시판이 없을 때 화면
   if (!dummyData.hasBoard) {
+    handleSelectBoard;
     return (
       <EmptyBoardContainer>
         <IconWrapper>
