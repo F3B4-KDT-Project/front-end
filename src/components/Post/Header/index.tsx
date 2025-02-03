@@ -1,6 +1,5 @@
 import React from 'react';
 import { PostHeader } from '../../../models/PostHeader.type';
-import { deletePost } from '../../../apis/postInstance';
 import { BsTrashFill, BsThreeDotsVertical } from 'react-icons/bs';
 import {
   Board,
@@ -11,6 +10,7 @@ import {
   Post,
   Title,
 } from './style';
+import { deletePost } from '../../../apis/Posts/postApi';
 
 const Header: React.FC<PostHeader> = ({ boardId, postId }) => {
   const handleEditButton = () => {
@@ -20,8 +20,7 @@ const Header: React.FC<PostHeader> = ({ boardId, postId }) => {
 
   const handleDeleteButton = async () => {
     try {
-      const postData = { boardId, postId };
-      const response = await deletePost(postData);
+      const response = await deletePost(postId);
       console.log('[ API ] Delete Post : ', response);
       alert('[ API ] Delete Post');
     } catch (error) {
