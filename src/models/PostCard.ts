@@ -4,6 +4,7 @@ export interface PostCardProps {
   date: string;
   boardId: number;
   postId: number;
+  roomId: number;
 }
 
 export interface UserInfoProps {

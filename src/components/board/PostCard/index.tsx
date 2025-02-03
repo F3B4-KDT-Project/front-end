@@ -9,10 +9,11 @@ const PostCard: React.FC<PostCardProps> = ({
   date,
   boardId,
   postId,
+  roomId,
 }) => {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/${boardId}/${postId}`); // roomId를 상태로 전달
+    navigate(`/${boardId}/${postId}`, { state: { roomId } }); // roomId를 상태로 전달
   };
   return (
     <CardContainer onClick={handleNavigate}>

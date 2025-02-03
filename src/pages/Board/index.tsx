@@ -36,6 +36,7 @@ const dummyData = {
       badgeCount: 12,
       boardId: 1,
       postId: 1,
+      roomId: 1,
     },
     {
       id: 2,
@@ -44,6 +45,7 @@ const dummyData = {
       badgeCount: 3,
       boardId: 1,
       postId: 2,
+      roomId: 2,
     },
     {
       id: 3,
@@ -52,6 +54,7 @@ const dummyData = {
       badgeCount: 99,
       boardId: 1,
       postId: 3,
+      roomId: 3,
     },
     {
       id: 4,
@@ -60,6 +63,7 @@ const dummyData = {
       badgeCount: 12,
       boardId: 1,
       postId: 4,
+      roomId: 4,
     },
     {
       id: 5,
@@ -68,6 +72,7 @@ const dummyData = {
       badgeCount: 1,
       boardId: 1,
       postId: 5,
+      roomId: 5,
     },
     {
       id: 6,
@@ -76,6 +81,7 @@ const dummyData = {
       badgeCount: 35,
       boardId: 1,
       postId: 6,
+      roomId: 6,
     },
     {
       id: 7,
@@ -84,6 +90,7 @@ const dummyData = {
       badgeCount: 12,
       boardId: 1,
       postId: 7,
+      roomId: 7,
     },
   ],
 };
@@ -173,6 +180,7 @@ const Board: React.FC = () => {
               badgeCount={post.badgeCount}
               boardId={post.boardId}
               postId={post.postId}
+              roomId={post.roomId}
             />
           ))}
         </PostList>

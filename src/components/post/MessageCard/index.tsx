@@ -1,5 +1,5 @@
 import { useUserProfile } from '../../../hooks/Auth/useUserProfile';
-import { Message } from '../../../models/ChatData.type';
+import { MessageCardProps } from '../../../models/ChatData.type';
 import {
   Container,
   Content,
@@ -16,19 +16,8 @@ const MessageCard = ({
   memberNickname,
   messageText,
   sendTime,
-}: Message) => {
-  const { data, isLoading } = useUserProfile();
-
-  if (isLoading) {
-    return (
-      <SkeletonContainer>
-        <SkeletonProfileImage />
-      </SkeletonContainer>
-    );
-  }
-
-  const isMyMessage = senderId === data?.memberId;
-
+  isMyMessage,
+}: MessageCardProps) => {
   return (
     <Container isFlexRight={isMyMessage}>
       <ProfileImage src={memberProfileImageUrl} alt="profile image" />

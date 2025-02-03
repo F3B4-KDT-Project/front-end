@@ -5,18 +5,21 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { Message } from '../../../models/ChatData.type';
 import { Client } from '@stomp/stompjs';
 import MessageCard from '../MessageCard';
-import { useChatHistory } from '../../../hooks/Post/useChatHistory';
+import { useChatHistory } from '../../../hooks/Chat/useChatHistory';
+import { useLocation } from 'react-router-dom';
+import { useUserProfile } from '../../../hooks/Auth/useUserProfile';
 
 const Chat: React.FC = () => {
   const stompClient = useRef<Client | null>(null);
-
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [chat, setChat] = useState<string>(``);
 
-  const roomId = 1;
+  const location = useLocation();
+  const roomId = location.state?.roomId;
   const WS_URL = import.meta.env.VITE_WEBSOCKET_URL;
   const token = localStorage.getItem('accessToken') ?? '';
-
+  const { data: userData } = useUserProfile();
+  //채팅 내역 fetch
   const { data } = useChatHistory(roomId, token);
 
   useEffect(() => {
@@ -83,9 +86,9 @@ const Chat: React.FC = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ senderId: 1, content: chat }),
+        body: JSON.stringify({ senderId: userData?.memberId, content: chat }),
       });
-      console.log('보낸 메시지:', chat);
+      console.log('보낸 메시지:', chat, '누가:', userData?.memberId);
     }
 
     setChat('');
@@ -96,7 +99,11 @@ const Chat: React.FC = () => {
       <ChatSection>
         {chatHistory?.map &&
           chatHistory.map((message, index) => (
-            <MessageCard key={index} {...message} />
+            <MessageCard
+              key={index}
+              {...message}
+              isMyMessage={message.senderId === userData?.memberId}
+            />
           ))}
       </ChatSection>
       <InputSection>
