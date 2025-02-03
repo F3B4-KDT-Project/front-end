@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Header from '../../components/post/Header';
 import IdeEditor from '../../components/post/Editor/IdeEditor';
 import Chat from '../../components/post/Chat';
@@ -32,6 +33,8 @@ const Post: React.FC = () => {
           language={dummyData.change_language}
           value={dummyData.value}
           theme={dummyData.theme}
+          boardName={dummyData.boardName}
+          postName={dummyData.name}
         />
 
         <Chat />

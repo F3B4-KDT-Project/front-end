@@ -13,31 +13,46 @@ import {
   SuccessMessage,
 } from './style';
 import { BsXLg } from 'react-icons/bs';
-import { BoardModalProps } from '../../../models/Modal';
+import { AddBoardModalProps } from '../../../models/Modal';
+import { useBoardInvite } from '../../../hooks/Board/useBoardInvite';
+import { useCreateBoard } from '../../../hooks/Board/useCreateBoard';
 
-const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
+const AddBoardModal: React.FC<AddBoardModalProps> = ({
+  onClose,
+  onAddBoard,
+}) => {
   const [boardName, setBoardName] = useState('');
   const [id, setId] = useState('');
   const [idList, setIdList] = useState<string[]>([]);
   const [idError, setIdError] = useState(false);
   const [idSuccess, setIdSuccess] = useState(false);
 
+  const { mutate: inviteUser } = useBoardInvite();
+  const { mutate: createBoard } = useCreateBoard();
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // 기본 엔터 동작 방지
-      if (id.trim()) {
-        if (!idList.includes(id)) {
-          setIdList([...idList, id]);
-          setIdSuccess(true); // 성공 메시지 표시
-          setIdError(false); // 에러 메시지 제거
-          setId(''); // 입력 초기화
-        } else {
-          setIdError(true); // 중복된 ID 입력 시 에러 표시
-          setIdSuccess(false); // 성공 메시지 제거
-        }
+      e.preventDefault(); // 기본 Enter 동작 방지
+      if (id.trim() && id.trim() && !idList.includes(id)) {
+        // API 호출
+        inviteUser(
+          { boardId: 1, loginId: id },
+          {
+            onSuccess: () => {
+              setIdList([...idList, id]);
+              setIdSuccess(true);
+              setIdError(false);
+              setId('');
+            },
+            onError: () => {
+              setIdError(true);
+              setIdSuccess(false);
+            },
+          }
+        );
       } else {
-        setIdError(true); // 빈 입력 값에 대한 에러 표시
-        setIdSuccess(false); // 성공 메시지 제거
+        setIdError(true); // 빈 입력값 또는 중복 ID 에러
+        setIdSuccess(false);
       }
     }
   };
@@ -47,7 +62,24 @@ const AddBoardModal: React.FC<BoardModalProps> = ({ onClose }) => {
   };
 
   const handleCreateBoard = () => {
-    onClose(); // 모달 닫기
+    if (!boardName.trim()) {
+      alert('교실 이름을 입력하세요.');
+      return;
+    }
+
+    createBoard(
+      { title: boardName },
+      {
+        onSuccess: () => {
+          onAddBoard(boardName); // Sidebar에 교실 이름 전달
+          onClose(); // 모달 닫기
+        },
+        onError: (error) => {
+          console.error('교실 생성 실패:', error);
+          alert('교실 생성에 실패했습니다. 다시 시도해주세요.');
+        },
+      }
+    );
   };
 
   return (
