@@ -11,15 +11,10 @@ import {
 } from './style';
 import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
-import { useCreatePost } from '../../../hooks/Posts/useCreatePost';
 
 const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
   const [postName, setPostName] = useState('');
   const [selectedLang, setSelectedLang] = useState<string | null>(null);
-  const { mutate: createPost } = useCreatePost();
-
-  const params = new URLSearchParams(location.search);
-  const boardId = params.get('boardId');
 
   const languages = ['JavaScript', 'TypeScript', 'Java'];
 
@@ -32,22 +27,8 @@ const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
       alert('교실 이름과 언어를 모두 선택해주세요.');
       return;
     }
-    createPost(
-      {
-        boardId: parseInt(boardId || '0'),
-        name: postName,
-        language: selectedLang,
-      },
-      {
-        onSuccess: () => {
-          alert('교실이 성공적으로 생성되었습니다!');
-          onClose(); // 모달 닫기
-        },
-        onError: () => {
-          alert('교실 생성에 실패했습니다. 다시 시도해주세요.');
-        },
-      }
-    );
+    console.log('교실 생성:', postName, '선택된 언어:', selectedLang);
+    onClose(); // 모달 닫기
   };
 
   if (!isOpen) {
