@@ -1,22 +1,10 @@
 import React from 'react';
 import { PostCardProps } from '../../../models/PostCard';
 import { CardContainer, Title, Badge, Date } from './style';
-import { useNavigate } from 'react-router-dom';
 
-const PostCard: React.FC<PostCardProps> = ({
-  postName,
-  badgeCount,
-  date,
-  boardId,
-  postId,
-  roomId,
-}) => {
-  const navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate(`/${boardId}/${postId}`, { state: { roomId } }); // roomId를 상태로 전달
-  };
+const PostCard: React.FC<PostCardProps> = ({ postName, badgeCount, date }) => {
   return (
-    <CardContainer onClick={handleNavigate}>
+    <CardContainer>
       {/* 게시글 제목 */}
       <Title>
         {postName}
