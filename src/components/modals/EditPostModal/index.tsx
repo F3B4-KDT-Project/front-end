@@ -11,8 +11,10 @@ import {
 } from './style';
 import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
+import { useTheme } from '@emotion/react';
 
 const EditPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
+  const theme = useTheme(); // 현재 적용된 테마 가져오기
   // 더미 데이터: 기존 수업 제목과 사용 언어
   const dummyData = {
     title: '기존 수업 제목',
@@ -45,8 +47,10 @@ const EditPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h2>수업 수정하기</h2>
-          <BsXLg className="CloseButton" onClick={onClose} />
+          <h1>수업 수정하기</h1>
+          <button onClick={onClose}>
+            <BsXLg size="1.5rem" color={theme.colors.lightGray} />
+          </button>
         </ModalHeader>
         <Line />
         <InputField
@@ -55,7 +59,7 @@ const EditPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
           value={postName}
           onChange={(e) => setPostName(e.target.value)}
         />
-        <h3>사용 언어 선택</h3>
+        <h2>사용 언어 선택</h2>
         <LangFieldWrapper>
           {languages.map((lang) => (
             <button
