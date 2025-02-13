@@ -57,17 +57,17 @@ function App() {
             <Route
               path="/"
               element={
-                <RequireAuth>
-                  <Board />
-                </RequireAuth>
+                // <RequireAuth>
+                <Board />
+                // </RequireAuth>
               }
             />
             <Route
               path="/post"
               element={
-                <RequireAuth>
-                  <Post />
-                </RequireAuth>
+                // <RequireAuth>
+                <Post />
+                // </RequireAuth>
               }
             />
             <Route
