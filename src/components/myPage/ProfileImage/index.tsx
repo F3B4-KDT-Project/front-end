@@ -3,11 +3,13 @@ import { ProfileImage } from './style';
 import defaultImg from '../../../assets/icons/logo_black.svg';
 import { BsImageFill } from 'react-icons/bs';
 import { ProfileImageProps } from '../../../models/MyPage';
+import { useTheme } from '@emotion/react';
 
 export const ProfileImg: React.FC<ProfileImageProps> = (
   profileImage,
   patchUserProfileImage
 ) => {
+  const theme = useTheme();
   const profileImageUploadRef = React.useRef<HTMLInputElement>(null);
 
   const handleProfileImageUploadButtonClick = () => {
@@ -42,7 +44,7 @@ export const ProfileImg: React.FC<ProfileImageProps> = (
           ref={profileImageUploadRef}
           style={{ display: 'none' }}
         />
-        <BsImageFill className="icon_image" />
+        <BsImageFill size="1.5rem" color={theme.colors.lightGray} />
       </button>
     </ProfileImage>
   );
