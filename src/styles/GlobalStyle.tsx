@@ -45,6 +45,10 @@ const GlobalStyle = (theme) => css`
     outline: none;
   }
 
+  input {
+    outline: none;
+  }
+
   input:focus {
     outline: none;
   }
