@@ -6,6 +6,12 @@ import emotionReset from 'emotion-reset';
 const GlobalStyle = (theme) => css`
   ${emotionReset}
 
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   :root {
     font-family: 'Pretendard';
     // color-scheme: dark light;
@@ -30,6 +36,22 @@ const GlobalStyle = (theme) => css`
 
     background-color: ${theme.colors.background};
     color: ${theme.colors.text};
+  }
+
+  button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 `;
 
