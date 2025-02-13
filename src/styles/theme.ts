@@ -1,34 +1,72 @@
 import { Theme } from '@emotion/react';
 import { fonts } from './fonts';
 
-export interface MyTheme extends Theme {
-  colors: {
-    background: string;
-    text: string;
-    white: string;
-    lightGray: string;
-    gray: string;
-    black: string;
-    post: string;
-    postHover: string;
-    footer: string;
-    footerAr: string;
-    red: string;
-    green: string;
-    redInput: string;
-    greenInput: string;
-    input: string;
-    modalBg: string;
-    modalArea: string;
-    container: string;
-    icon: string;
-    navigationGr: string;
-    navigationBs: string;
-  };
-  fonts: typeof fonts;
+import '@emotion/react';
+
+declare module '@emotion/react' {
+  export interface Theme {
+    colors: {
+      background: string;
+      text: string;
+      white: string;
+      lightGray: string;
+      gray: string;
+      black: string;
+      post: string;
+      postHover: string;
+      footer: string;
+      footerAr: string;
+      red: string;
+      green: string;
+      redInput: string;
+      greenInput: string;
+      input: string;
+      modalBg: string;
+      modalArea: string;
+      container: string;
+      icon: string;
+      navigationGr: string;
+      navigationBs: string;
+    };
+    fonts: {
+      caption1: string;
+      caption2: string;
+      caption3: string;
+      caption4: string;
+      caption5: string;
+      caption6: string;
+      caption7: string;
+      caption8: string;
+      body1: string;
+      body2: string;
+      body3: string;
+      body4: string;
+      body5: string;
+      body6: string;
+      body7: string;
+      header1: string;
+      header2: string;
+      header3: string;
+      header4: string;
+      title1: string;
+      title2: string;
+      title3: string;
+      title4: string;
+      title5: string;
+      title6: string;
+      title7: string;
+      button1: string;
+      button2: string;
+      button3: string;
+      button4: string;
+      input1: string;
+      input2: string;
+      input3: string;
+    };
+  }
 }
 
-export const darkTheme: MyTheme = {
+export const darkTheme: Theme = {
   colors: {
     background: '#2b2b2b',
     text: '#ffffff',
@@ -57,10 +95,10 @@ export const darkTheme: MyTheme = {
   fonts,
 };
 
-export const lightTheme: MyTheme = {
+export const lightTheme: Theme = {
   colors: {
     background: '#fffefb',
-    text: '#161616',
+    text: '#4e4d4c',
     white: '#ffffff',
     lightGray: '#eae9e6',
     gray: '#9f9d98',
