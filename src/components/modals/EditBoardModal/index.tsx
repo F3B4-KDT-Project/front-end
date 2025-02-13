@@ -14,8 +14,10 @@ import {
 } from './style';
 import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
+import { useTheme } from '@emotion/react';
 
 const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
+  const theme = useTheme(); // 현재 적용된 테마 가져오기
   // 더미 데이터로 초기값 설정
   const [boardName, setBoardName] = useState('9oorm_KDT');
   const [id, setId] = useState('');
@@ -59,8 +61,10 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h2>교실 수정하기</h2>
-          <BsXLg className="CloseButton" onClick={onClose} />
+          <h1>교실 수정하기</h1>
+          <button onClick={onClose}>
+            <BsXLg size="1.5rem" color={theme.colors.lightGray} />
+          </button>
         </ModalHeader>
         <Line />
         <InputField
@@ -69,7 +73,7 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
           value={boardName}
           onChange={(e) => setBoardName(e.target.value)}
         />
-        <h3>참여자 초대하기</h3>
+        <h2>참여자 초대하기</h2>
         <InputFieldWrapper>
           <InputField
             type="text"
@@ -78,7 +82,7 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
             onChange={(e) => setId(e.target.value)}
             onKeyDown={handleKeyDown}
             style={{
-              borderColor: idError ? 'var(--red)' : 'var(--light-gray)',
+              borderColor: idError ? theme.colors.red : theme.colors.lightGray,
             }}
           />
           {idSuccess && <SuccessMessage>초대가 완료되었습니다.</SuccessMessage>}
@@ -90,10 +94,9 @@ const EditBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
           {idList.map((item, index) => (
             <div key={index} className="email-item">
               {item}
-              <BsXLg
-                className="CloseEmailButton"
-                onClick={() => handleRemoveId(item)}
-              />
+              <button onClick={() => handleRemoveId(item)}>
+                <BsXLg size="0.9375rem" color={theme.colors.lightGray} />
+              </button>
             </div>
           ))}
         </IdList>
