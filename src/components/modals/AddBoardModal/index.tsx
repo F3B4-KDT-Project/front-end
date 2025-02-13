@@ -121,10 +121,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({
           {idList.map((item, index) => (
             <div key={index} className="email-item">
               {item}
-              <button
-                className="CloseEmailButton"
-                onClick={() => handleRemoveId(item)}
-              >
+              <button onClick={() => handleRemoveId(item)}>
                 <BsXLg size="0.9375rem" color={theme.colors.lightGray} />
               </button>
             </div>

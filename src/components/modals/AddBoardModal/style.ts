@@ -112,10 +112,6 @@ export const IdList = styled.div`
     color: ${({ theme }) => theme.colors.lightGray};
     ${({ theme }) => theme.fonts.caption3};
   }
-
-  .CloseEmailButton {
-    ${({ theme }) => theme.fonts.caption3};
-  }
 `;
 
 export const ButtonWrapper = styled.div`
