@@ -1,9 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Global, css } from '@emotion/react';
+import { Global, Theme, css } from '@emotion/react';
 import { useTheme } from '@emotion/react';
 import emotionReset from 'emotion-reset';
 
-const GlobalStyle = (theme) => css`
+const GlobalStyle = (theme: Theme) => css`
   ${emotionReset}
 
   * {
