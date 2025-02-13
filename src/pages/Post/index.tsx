@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Body } from './style';
-import Header from '../../components/post/Header/index';
-import IdeEditor from '../../components/post/Editor/IdeEditor';
+import Header from '../../components/post/Header';
+import IdeEditor from '../../components/post/Editor';
 import Chat from '../../components/post/Chat';
 
 const Post: React.FC = () => {

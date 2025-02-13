@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { BsFiles,BsDownload } from 'react-icons/bs';
 
 export const Container = styled.div`
   z-index: 1;
@@ -11,7 +10,6 @@ export const Container = styled.div`
 
   margin: 0;
   padding: 0.62rem;
-  box-sizing: border-box;
 
   width: 47.9375rem;
   height: 46.125rem;
@@ -23,35 +21,29 @@ export const Container = styled.div`
   flex: 2;
 
   border-radius: 0.9375rem;
-  background: var(--background, #2b2b2b);
-  box-shadow: 0px 0px 4px 0px var(--black, #161616) inset;
+  background: ${({ theme }) => theme.colors.background};
+  box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.black} inset;
 `;
 
-export const ButtonContainer=styled.div`
+export const ButtonContainer = styled.div`
   z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  color: var(--gray);
+  color: ${({ theme }) => theme.colors.gray};
 `;
 
-export const CopyButton=styled(BsFiles)`
-  width: 1.5rem;
-  height: 1.5rem;
-
+export const CopyButton = styled.button`
   position: absolute;
   right: 1.5rem;
   top: 1.5rem;
 `;
 
-export const SaveButton=styled(BsDownload)`
-  width: 1.5rem;
-  height: 1.5rem;
-
+export const SaveButton = styled.button`
   position: absolute;
   right: 1.5rem;
-  bottom : 1.5rem;
+  bottom: 1.5rem;
 `;
 
 export const HighlightButton = styled.div`
@@ -59,7 +51,7 @@ export const HighlightButton = styled.div`
   position: absolute;
   align-items: center;
 
-  background-color: var(--input);
+  background-color: ${({ theme }) => theme.colors.input};
   border: none;
   border-radius: 5px;
   padding: 5px;
@@ -73,8 +65,8 @@ export const GlobalStyle = styled.div`
     background-color: rgba(255, 255, 0, 0.5);
     cursor: pointer;
   }
-  
-  > svg{
-    color: var(--white);
+
+  > svg {
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
