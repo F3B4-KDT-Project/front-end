@@ -1,5 +1,4 @@
 /* eslint-disable react/react-in-jsx-scope */
-import './App.css';
 import { ThemeProvider } from '@emotion/react';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { darkTheme, lightTheme } from './styles/theme';
@@ -11,6 +10,7 @@ import MyPage from './pages/MyPage';
 import Sidebar from './components/layout/sideBar';
 import { AppContainer, ContentWrapper } from './components/layout/style';
 import { useEffect, useState } from 'react';
+import GlobalStyles from './styles/GlobalStyle';
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const navigate = useNavigate();
@@ -45,6 +45,7 @@ function App() {
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <GlobalStyles />
       <AppContainer>
         {/* shouldShowSidebar가 true일 때만 Sidebar 렌더링 */}
         {shouldShowSidebar && <Sidebar />}

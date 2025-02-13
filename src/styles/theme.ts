@@ -4,6 +4,7 @@ import { fonts } from './fonts';
 export interface MyTheme extends Theme {
   colors: {
     background: string;
+    text: string;
     white: string;
     lightGray: string;
     gray: string;
@@ -30,6 +31,7 @@ export interface MyTheme extends Theme {
 export const darkTheme: MyTheme = {
   colors: {
     background: '#2b2b2b',
+    text: '#ffffff',
     white: '#ffffff',
     lightGray: '#dadada',
     gray: '#5a5a5a',
@@ -58,6 +60,7 @@ export const darkTheme: MyTheme = {
 export const lightTheme: MyTheme = {
   colors: {
     background: '#fffefb',
+    text: '#161616',
     white: '#ffffff',
     lightGray: '#eae9e6',
     gray: '#9f9d98',
