@@ -11,8 +11,10 @@ import {
 } from './style';
 import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
+import { useTheme } from '@emotion/react';
 
 const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
+  const theme = useTheme();
   const [postName, setPostName] = useState('');
   const [selectedLang, setSelectedLang] = useState<string | null>(null);
 
@@ -39,8 +41,10 @@ const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h2>교실 생성하기</h2>
-          <BsXLg className="CloseButton" onClick={onClose} />
+          <h1>교실 생성하기</h1>
+          <button onClick={onClose}>
+            <BsXLg size="1.5rem" color={theme.colors.lightGray} />
+          </button>
         </ModalHeader>
         <Line />
         <InputField
@@ -49,7 +53,7 @@ const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
           value={postName}
           onChange={(e) => setPostName(e.target.value)}
         />
-        <h3>사용 언어 선택</h3>
+        <h2>사용 언어 선택</h2>
         <LangFieldWrapper>
           {languages.map((lang) => (
             <button
