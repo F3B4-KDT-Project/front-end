@@ -5,24 +5,19 @@ export const CardContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1.13rem 1.75rem;
-  background-color: var(--post);
+  background-color: ${({ theme }) => theme.colors.post};
   border-radius: 0.9375rem;
-  cursor: pointer;
 
   &:hover {
-    background-color: var(--light-gray);
+    background-color: ${({ theme }) => theme.colors.lightGray};
   }
 `;
 
 export const Title = styled.div`
   display: flex;
   align-items: center;
-  color: var(--background);
-  font-family: 'Pretendard';
-  font-size: 1.5625rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  color: ${({ theme }) => theme.colors.background};
+  ${({ theme }) => theme.fonts.title4}
 `;
 
 export const Badge = styled.span`
@@ -30,23 +25,15 @@ export const Badge = styled.span`
   justify-content: center;
   align-items: center;
   margin-left: 0.69rem;
-  background-color: var(--red);
-  color: var(--white);
-  font-family: 'Pretendard';
-  font-size: 1.25rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  background-color: ${({ theme }) => theme.colors.red};
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body5};
   width: 2.8125rem;
   height: 2.8125rem;
   border-radius: 50%;
 `;
 
 export const Date = styled.span`
-  color: var(--background);
-  font-family: 'Pretendard';
-  font-size: 1.25rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  color: ${({ theme }) => theme.colors.background};
+  ${({ theme }) => theme.fonts.body4};
 `;
