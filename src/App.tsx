@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { ThemeProvider } from '@emotion/react';
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { darkTheme, lightTheme } from './styles/theme';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
@@ -9,21 +9,21 @@ import Post from './pages/Post';
 import MyPage from './pages/MyPage';
 import Sidebar from './components/layout/sideBar';
 import { AppContainer, ContentWrapper } from './components/layout/style';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import GlobalStyles from './styles/GlobalStyle';
 
-const RequireAuth = ({ children }: { children: JSX.Element }) => {
-  const navigate = useNavigate();
+// const RequireAuth = ({ children }: { children: JSX.Element }) => {
+//   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken'); // 토큰 가져오기
-    if (!token) {
-      navigate('/sign-in', { replace: true }); // 토큰이 없으면 로그인 페이지로 이동
-    }
-  }, [navigate]);
+//   useEffect(() => {
+//     const token = localStorage.getItem('accessToken'); // 토큰 가져오기
+//     if (!token) {
+//       navigate('/sign-in', { replace: true }); // 토큰이 없으면 로그인 페이지로 이동
+//     }
+//   }, [navigate]);
 
-  return children;
-};
+//   return children;
+// };
 
 function App() {
   const location = useLocation(); // 현재 경로 가져오기
