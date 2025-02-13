@@ -1,8 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Global, css } from '@emotion/react';
 import { useTheme } from '@emotion/react';
+import emotionReset from 'emotion-reset';
 
 const GlobalStyle = (theme) => css`
+  ${emotionReset}
+
   :root {
     font-family: 'Pretendard';
     // color-scheme: dark light;
