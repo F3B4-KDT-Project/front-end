@@ -1,8 +1,3 @@
-export interface MyPageProps {
-  theme: string;
-  setTheme: (theme: string) => void;
-}
-
 export interface ProfileImageProps {
   profileImage: string;
   patchUserProfileImage: (file: File) => void;
@@ -20,6 +15,6 @@ export interface ProfileDetailsProps {
 }
 
 export interface ThemeSelectionProps {
-  theme: string;
-  setTheme: (theme: string) => void;
+  isDarkMode: boolean;
+  setIsDarkMode: (theme: boolean) => void;
 }

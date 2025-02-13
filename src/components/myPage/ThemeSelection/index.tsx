@@ -9,18 +9,18 @@ import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { ThemeSelectionProps } from '../../../models/MyPage';
 
 export const ThemeSelection: React.FC<ThemeSelectionProps> = ({
-  theme,
-  setTheme,
+  isDarkMode,
+  setIsDarkMode,
 }) => {
   return (
     <ThemeSelectionSection aria-labelledby="theme-selection">
       <h2 id="theme-selection">테마 선택</h2>
       <ThemeSelectionForm action="">
         <RadioOption
-          isChecked={theme === 'dark'}
-          onClick={() => setTheme('dark')}
+          isChecked={isDarkMode === true}
+          onClick={() => setIsDarkMode(true)}
         >
-          {theme === 'dark' ? (
+          {isDarkMode === true ? (
             <BsFillCheckCircleFill size="1.5rem" />
           ) : (
             <UncheckedCircle />
@@ -28,10 +28,10 @@ export const ThemeSelection: React.FC<ThemeSelectionProps> = ({
           <label>Dark Mode</label>
         </RadioOption>
         <RadioOption
-          isChecked={theme === 'light'}
-          onClick={() => setTheme('light')}
+          isChecked={isDarkMode === false}
+          onClick={() => setIsDarkMode(false)}
         >
-          {theme === 'light' ? (
+          {isDarkMode === false ? (
             <BsFillCheckCircleFill size="1.5rem" />
           ) : (
             <UncheckedCircle />
