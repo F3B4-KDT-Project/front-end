@@ -7,6 +7,7 @@ import {
 import { BsPencilFill } from 'react-icons/bs';
 import { Input } from '../../common/Input';
 import { ProfileDetailsProps } from '../../../models/MyPage';
+import { useTheme } from '@emotion/react';
 
 export const ProfileDetails: React.FC<ProfileDetailsProps> = ({
   label,
@@ -18,12 +19,13 @@ export const ProfileDetails: React.FC<ProfileDetailsProps> = ({
   handleChange,
   detail,
 }) => {
+  const theme = useTheme();
   return (
     <ProfileInfoDetails>
       <label htmlFor="id">
         | {label}
         <button onClick={() => setIsEditing(true)} aria-label={`${label} 수정`}>
-          <BsPencilFill className="icon_edit" />
+          <BsPencilFill size="1.5rem" color={theme.colors.lightGray} />
         </button>
       </label>
       {isEditing ? (

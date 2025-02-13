@@ -10,7 +10,6 @@ import {
 import {
   EmptyBoardContainer,
   Message,
-  IconWrapper,
   Description,
   BoardContainer,
   BodyContainer,
@@ -20,6 +19,7 @@ import {
   PageNumber,
 } from './style';
 import InvitePersonModal from '../../components/modals/InvitePersonModal';
+import { useTheme } from '@emotion/react';
 
 // 더미 데이터
 const dummyData = {
@@ -51,6 +51,7 @@ const dummyData = {
 const ITEMS_PER_PAGE = 6;
 
 const Board: React.FC = () => {
+  const theme = useTheme();
   const [isInvitePersonModalOpen, setInvitePersonModalOpen] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -72,9 +73,7 @@ const Board: React.FC = () => {
   if (!dummyData.hasBoard) {
     return (
       <EmptyBoardContainer>
-        <IconWrapper>
-          <BsFillEmojiWinkFill className="WinkIcon" />
-        </IconWrapper>
+        <BsFillEmojiWinkFill size="12.5rem" />
         <Message>
           아직 <strong>교실</strong>이 없어요.
         </Message>
@@ -93,9 +92,7 @@ const Board: React.FC = () => {
 
         {/* 게시글이 없을 때 */}
         <EmptyBoardContainer>
-          <IconWrapper>
-            <BsFillEmojiWinkFill className="WinkIcon" />
-          </IconWrapper>
+          <BsFillEmojiWinkFill size="12.5rem" />
           <Message>
             아직 <strong>수업</strong>이 없어요.
           </Message>
@@ -116,7 +113,7 @@ const Board: React.FC = () => {
       <BodyContainer>
         {/* 참여자 수 */}
         <Participants onClick={() => setInvitePersonModalOpen(true)}>
-          <BsFillPeopleFill className="PartIcon" />
+          <BsFillPeopleFill size="1.5rem" />
           {dummyData.participants}
         </Participants>
 
@@ -134,10 +131,9 @@ const Board: React.FC = () => {
 
         {/* 페이지 번호 */}
         <Pagination>
-          <BsFillCaretLeftFill
-            className="left"
-            onClick={() => handlePageChange(currentPage - 1)}
-          />
+          <button onClick={() => handlePageChange(currentPage - 1)}>
+            <BsFillCaretLeftFill size="1.5rem" color={theme.colors.footer} />
+          </button>
           {[...Array(totalPages)].map((_, index) => (
             <PageNumber
               key={index}
@@ -147,10 +143,9 @@ const Board: React.FC = () => {
               {index + 1}
             </PageNumber>
           ))}
-          <BsFillCaretRightFill
-            className="right"
-            onClick={() => handlePageChange(currentPage + 1)}
-          />
+          <button onClick={() => handlePageChange(currentPage + 1)}>
+            <BsFillCaretRightFill size="1.5rem" color={theme.colors.footerAr} />
+          </button>
         </Pagination>
       </BodyContainer>
       <InvitePersonModal

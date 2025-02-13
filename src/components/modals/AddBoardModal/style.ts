@@ -7,7 +7,7 @@ export const ModalOverlay = styled.div`
   left: 7.875rem;
   width: 100%;
   min-height: 100vh;
-  background: var(--modal-bg);
+  background: ${({ theme }) => theme.colors.modalBg};
   justify-content: center;
   align-items: center;
 `;
@@ -17,20 +17,16 @@ export const ModalContent = styled.div`
   flex-direction: column;
   flex-shrink: 0;
   border-radius: 0.9375rem;
-  border: 1px solid var(--gray);
-  background: var(--background);
+  border: 1px solid ${({ theme }) => theme.colors.gray};
+  background: ${({ theme }) => theme.colors.background};
   padding: 2rem;
   box-shadow:
-    0px 0px 4px 0px var(--light-gray) inset,
-    0px 0px 4px 0px var(--black);
+    0px 0px 4px 0px ${({ theme }) => theme.colors.lightGray} inset,
+    0px 0px 4px 0px ${({ theme }) => theme.colors.black};
 
-  h3 {
-    color: var(--white);
-    font-family: 'Pretendard';
-    font-size: 1.375rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+  h2 {
+    color: ${({ theme }) => theme.colors.text};
+    ${({ theme }) => theme.fonts.title3};
     margin-top: 1.69rem;
     margin-bottom: 1.06rem;
   }
@@ -42,23 +38,9 @@ export const ModalHeader = styled.div`
   align-items: center;
   margin-bottom: 1.37rem;
 
-  h2 {
-    color: var(--white);
-    font-family: 'Pretendard';
-    font-size: 1.75rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-
-  .CloseButton {
-    width: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--light-gray);
+  h1 {
+    color: ${({ theme }) => theme.colors.text};
+    ${({ theme }) => theme.fonts.title6};
   }
 `;
 
@@ -67,7 +49,7 @@ export const Line = styled.div`
   height: 0.125rem;
   flex-shrink: 0;
   border-radius: 3.125rem;
-  background-color: var(--gray);
+  background-color: ${({ theme }) => theme.colors.gray};
   margin-bottom: 1.37rem;
 `;
 
@@ -77,46 +59,33 @@ export const InputFieldWrapper = styled.div`
 
 export const InputField = styled.input`
   width: 34.875rem;
-  height: 2rem;
   flex-shrink: 0;
-  background: var(--input);
+  background: ${({ theme }) => theme.colors.input};
   border-radius: 0.4375rem;
-  border: 3px solid var(--light-gray);
+  border: 3px solid ${({ theme }) => theme.colors.lightGray};
   backdrop-filter: blur(2px);
   padding: 0.81rem 1.3rem;
-  color: var(--white);
-  font-family: 'Pretendard';
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  color: ${({ theme }) => theme.colors.text};
+  ${({ theme }) => theme.fonts.input1};
 
   ::placeholder {
-    color: var(--white);
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
 export const ErrorMessage = styled.div`
-  color: var(--red);
+  color: ${({ theme }) => theme.colors.red};
   text-align: right;
-  font-family: 'Pretendard';
-  font-size: 0.625rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  ${({ theme }) => theme.fonts.caption1};
   position: absolute;
   top: -1.5rem;
   right: 0;
 `;
 
 export const SuccessMessage = styled.div`
-  color: var(--light-gray);
+  color: ${({ theme }) => theme.colors.lightGray};
   text-align: right;
-  font-family: 'Pretendard';
-  font-size: 0.625rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  ${({ theme }) => theme.fonts.caption1};
   position: absolute;
   top: -1.5rem;
   right: 0;
@@ -133,34 +102,15 @@ export const IdList = styled.div`
     width: 10.625rem;
     height: 1.75rem;
     flex-shrink: 0;
-    border: 1px solid var(--light-gray);
+    border: 1px solid ${({ theme }) => theme.colors.lightGray};
     border-radius: 1.875rem;
-    background: var(--input);
+    background: ${({ theme }) => theme.colors.input};
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.69rem 0.88rem;
-    color: var(--light-gray);
-    font-family: 'Pretendard';
-    font-size: 0.875rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-
-  .CloseEmailButton {
-    width: 0.9375rem;
-    height: 0.9375rem;
-    flex-shrink: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--light-gray);
-    font-family: 'Pretendard';
-    font-size: 0.875rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    color: ${({ theme }) => theme.colors.lightGray};
+    ${({ theme }) => theme.fonts.caption3};
   }
 `;
 
@@ -180,17 +130,11 @@ export const SubmitButton = styled.button`
   height: 4.0625rem;
   flex-shrink: 0;
   border-radius: 0.4375rem;
-  background: var(--input);
-  color: var(--white);
-  font-family: 'Pretendard';
-  font-size: 1.25rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  border: none;
-  cursor: pointer;
+  background: ${({ theme }) => theme.colors.input};
+  color: ${({ theme }) => theme.colors.text};
+  ${({ theme }) => theme.fonts.button2};
 
   &:hover {
-    background: var(--black);
+    background: ${({ theme }) => theme.colors.black};
   }
 `;

@@ -12,9 +12,12 @@ import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
 import { ProfileImg } from '../../components/myPage/ProfileImage';
 import { ProfileDetails } from '../../components/myPage/ProfileDetails';
 import { ThemeSelection } from '../../components/myPage/ThemeSelection';
-import { MyPageProps } from '../../models/MyPage';
+import { ThemeSelectionProps } from '../../models/MyPage';
 
-const MyPage: React.FC<MyPageProps> = ({ theme, setTheme }) => {
+const MyPage: React.FC<ThemeSelectionProps> = ({
+  isDarkMode,
+  setIsDarkMode,
+}) => {
   const { data, isLoading, error, refetch } = useUserProfile();
   const { patchUserNickName, patchUserLoginId, patchUserProfileImage } =
     useUpdateProfile();
@@ -96,7 +99,7 @@ const MyPage: React.FC<MyPageProps> = ({ theme, setTheme }) => {
           </ProfileInfo>
         </UserInfoSection>
 
-        <ThemeSelection theme={theme} setTheme={setTheme} />
+        <ThemeSelection isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       </MyPageContent>
     </MyPageContainer>
   );

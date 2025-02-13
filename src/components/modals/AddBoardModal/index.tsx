@@ -16,6 +16,7 @@ import { BsXLg } from 'react-icons/bs';
 import { AddBoardModalProps } from '../../../models/Modal';
 import { useBoardInvite } from '../../../hooks/Board/useBoardInvite';
 import { useCreateBoard } from '../../../hooks/Board/useCreateBoard';
+import { useTheme } from '@emotion/react';
 
 const AddBoardModal: React.FC<AddBoardModalProps> = ({
   onClose,
@@ -26,6 +27,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({
   const [idList, setIdList] = useState<string[]>([]);
   const [idError, setIdError] = useState(false);
   const [idSuccess, setIdSuccess] = useState(false);
+  const theme = useTheme();
 
   const { mutate: inviteUser } = useBoardInvite();
   const { mutate: createBoard } = useCreateBoard();
@@ -86,8 +88,10 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h2>교실 생성하기</h2>
-          <BsXLg className="CloseButton" onClick={onClose} />
+          <h1>교실 생성하기</h1>
+          <button onClick={onClose}>
+            <BsXLg size="1.5rem" color={theme.colors.lightGray} />
+          </button>
         </ModalHeader>
         <Line />
         <InputField
@@ -96,7 +100,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({
           value={boardName}
           onChange={(e) => setBoardName(e.target.value)}
         />
-        <h3>참여자 초대하기</h3>
+        <h2>참여자 초대하기</h2>
         <InputFieldWrapper>
           <InputField
             type="text"
@@ -105,7 +109,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({
             onChange={(e) => setId(e.target.value)}
             onKeyDown={handleKeyDown}
             style={{
-              borderColor: idError ? 'var(--red)' : 'var(--light-gray)',
+              borderColor: idError ? theme.colors.red : theme.colors.lightGray,
             }}
           />
           {idSuccess && <SuccessMessage>초대가 완료되었습니다.</SuccessMessage>}
@@ -117,10 +121,9 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({
           {idList.map((item, index) => (
             <div key={index} className="email-item">
               {item}
-              <BsXLg
-                className="CloseEmailButton"
-                onClick={() => handleRemoveId(item)}
-              />
+              <button onClick={() => handleRemoveId(item)}>
+                <BsXLg size="0.9375rem" color={theme.colors.lightGray} />
+              </button>
             </div>
           ))}
         </IdList>

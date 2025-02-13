@@ -27,40 +27,27 @@ export const Content = styled.div<MessageProps>`
   gap: 0.19rem;
 
   > p {
-    color: #fff;
-    font-family: 'Pretendard';
-    font-size: 0.75rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    color: ${({ theme }) => theme.colors.text};
+    ${({ theme }) => theme.fonts.caption2};
   }
 
   > div {
-    box-sizing: border-box;
     padding: 0.6rem 0.7rem;
     white-space: pre-wrap;
 
     border-radius: 0.4375rem;
-    background: var(--bc-light-gray, #dadada);
+    background: ${({ theme }) => theme.colors.lightGray};
 
-    color: var(--bc-background, #2b2b2b);
-    font-family: 'Pretendard';
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.4375rem;
+    color: ${({ theme }) => theme.colors.black};
+    ${({ theme }) => theme.fonts.body2};
   }
 `;
 
 export const Time = styled.p`
   align-self: flex-end;
 
-  color: var(--bc-background, #2b2b2b);
-  font-family: 'Pretendard';
-  font-size: 0.625rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  color: ${({ theme }) => theme.colors.background};
+  ${({ theme }) => theme.fonts.caption1};
 `;
 
 export const Spacer = styled.div`
@@ -80,6 +67,6 @@ export const SkeletonProfileImage = styled.div`
   height: 2.5rem;
   margin: 0.5rem 0.37rem;
   border-radius: 2.5rem;
-  background-color: gray;
+  background-color: ${({ theme }) => theme.colors.gray};
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 `;

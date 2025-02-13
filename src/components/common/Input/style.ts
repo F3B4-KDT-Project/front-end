@@ -8,33 +8,21 @@ export const InputContainer = styled.div`
 
   input {
     border-radius: 2.1875rem;
-    border: 3px solid var(--light-gray);
-    background-color: var(--input);
+    border: 3px solid ${({ theme }) => theme.colors.lightGray};
+    background-color: ${({ theme }) => theme.colors.input};
     padding: 1.125rem 1.875rem;
-    color: var(--white);
-    font-family: 'Pretendard';
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    color: ${({ theme }) => theme.colors.text};
+    ${({ theme }) => theme.fonts.input3};
 
     &::placeholder {
-      color: var(--white);
-      font-family: 'Pretendard';
-      font-size: 1.5rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
+      color: ${({ theme }) => theme.colors.text};
+      ${({ theme }) => theme.fonts.input3};
     }
   }
 
   div {
-    color: var(--red);
-    font-family: 'Pretendard';
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    color: ${({ theme }) => theme.colors.red};
+    ${({ theme }) => theme.fonts.caption4};
     text-align: right;
   }
 `;

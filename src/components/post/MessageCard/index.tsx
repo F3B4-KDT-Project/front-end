@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useUserProfile } from '../../../hooks/Auth/useUserProfile';
 import { Message } from '../../../models/ChatData.type';
 import {

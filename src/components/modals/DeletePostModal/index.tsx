@@ -10,8 +10,10 @@ import {
 } from './style';
 import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
+import { useTheme } from '@emotion/react';
 
 const DeleteBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
+  const theme = useTheme();
   // 더미 데이터
   const dummyData = {
     boardName: '9oorm_KDT',
@@ -30,18 +32,19 @@ const DeleteBoardModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h2>수업 삭제하기</h2>
-          <BsXLg className="CloseButton" onClick={onClose} />
+          <h1>수업 삭제하기</h1>
+          <button onClick={onClose}>
+            <BsXLg size="1.5rem" color={theme.colors.lightGray} />
+          </button>
         </ModalHeader>
         <Line />
         <Body>
-          <p>{dummyData.boardName}</p>
-          <h1>{dummyData.postName}</h1>
-          <h3>
-            해당 수업을 삭제하시겠습니까?
-            <br />
-            삭제한 수업은 복구할 수 없습니다.
-          </h3>
+          <h2>{dummyData.boardName}</h2>
+          <h3>{dummyData.postName}</h3>
+          <div>
+            <p>해당 수업을 삭제하시겠습니까?</p>
+            <p>삭제한 수업은 복구할 수 없습니다.</p>
+          </div>
         </Body>
         <ButtonWrapper>
           <SubmitButton onClick={handleDeleteBoard}>수업 삭제</SubmitButton>

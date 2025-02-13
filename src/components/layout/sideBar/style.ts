@@ -2,9 +2,8 @@ import styled from '@emotion/styled';
 
 export const SideBar = styled.div`
   width: 7.875rem;
-  min-height: 100vh;
-  box-shadow: var(--navigation-bs) !important;
-  background: var(--navigation-gr);
+  box-shadow: ${({ theme }) => theme.colors.navigationBs} !important;
+  background: ${({ theme }) => theme.colors.navigationGr};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,18 +11,16 @@ export const SideBar = styled.div`
   padding: 2rem 0rem;
 `;
 
-export const AddButton = styled.div`
+export const AddButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   transition: transform 0.2s;
-  background-color: var(--input);
+  background-color: ${({ theme }) => theme.colors.input};
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
-  border: 3px dashed var(--light-gray);
-  box-sizing: border-box;
+  border: 3px dashed ${({ theme }) => theme.colors.lightGray};
 
   &:hover {
     transform: scale(1.1);
@@ -38,17 +35,16 @@ export const AddButton = styled.div`
     height: 5rem;
     flex-shrink: 0;
     transition: background-color 0.2s;
-    color: var(--light-gray);
+    color: ${({ theme }) => theme.colors.lightGray};
   }
 `;
 
-export const ProfileButton = styled.div`
+export const ProfileButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   transition: transform 0.2s;
-  background-color: var(--icon);
+  background-color: ${({ theme }) => theme.colors.icon};
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
@@ -66,7 +62,7 @@ export const ProfileButton = styled.div`
     height: 3.125rem;
     flex-shrink: 0;
     transition: background-color 0.2s;
-    color: var(--light-gray);
+    color: ${({ theme }) => theme.colors.lightGray};
   }
 `;
 
@@ -75,14 +71,10 @@ export const BoardItem = styled.div`
   height: 5rem;
   margin-bottom: 2rem;
   border-radius: 50%;
-  background: var(--input);
+  background-color: ${({ theme }) => theme.colors.input};
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--white);
-  font-family: 'Pretendard';
-  font-size: 1rem;
-  font-weight: 700;
-  text-align: center;
-  line-height: normal;
+  color: ${({ theme }) => theme.colors.text};
+  ${({ theme }) => theme.fonts.body1};
 `;

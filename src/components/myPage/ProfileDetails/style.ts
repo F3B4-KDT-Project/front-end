@@ -6,27 +6,11 @@ export const ProfileInfoDetails = styled.div`
   gap: 1.5rem;
 
   label {
-    color: var(--light-gray);
-    font-family: 'Pretendard';
-    font-size: 1.375rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    letter-spacing: -0.06875rem;
+    color: ${({ theme }) => theme.colors.lightGray};
+    ${({ theme }) => theme.fonts.title2};
     display: flex;
     align-items: center;
     gap: 1rem;
-
-    button {
-      background: none;
-      border: none;
-      cursor: pointer;
-
-      .icon_edit {
-        width: 1.5rem;
-        height: 1.5rem;
-      }
-    }
   }
 `;
 
@@ -40,29 +24,19 @@ export const EditInfo = styled.div`
     height: 3.4375rem;
     border: none;
     border-radius: 1.0625rem;
-    background: var(--gray, #5a5a5a);
-    cursor: pointer;
+    background: ${({ theme }) => theme.colors.gray};
 
-    color: var(--white, #fff);
-    font-family: 'Pretendard';
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: -0.025rem;
+    color: ${({ theme }) => theme.colors.white};
+    ${({ theme }) => theme.fonts.button2};
 
     &:hover {
-      background: var(--light-gray);
-      color: var(--background);
+      background: ${({ theme }) => theme.colors.lightGray};
+      color: ${({ theme }) => theme.colors.background};
     }
   }
 `;
 
 export const ProfileInfoDetailsContent = styled.div`
-  color: #fff;
-  font-family: 'Pretendard';
-  font-size: 1.625rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  color: ${({ theme }) => theme.colors.text};
+  ${({ theme }) => theme.fonts.body7};
 `;

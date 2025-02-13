@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container,Body } from './style';
+import { Container, Body } from './style';
 import Header from '../../components/post/Header';
-import IdeEditor from '../../components/post/Editor/IdeEditor';
+import IdeEditor from '../../components/post/Editor';
 import Chat from '../../components/post/Chat';
 
 const Post: React.FC = () => {
@@ -40,4 +40,3 @@ const Post: React.FC = () => {
 };
 
 export default Post;
-
