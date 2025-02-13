@@ -1,4 +1,5 @@
 import { Theme } from '@emotion/react';
+import { fonts } from './fonts';
 
 export interface MyTheme extends Theme {
   colors: {
@@ -23,6 +24,7 @@ export interface MyTheme extends Theme {
     navigationGr: string;
     navigationBs: string;
   };
+  fonts: typeof fonts;
 }
 
 export const darkTheme: MyTheme = {
@@ -50,6 +52,7 @@ export const darkTheme: MyTheme = {
     navigationBs:
       '4px 0px 10px 5px rgba(0, 0, 0, 0.25), 0px 0px 4px 0px rgba(180, 180, 180, 0.25) inset',
   },
+  fonts,
 };
 
 export const lightTheme: MyTheme = {
@@ -76,4 +79,5 @@ export const lightTheme: MyTheme = {
     navigationBs:
       '4px 0px 10px 5px var(--wh_nav_dpshd, rgba(255, 255, 255, 0.5)), 0px 0px 4px 0px var(--bg_board_select, rgba(22, 22, 22, 0.35)) inset',
   },
+  fonts,
 };
