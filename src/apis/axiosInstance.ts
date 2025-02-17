@@ -32,7 +32,7 @@ const refreshAccessToken = async (): Promise<string | null> => {
     console.error('토큰 재발급 실패:', error);
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    location.href = '/sign-in';
+    // location.href = '/sign-in';
     return null;
   }
 };
