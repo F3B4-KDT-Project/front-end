@@ -1,8 +1,10 @@
 import React from 'react';
-import { Container, Body } from './style';
+
 import Header from '../../components/post/Header';
 import IdeEditor from '../../components/post/Editor';
 import Chat from '../../components/post/Chat';
+import { Body, Container } from './style';
+import { usePostDetail } from '../../hooks/Posts/usePostDetail';
 
 const Post: React.FC = () => {
   /* 추후 api 연동으로 변경*/
@@ -18,6 +20,8 @@ const Post: React.FC = () => {
     value: `// [FE] 모달창 컴포넌트 만들기2 code`,
     theme: 'custom-dark',
   };
+  const { data } = usePostDetail(1);
+  console.log(data);
 
   return (
     <Container>

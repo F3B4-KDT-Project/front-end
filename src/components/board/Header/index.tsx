@@ -13,11 +13,7 @@ import {
   Title,
 } from './style';
 
-interface BoardHeader {
-  boardName: string;
-}
-
-const Header: React.FC<BoardHeader> = ({ boardName }) => {
+const Header: React.FC<{ boardName: string }> = ({ boardName }) => {
   const [isEditBoardModalOpen, setEditBoardModalOpen] = useState(false);
   const [isDeleteBoardModalOpen, setDeleteBoardModalOpen] = useState(false);
   const [isAddPostModalOpen, setAddPostModalOpen] = useState(false);
@@ -29,10 +25,10 @@ const Header: React.FC<BoardHeader> = ({ boardName }) => {
           <Board>{boardName}</Board>
         </Title>
         <EditButton onClick={() => setEditBoardModalOpen(true)}>
-          <BsThreeDotsVertical />
+          <BsThreeDotsVertical size="1.5rem" />
         </EditButton>
         <DeleteButton onClick={() => setDeleteBoardModalOpen(true)}>
-          <BsTrashFill />
+          <BsTrashFill size="1.5rem" />
         </DeleteButton>
       </Info>
       <CreateButton onClick={() => setAddPostModalOpen(true)}>

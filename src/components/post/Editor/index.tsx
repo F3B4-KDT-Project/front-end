@@ -4,7 +4,7 @@ import * as monaco from 'monaco-editor';
 import { IdeEditorProps, CustomTheme } from '../../../models/Editor.type';
 import { Container, ButtonContainer, CopyButton, SaveButton } from './style';
 import { BsFiles, BsDownload } from 'react-icons/bs';
-import useIdeWebsocket from '../../../hooks/Post/useIdeWebsocket';
+import useIdeWebsocket from '../../../hooks/Chat/useIdeWebsocket';
 // import { Client } from '@stomp/stompjs';
 import { useTheme } from '@emotion/react';
 
@@ -20,13 +20,14 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
   const myTheme = useTheme();
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null); // 코드 복사, 저장 : 명시적으로 monaco.editor.IStandaloneCodeEditor 타입 지정
   const [themeLoaded, setThemeLoaded] = useState(false);
-  
+
   const postId = 1;
   // const id = 1;
   // const token = `Bearer ${localStorage.getItem('accessToken')}`;
-  const token='eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IlVTRVIiLCJleHAiOjE3Mzk2OTc0MjMsImlhdCI6MTczOTY5MzgyM30.7vSb7mRm3-byiJKRl4tsU-Fu3NCxCkGHResws-AalJE'
+  const token =
+    'eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IlVTRVIiLCJleHAiOjE3Mzk2OTc0MjMsImlhdCI6MTczOTY5MzgyM30.7vSb7mRm3-byiJKRl4tsU-Fu3NCxCkGHResws-AalJE';
 
-  const {receivedCode, sendMessage} = useIdeWebsocket({postId,token});
+  const { receivedCode, sendMessage } = useIdeWebsocket({ postId, token });
 
   useEffect(() => {
     // 2️⃣ JSON 테마 파일 로드 및 Monaco Editor 초기화
@@ -56,8 +57,12 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
     loadCustomTheme();
   }, []);
 
-  if(!themeLoaded){
-    return <div style={{color:"#000"}}>코드를 불러오는 중입니다! 잠시만 기다려주세요!</div>
+  if (!themeLoaded) {
+    return (
+      <div style={{ color: '#000' }}>
+        코드를 불러오는 중입니다! 잠시만 기다려주세요!
+      </div>
+    );
   }
 
   const handleEditorMount = (editor: monaco.editor.IStandaloneCodeEditor) => {

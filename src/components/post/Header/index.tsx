@@ -1,13 +1,18 @@
 import React from 'react';
-
-import { BsTrashFill, BsThreeDotsVertical } from 'react-icons/bs';
-import { Board, Container, Info, Post, Title } from './style';
-import { useTheme } from '@emotion/react';
 import { PostHeader } from '../../../models/PostHeader.type';
-import { deletePost } from '../../../apis/postInstance';
+import { BsTrashFill, BsThreeDotsVertical } from 'react-icons/bs';
+import {
+  Board,
+  Container,
+  DeleteButton,
+  EditButton,
+  Info,
+  Post,
+  Title,
+} from './style';
+import { deletePost } from '../../../apis/Posts/postApi';
 
 const Header: React.FC<PostHeader> = ({ boardId, postId }) => {
-  const theme = useTheme();
   const handleEditButton = () => {
     /* 추후 api 연동 */
     alert('수정하기 버튼을 눌렀습니다.');
@@ -15,8 +20,7 @@ const Header: React.FC<PostHeader> = ({ boardId, postId }) => {
 
   const handleDeleteButton = async () => {
     try {
-      const postData = { boardId, postId };
-      const response = await deletePost(postData);
+      const response = await deletePost(postId);
       console.log('[ API ] Delete Post : ', response);
       alert('[ API ] Delete Post');
     } catch (error) {
@@ -32,13 +36,13 @@ const Header: React.FC<PostHeader> = ({ boardId, postId }) => {
           <Board>{boardId}</Board>
           <Post>{postId}</Post>
         </Title>
-        <button onClick={handleEditButton}>
-          <BsThreeDotsVertical size="1.5rem" color={theme.colors.lightGray} />
-        </button>
+        <EditButton onClick={handleEditButton}>
+          <BsThreeDotsVertical size="1.5rem" />
+        </EditButton>
       </Info>
-      <button onClick={handleDeleteButton}>
-        <BsTrashFill size="1.5rem" color={theme.colors.gray} />
-      </button>
+      <DeleteButton onClick={handleDeleteButton}>
+        <BsTrashFill size="1.5rem" />
+      </DeleteButton>
     </Container>
   );
 };
