@@ -5,7 +5,7 @@ import {
   ProfileInfoDetailsContent,
 } from './style';
 import { BsPencilFill } from 'react-icons/bs';
-import { Input } from '../../common/Input';
+import { Input } from '../Input';
 import { ProfileDetailsProps } from '../../../models/MyPage';
 import { useTheme } from '@emotion/react';
 
