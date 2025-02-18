@@ -47,7 +47,7 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
       localStorage.removeItem('refreshToken');
 
       alert('아이디가 변경되었습니다. 다시 로그인해주세요.');
-      location.href = '/sign-in';
+      location.href = '/login';
     } catch (error) {
       console.error('아이디 수정 실패', error);
     }
