@@ -1,11 +1,13 @@
 import { IoIosCalendar } from 'react-icons/io';
 import { TaskCardProps } from '../../../models/Calendar';
 import TaskCard from '../TaskCard';
+import 'react-calendar/dist/Calendar.css';
 import {
   AddTaskButton,
   CalendarBox,
   CalendarHeader,
   Container,
+  CostomCalendar,
   TaskList,
 } from './style';
 
@@ -23,7 +25,18 @@ const Calendar = () => {
         <IoIosCalendar />
         <h2>Calendar</h2>
       </CalendarHeader>
-      <CalendarBox></CalendarBox>
+      <CalendarBox>
+        <CostomCalendar
+          formatMonthYear={(_, date) =>
+            `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}`
+          }
+          formatDay={(_, date) => String(date.getDate()).padStart(2, '0')}
+          prev2Label={null}
+          next2Label={null}
+          minDate={new Date()}
+          tileClassName={({ date }) => (date < new Date() ? 'past-date' : '')}
+        />
+      </CalendarBox>
       <TaskList>
         {dummyTasks.map((task, index) => (
           <TaskCard
