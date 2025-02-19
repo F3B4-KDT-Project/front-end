@@ -15,9 +15,9 @@ export interface PostResponse {
   roomId: number;
 }
 
-export interface Post {
+export interface PostProps {
   id: number;
-  boardId: number;
+  boardId: string; // number -> string으로 변경
   name: string;
   language: string;
   filePath: string;
