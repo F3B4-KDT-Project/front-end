@@ -1,9 +1,9 @@
-import { CreatePostRequest, Post } from '../../models/Post';
+import { CreatePostRequest, PostProps } from '../../models/Post';
 import { http } from '../httpClient';
 
 // 전체 게시글 조회
-export const fetchPosts = async (boardId: number): Promise<Post[]> => {
-  const response = await http.get<Post[]>('/api/posts', {
+export const fetchPosts = async (boardId: number): Promise<PostProps[]> => {
+  const response = await http.get<PostProps[]>('/api/posts', {
     params: {
       boardId,
     },
@@ -14,14 +14,14 @@ export const fetchPosts = async (boardId: number): Promise<Post[]> => {
 // 게시글 생성
 export const createPost = async (
   postData: CreatePostRequest
-): Promise<Post> => {
-  const data = await http.post<Post>('/api/posts', postData);
+): Promise<PostProps> => {
+  const data = await http.post<PostProps>('/api/posts', postData);
   return data;
 };
 
 // 게시글 조회
-export const fetchPostDetail = async (id: number): Promise<Post> => {
-  const response = await http.get<Post>(`/api/posts/${id}`);
+export const fetchPostDetail = async (id: number): Promise<PostProps> => {
+  const response = await http.get<PostProps>(`/api/posts/${id}`);
   return response;
 };
 
