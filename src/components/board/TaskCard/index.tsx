@@ -1,17 +1,24 @@
 import { TaskCardProps } from '../../../models/Calendar';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import {
+  Container,
+  OptionsButton,
+  TaskContent,
+  TaskName,
+  TaskTime,
+} from './style';
 
 const TaskCard = ({ taskName, taskTime }: TaskCardProps) => {
   return (
-    <div>
-      <div>
-        <p>{taskName}</p>
-        <p>{taskTime}</p>
-      </div>
-      <button>
+    <Container>
+      <TaskContent>
+        <TaskName>{taskName}</TaskName>
+        <TaskTime>{taskTime}</TaskTime>
+      </TaskContent>
+      <OptionsButton>
         <BsThreeDotsVertical />
-      </button>
-    </div>
+      </OptionsButton>
+    </Container>
   );
 };
 
