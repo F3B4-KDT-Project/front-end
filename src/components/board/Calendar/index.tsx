@@ -1,6 +1,13 @@
 import { IoIosCalendar } from 'react-icons/io';
 import { TaskCardProps } from '../../../models/Calendar';
 import TaskCard from '../TaskCard';
+import {
+  AddTaskButton,
+  CalendarBox,
+  CalendarHeader,
+  Container,
+  TaskList,
+} from './style';
 
 // 더미 데이터
 const dummyTasks: TaskCardProps[] = [
@@ -11,13 +18,13 @@ const dummyTasks: TaskCardProps[] = [
 
 const Calendar = () => {
   return (
-    <div>
-      <div>
+    <Container>
+      <CalendarHeader>
         <IoIosCalendar />
         <h2>Calendar</h2>
-      </div>
-      <div></div>
-      <div>
+      </CalendarHeader>
+      <CalendarBox></CalendarBox>
+      <TaskList>
         {dummyTasks.map((task, index) => (
           <TaskCard
             key={index}
@@ -25,9 +32,11 @@ const Calendar = () => {
             taskTime={task.taskTime}
           />
         ))}
-      </div>
-      <button>일정 추가</button>
-    </div>
+      </TaskList>
+      <AddTaskButton>
+        <p>일정 추가</p>
+      </AddTaskButton>
+    </Container>
   );
 };
 
