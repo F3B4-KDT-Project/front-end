@@ -7,13 +7,14 @@ import { BsFiles, BsDownload } from 'react-icons/bs';
 import useIdeWebsocket from '../../../hooks/Chat/useIdeWebsocket';
 // import { Client } from '@stomp/stompjs';
 import { useTheme } from '@emotion/react';
+import { IdeCodeSaveApi } from '../../../apis/Ide/ideApi';
 
 const IdeEditor: React.FC<IdeEditorProps> = ({
   defaultLanguage,
   defaultValue,
   language,
   // value,
-  theme,
+  // theme,/
   boardName,
   postName,
 }) => {
@@ -98,9 +99,10 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
       const currentCode = editorRef.current.getValue();
       try {
         alert(`${boardName} - ${postName} 에 저장되었습니다.`);
-        console.log('save currentCode : \n', currentCode);
+        console.log('✅ save currentCode : \n', currentCode);
+        IdeCodeSaveApi(postId,token)
       } catch (error) {
-        console.error('코드 저장 실패');
+        console.error('[ ❌ 실패 ] 코드 저장 실패');
       }
     } else {
       console.log('editor가 초기화 되지 않음.');
@@ -116,7 +118,7 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
         defaultValue={defaultValue}
         language={language}
         value={receivedCode}
-        theme={theme}
+        theme={'vs-dark'}
         onMount={handleEditorMount}
         options={{
           minimap: { enabled: false },
