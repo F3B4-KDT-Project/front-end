@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
-import { CreatePostRequest, Post } from '../../models/Post';
+import { CreatePostRequest, PostProps } from '../../models/Post';
 import { createPost } from '../../apis/Posts/postApi';
 import { useNavigate } from 'react-router-dom';
 
 export const useCreatePost = () => {
   const navigate = useNavigate();
-  return useMutation<Post, Error, CreatePostRequest>({
+  return useMutation<PostProps, Error, CreatePostRequest>({
     mutationFn: createPost,
-    onSuccess: (data: Post) => {
+    onSuccess: (data: PostProps) => {
       navigate(`/${data.boardId}/${data.id}`);
     },
     onError: (error) => {
