@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from '../../components/post/Header';
 import IdeEditor from '../../components/post/Editor';
@@ -8,23 +8,23 @@ import { usePostDetail } from '../../hooks/Posts/usePostDetail';
 
 import { PostProps } from '../../models/Post';
 import {fetchPostDetail} from '../../apis/Posts/postApi';
-import {GetIdeCodeProps} from '../../models/Ide';
-import {GetIdeCodeApi} from '../../apis/Ide/ideApi';
+// import {GetIdeCodeProps} from '../../models/Ide';
+// import {GetIdeCodeApi} from '../../apis/Ide/ideApi';
 
-const Post: React.FC = () => {
+const Post = () => {
   /* 추후 api 연동으로 변경*/
-  const dummyData = {
-    // props api와 일치
-    name: '[FE] 모달창 컴포넌트 만들기2',
-    language: 'javascript',
+  // const dummyData = {
+  //   // props api와 일치
+  //   name: '[FE] 모달창 컴포넌트 만들기2',
+  //   language: 'javascript',
 
-    // props api와 미일치
-    boardName: '9oorm_KDT-2',
-    defaultValue: '// [FE] 모달창 컴포넌트 만들기2',
-    change_language: 'javascript',
-    value: `// [FE] 모달창 컴포넌트 만들기2 code`,
-    theme: 'custom-dark',
-  };
+  //   // props api와 미일치
+  //   boardName: '9oorm_KDT-2',
+  //   defaultValue: '// [FE] 모달창 컴포넌트 만들기2',
+  //   change_language: 'javascript',
+  //   value: `// [FE] 모달창 컴포넌트 만들기2 code`,
+  //   theme: 'custom-dark',
+  // };
   const { data } = usePostDetail(1);
   console.log(data);
 
@@ -32,7 +32,7 @@ const Post: React.FC = () => {
   const [postData, setPostData] = useState<PostProps | null>(null);
 
   // api IDE 코드 데이터 상태
-  const [code, setCode] = useState<GetIdeCodeProps[]| null>(null);
+  // const [code, setCode] = useState<GetIdeCodeProps[]| null>(null);
 
   const postId = 1;
   
@@ -57,16 +57,16 @@ const Post: React.FC = () => {
 
     getData()
 
-    const getCodeData = async() => {
-      // 토근
-      const token = localStorage.getItem('accessToken');
-      try{
-        const codeData = await GetIdeCodeApi(postId,token);
+    // const getCodeData = async() => {
+    //   // 토근
+    //   const token = localStorage?.getItem('accessToken');
+    //   try{
+    //     const codeData = await GetIdeCodeApi(postId,token);
         
-      } catch (error) {
+    //   } catch (error) {
 
-      }
-    }
+    //   }
+    // }
   },[])
 
   if(!postData){
@@ -85,12 +85,13 @@ const Post: React.FC = () => {
           boardName={postData.boardId}
           postName={postData.name}
           defaultLanguage={postData.language}
-          defaultValue={postData.value}
+          // api 통신으로 받아와야함
+          defaultValue={'// api 통신으로 받아와야함'}
           language={postData.language}
 
-          // 다시 통신해서 받아와야함.s
-          value={postData.value}
-          theme={}
+          // 다시 통신해서 받아와야함.
+          value={'// api 통신으로 받아와야함'}
+          // theme={}
         />
 
         <Chat />
