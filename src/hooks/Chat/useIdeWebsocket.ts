@@ -38,7 +38,7 @@ const useIdeWebsocket = ({ postId, token }: useIdeWebsocketProps) => {
         console.error(`[❌ STOMP 오류]`, frame);
         if (frame.headers?.message?.includes('not authenticated')) {
           alert('세션 만료. 다시 로그인해주세요.');
-          window.location.href = '/sign-in';
+          window.location.href = '/login';
         }
       },
       onDisconnect: () => {

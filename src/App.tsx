@@ -2,8 +2,7 @@
 import { ThemeProvider } from '@emotion/react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { darkTheme, lightTheme } from './styles/theme';
-import SignUp from './pages/SignUp';
-import SignIn from './pages/SignIn';
+import Login from './pages/Login';
 import Board from './pages/Board';
 import Post from './pages/Post';
 import MyPage from './pages/MyPage';
@@ -18,7 +17,7 @@ import GlobalStyles from './styles/GlobalStyle';
 //   useEffect(() => {
 //     const token = localStorage.getItem('accessToken'); // 토큰 가져오기
 //     if (!token) {
-//       navigate('/sign-in', { replace: true }); // 토큰이 없으면 로그인 페이지로 이동
+//       navigate('/login', { replace: true }); // 토큰이 없으면 로그인 페이지로 이동
 //     }
 //   }, [navigate]);
 
@@ -27,7 +26,7 @@ import GlobalStyles from './styles/GlobalStyle';
 
 function App() {
   const location = useLocation(); // 현재 경로 가져오기
-  const hiddenPaths: string[] = ['/sign-in', '/sign-up']; // 사이드바 숨길 경로
+  const hiddenPaths: string[] = ['/login']; // 사이드바 숨길 경로
 
   const shouldShowSidebar = !hiddenPaths.includes(location.pathname); // 숨길 경로에 해당하지 않을 때만 true
 
@@ -51,8 +50,7 @@ function App() {
         {shouldShowSidebar && <Sidebar />}
         <ContentWrapper>
           <Routes>
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/login" element={<Login />} />
 
             <Route
               path="/"
