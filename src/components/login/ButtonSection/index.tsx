@@ -2,7 +2,7 @@ import React from 'react';
 import kakaoLogin from '../../../assets/icons/kakao_login_medium_wide.png';
 import { LoginSection } from './style';
 
-export const ButtonSection = () => {
+export const ButtonSection: React.FC = () => {
   return (
     <LoginSection>
       <button>
