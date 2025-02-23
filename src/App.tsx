@@ -10,6 +10,7 @@ import Sidebar from './components/layout/sideBar';
 import { AppContainer, ContentWrapper } from './components/layout/style';
 import { useState } from 'react';
 import GlobalStyles from './styles/GlobalStyle';
+import KakaoCallback from './pages/Login/KakaoCallback';
 
 // const RequireAuth = ({ children }: { children: JSX.Element }) => {
 //   const navigate = useNavigate();
@@ -26,7 +27,7 @@ import GlobalStyles from './styles/GlobalStyle';
 
 function App() {
   const location = useLocation(); // 현재 경로 가져오기
-  const hiddenPaths: string[] = ['/login']; // 사이드바 숨길 경로
+  const hiddenPaths: string[] = ['/login', '/kakao/callback']; // 사이드바 숨길 경로
 
   const shouldShowSidebar = !hiddenPaths.includes(location.pathname); // 숨길 경로에 해당하지 않을 때만 true
 
@@ -51,6 +52,7 @@ function App() {
         <ContentWrapper>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/kakao/callback" element={<KakaoCallback />} />
 
             <Route
               path="/"
