@@ -5,11 +5,11 @@ export interface UserProfileResponse {
   profileImage: string;
 }
 
-export interface SignInRequest {
+export interface LogInRequest {
   authorizationCode: string;
 }
 
-export interface SignInResponse {
+export interface LogInResponse {
   memberId: number;
   nickName: string;
   profileImage: string;
