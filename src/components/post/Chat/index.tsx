@@ -1,6 +1,12 @@
 import React, { useRef } from 'react';
-import { BsArrowUpCircleFill } from 'react-icons/bs';
-import { ChatSection, Container, InputSection } from './style';
+import { BsArrowUpCircleFill, BsPlusSquareFill } from 'react-icons/bs';
+import {
+  ChatSection,
+  Container,
+  InputContainer,
+  InputImageLabel,
+  InputSection,
+} from './style';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Message } from '../../../models/ChatData.type';
 import { Client } from '@stomp/stompjs';
@@ -107,12 +113,19 @@ const Chat: React.FC = () => {
           ))}
       </ChatSection>
       <InputSection>
-        <textarea
-          value={chat}
-          onChange={handleChange}
-          onKeyDown={handleEnterKey}
-        />
-        <BsArrowUpCircleFill onClick={handleSend} />
+        <input type="file" id="fileInput" />
+        <InputImageLabel htmlFor="fileInput">
+          <BsPlusSquareFill />
+        </InputImageLabel>
+
+        <InputContainer>
+          <textarea
+            value={chat}
+            onChange={handleChange}
+            onKeyDown={handleEnterKey}
+          />
+          <BsArrowUpCircleFill onClick={handleSend} />
+        </InputContainer>
       </InputSection>
     </Container>
   );

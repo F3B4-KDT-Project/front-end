@@ -10,6 +10,7 @@ import Sidebar from './components/layout/sideBar';
 import { AppContainer, ContentWrapper } from './components/layout/style';
 import { useState } from 'react';
 import GlobalStyles from './styles/GlobalStyle';
+import Chat from './components/post/Chat';
 
 // const RequireAuth = ({ children }: { children: JSX.Element }) => {
 //   const navigate = useNavigate();
@@ -72,7 +73,7 @@ function App() {
               path="/:boardId/:postId"
               element={
                 // <RequireAuth>
-                <Post />
+                <Chat />
                 // </RequireAuth>
               }
             />
