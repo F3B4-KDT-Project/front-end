@@ -6,6 +6,7 @@ import {
   InputContainer,
   InputImageLabel,
   InputSection,
+  PreviewImage,
 } from './style';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Message } from '../../../models/ChatData.type';
@@ -19,6 +20,8 @@ const Chat: React.FC = () => {
   const stompClient = useRef<Client | null>(null);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [chat, setChat] = useState<string>(``);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>('');
 
   const location = useLocation();
   const roomId = location.state?.roomId;
@@ -68,6 +71,20 @@ const Chat: React.FC = () => {
     }
   }, [data]);
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setChat('');
+
+    if (file) {
+      setSelectedImage(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setChat(e.target.value);
   };
@@ -113,17 +130,24 @@ const Chat: React.FC = () => {
           ))}
       </ChatSection>
       <InputSection>
-        <input type="file" id="fileInput" />
+        <input type="file" id="fileInput" onChange={handleFileChange} />
         <InputImageLabel htmlFor="fileInput">
           <BsPlusSquareFill />
         </InputImageLabel>
 
         <InputContainer>
-          <textarea
-            value={chat}
-            onChange={handleChange}
-            onKeyDown={handleEnterKey}
-          />
+          {previewUrl ? (
+            <PreviewImage>
+              <img src={previewUrl} alt="미리보기" />
+            </PreviewImage>
+          ) : (
+            <textarea
+              value={chat}
+              rows={1}
+              onChange={handleChange}
+              onKeyDown={handleEnterKey}
+            />
+          )}
           <BsArrowUpCircleFill onClick={handleSend} />
         </InputContainer>
       </InputSection>

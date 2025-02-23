@@ -31,7 +31,6 @@ export const ChatSection = styled.div`
 
 export const InputSection = styled.form`
   width: 100%;
-  height: 9%;
 
   border-radius: 0.9375rem;
   background: ${({ theme }) => theme.colors.input};
@@ -92,5 +91,16 @@ export const InputContainer = styled.div`
 
   > svg:hover {
     cursor: pointer;
+  }
+`;
+
+export const PreviewImage = styled.div`
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.9375rem;
+
+  > img {
+    max-width: 13rem;
+    border-radius: 0.9375rem;
   }
 `;
