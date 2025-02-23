@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { ThemeProvider } from '@emotion/react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { darkTheme, lightTheme } from './styles/theme';
 import Login from './pages/Login';
 import Board from './pages/Board';
@@ -8,22 +8,22 @@ import Post from './pages/Post';
 import MyPage from './pages/MyPage';
 import Sidebar from './components/layout/sideBar';
 import { AppContainer, ContentWrapper } from './components/layout/style';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import GlobalStyles from './styles/GlobalStyle';
 import KakaoCallback from './pages/Login/KakaoCallback';
 
-// const RequireAuth = ({ children }: { children: JSX.Element }) => {
-//   const navigate = useNavigate();
+const RequireAuth = ({ children }: { children: JSX.Element }) => {
+  const navigate = useNavigate();
 
-//   useEffect(() => {
-//     const token = localStorage.getItem('accessToken'); // 토큰 가져오기
-//     if (!token) {
-//       navigate('/login', { replace: true }); // 토큰이 없으면 로그인 페이지로 이동
-//     }
-//   }, [navigate]);
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken'); // 토큰 가져오기
+    if (!token) {
+      navigate('/login', { replace: true }); // 토큰이 없으면 로그인 페이지로 이동
+    }
+  }, [navigate]);
 
-//   return children;
-// };
+  return children;
+};
 
 function App() {
   const location = useLocation(); // 현재 경로 가져오기
@@ -57,36 +57,36 @@ function App() {
             <Route
               path="/"
               element={
-                // <RequireAuth>
-                <Board />
-                // </RequireAuth>
+                <RequireAuth>
+                  <Board />
+                </RequireAuth>
               }
             />
             <Route
               path="/:boardId"
               element={
-                // <RequireAuth>
-                <Board />
-                // </RequireAuth>
+                <RequireAuth>
+                  <Board />
+                </RequireAuth>
               }
             />
             <Route
               path="/:boardId/:postId"
               element={
-                // <RequireAuth>
-                <Post />
-                // </RequireAuth>
+                <RequireAuth>
+                  <Post />
+                </RequireAuth>
               }
             />
             <Route
               path="/my-page"
               element={
-                // <RequireAuth>
-                <MyPage
-                  isDarkMode={isDarkMode}
-                  setIsDarkMode={handleThemeChange}
-                />
-                //  </RequireAuth>
+                <RequireAuth>
+                  <MyPage
+                    isDarkMode={isDarkMode}
+                    setIsDarkMode={handleThemeChange}
+                  />
+                </RequireAuth>
               }
             />
           </Routes>
