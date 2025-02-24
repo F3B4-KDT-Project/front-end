@@ -76,6 +76,12 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
 
           <ProfileInfo>
             <ProfileDetails
+              label="사용자 초대 코드"
+              value={data?.kakaoId ?? ''}
+              detail={data?.kakaoId ?? ''}
+            />
+
+            <ProfileDetails
               label="사용자 아이디"
               isEditing={isEditingId}
               setIsEditing={setIsEditingId}
