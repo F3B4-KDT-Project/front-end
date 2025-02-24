@@ -1,5 +1,6 @@
 import React from 'react';
 import { Item } from './Item';
+import { ItemList, NotificationContainer } from './style';
 
 export const Notification: React.FC = () => {
   const notifications = [
@@ -21,13 +22,13 @@ export const Notification: React.FC = () => {
   ];
 
   return (
-    <div>
+    <NotificationContainer>
       <div>| 알림</div>
-      <ul>
+      <ItemList>
         {notifications.map((notification, index) => (
           <Item key={index} {...notification} />
         ))}
-      </ul>
-    </div>
+      </ItemList>
+    </NotificationContainer>
   );
 };
