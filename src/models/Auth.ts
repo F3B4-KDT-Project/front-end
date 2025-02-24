@@ -1,8 +1,8 @@
 export interface UserProfileResponse {
-  loginId: string;
   memberId: number;
   nickName: string;
   profileImage: string;
+  kakaoId: string;
 }
 
 export interface LogInRequest {
