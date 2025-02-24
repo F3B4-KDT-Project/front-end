@@ -24,11 +24,14 @@ export const ProfileDetails: React.FC<ProfileDetailsProps> = ({
     <ProfileInfoDetails>
       <label htmlFor="id">
         | {label}
-        <button onClick={() => setIsEditing(true)} aria-label={`${label} 수정`}>
+        <button
+          onClick={() => setIsEditing && setIsEditing(true)}
+          aria-label={`${label} 수정`}
+        >
           <BsPencilFill size="1.5rem" color={theme.colors.lightGray} />
         </button>
       </label>
-      {isEditing ? (
+      {isEditing && setValue && placeholder ? (
         <EditInfo>
           <Input
             type="id"

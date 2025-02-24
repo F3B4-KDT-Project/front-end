@@ -5,12 +5,12 @@ export interface ProfileImageProps {
 
 export interface ProfileDetailsProps {
   label: string;
-  isEditing: boolean;
-  setIsEditing: (value: boolean) => void;
+  isEditing?: boolean;
+  setIsEditing?: (value: boolean) => void;
   value: string;
-  setValue: (value: string) => void;
-  placeholder: string;
-  handleChange: () => void;
+  setValue?: (value: string) => void;
+  placeholder?: string;
+  handleChange?: () => void;
   detail: string;
 }
 
