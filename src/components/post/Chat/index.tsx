@@ -15,6 +15,7 @@ import MessageCard from '../MessageCard';
 import { useChatHistory } from '../../../hooks/Chat/useChatHistory';
 import { useLocation } from 'react-router-dom';
 import { useUserProfile } from '../../../hooks/Auth/useUserProfile';
+import { useUploadImage } from '../../../hooks/Chat/useUploadImage';
 
 const Chat: React.FC = () => {
   const stompClient = useRef<Client | null>(null);
@@ -30,6 +31,8 @@ const Chat: React.FC = () => {
   const { data: userData } = useUserProfile();
   //채팅 내역 fetch
   const { data } = useChatHistory(roomId, token);
+
+  const { mutate: uploadImage } = useUploadImage(roomId, token);
 
   useEffect(() => {
     // Stomp 클라이언트 생성
@@ -99,12 +102,16 @@ const Chat: React.FC = () => {
   };
 
   const handleSend = (): void => {
-    if (!chat.trim()) {
+    if (!chat.trim() && !selectedImage) {
       return;
     }
 
-    if (stompClient.current?.connected) {
-      stompClient.current.publish({
+    if (selectedImage) {
+      uploadImage({ imageFile: selectedImage });
+      setSelectedImage(null);
+      setPreviewUrl('');
+    } else {
+      stompClient.current?.publish({
         destination: `/send/chat/${roomId}`,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -112,9 +119,9 @@ const Chat: React.FC = () => {
         body: JSON.stringify({ senderId: userData?.memberId, content: chat }),
       });
       console.log('보낸 메시지:', chat, '누가:', userData?.memberId);
-    }
 
-    setChat('');
+      setChat('');
+    }
   };
 
   return (

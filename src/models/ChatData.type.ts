@@ -18,3 +18,7 @@ export interface MessageCardProps {
 export interface MessageProps {
   isFlexRight: boolean;
 }
+
+export interface UploadImageRequest {
+  imageFile: File;
+}
