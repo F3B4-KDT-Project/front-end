@@ -5,7 +5,7 @@ import {
   MyPageHeader,
   MyPageHeaderUserName,
   ProfileInfo,
-  UserInfoSection,
+  UserInfoWrapper,
 } from './style';
 import { useUserProfile } from '../../hooks/Auth/useUserProfile';
 import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
@@ -13,6 +13,7 @@ import { ProfileImg } from '../../components/myPage/ProfileImage';
 import { ProfileDetails } from '../../components/myPage/ProfileDetails';
 import { ThemeSelection } from '../../components/myPage/ThemeSelection';
 import { ThemeSelectionProps } from '../../models/MyPage';
+import { Notification } from '../../components/myPage/Notification';
 
 const MyPage: React.FC<ThemeSelectionProps> = ({
   isDarkMode,
@@ -64,48 +65,48 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
       </MyPageHeader>
 
       <MyPageContent>
-        <UserInfoSection aria-labelledby="user-info">
-          <h2 id="user-info" style={{ display: 'none' }}>
-            사용자 정보
-          </h2>
-
+        <UserInfoWrapper aria-labelledby="user-info">
           <ProfileImg
             profileImage={data?.profileImage ?? ''}
             patchUserProfileImage={patchUserProfileImage}
           />
+          <ThemeSelection
+            isDarkMode={isDarkMode}
+            setIsDarkMode={setIsDarkMode}
+          />
+        </UserInfoWrapper>
 
-          <ProfileInfo>
-            <ProfileDetails
-              label="사용자 초대 코드"
-              value={data?.kakaoId ?? ''}
-              detail={data?.kakaoId ?? ''}
-            />
+        <UserInfoWrapper aria-labelledby="user-info">
+          <ProfileDetails
+            label="사용자 초대 코드"
+            value={data?.kakaoId ?? ''}
+            detail={data?.kakaoId ?? ''}
+          />
 
-            <ProfileDetails
-              label="사용자 아이디"
-              isEditing={isEditingId}
-              setIsEditing={setIsEditingId}
-              value={id}
-              setValue={setId}
-              placeholder="수정할 아이디를 입력하세요."
-              handleChange={handleIdChange}
-              detail={data?.loginId ?? ''}
-            />
+          <ProfileDetails
+            label="사용자 아이디"
+            isEditing={isEditingId}
+            setIsEditing={setIsEditingId}
+            value={id}
+            setValue={setId}
+            placeholder="수정할 아이디를 입력하세요."
+            handleChange={handleIdChange}
+            detail={data?.loginId ?? ''}
+          />
 
-            <ProfileDetails
-              label="사용자 닉네임"
-              isEditing={isEditingNickName}
-              setIsEditing={setIsEditingNickName}
-              value={nickName}
-              setValue={setNickName}
-              placeholder="수정할 닉네임을 입력하세요."
-              handleChange={handleNickNameChange}
-              detail={data?.nickName ?? ''}
-            />
-          </ProfileInfo>
-        </UserInfoSection>
+          <ProfileDetails
+            label="사용자 닉네임"
+            isEditing={isEditingNickName}
+            setIsEditing={setIsEditingNickName}
+            value={nickName}
+            setValue={setNickName}
+            placeholder="수정할 닉네임을 입력하세요."
+            handleChange={handleNickNameChange}
+            detail={data?.nickName ?? ''}
+          />
 
-        <ThemeSelection isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+          <Notification />
+        </UserInfoWrapper>
       </MyPageContent>
     </MyPageContainer>
   );
