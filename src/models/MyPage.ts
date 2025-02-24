@@ -28,3 +28,8 @@ export interface ThemeSelectionProps {
   isDarkMode: boolean;
   setIsDarkMode: (theme: boolean) => void;
 }
+
+export interface NotificationProps {
+  type: string;
+  message: string;
+}
