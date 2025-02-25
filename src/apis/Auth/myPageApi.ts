@@ -28,12 +28,3 @@ export const updateNickName = async (
     params: { nickName },
   });
 };
-
-// 아이디 수정
-export const updateLoginId = async (
-  loginId: string
-): Promise<UserProfileResponse> => {
-  return await http.patch('/api/auth/profile/login-id', null, {
-    params: { loginId },
-  });
-};
