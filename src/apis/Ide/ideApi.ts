@@ -21,7 +21,7 @@ export const IdeCodeSaveApi = async( postId:number, token:string ) => {
 //     })
 // }
 
-export const GetIdeCodeApi = (postId: number, token: string): Promise<GetIdeCodeProps[]> => 
+export const GetIdeCodeApi = (postId: number, token: string) : Promise<GetIdeCodeProps[]> => 
     http.get<GetIdeCodeProps[]>(`/api/posts/${postId}/content`, {
         headers: {
             Authorization: `Bearer ${token}`,

@@ -20,9 +20,10 @@ export const createPost = async (
 };
 
 // 게시글 조회
-export const fetchPostDetail = async (id: number): Promise<PostProps> => {
-  const response = await http.get<PostProps>(`/api/posts/${id}`);
-  return response;
+export const fetchPostDetail = async (postId: number): Promise<PostProps> => {
+  // const response = await http.get<PostProps>(`/api/posts/${postId}`);
+  // return response; 
+  return await http.get<PostProps>(`/api/posts/${postId}`);
 };
 
 // 게시글 수정
