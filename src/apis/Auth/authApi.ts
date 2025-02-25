@@ -1,19 +1,7 @@
-import {
-  SignInRequest,
-  SignInResponse,
-  SignUpRequest,
-  SignUpResponse,
-} from '../../models/Auth';
+import { LogInRequest, LogInResponse } from '../../models/Auth';
 import { http } from '../httpClient';
 
-export const loginApi = async (
-  loginData: SignInRequest
-): Promise<SignInResponse> => {
-  const data = await http.post<SignInResponse>('/api/auth/login', loginData);
+export const loginApi = async (code: LogInRequest): Promise<LogInResponse> => {
+  const data = await http.post<LogInResponse>('/api/auth/login', code);
   return data;
-};
-
-export const signUp = async (data: SignUpRequest): Promise<SignUpResponse> => {
-  const response = await http.post<SignUpResponse>('/api/auth/join', data);
-  return response;
 };

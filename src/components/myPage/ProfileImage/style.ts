@@ -17,8 +17,7 @@ export const ProfileImage = styled.div`
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 0.4375rem;
-    background: var(--gray);
-    border: none;
+    background: ${({ theme }) => theme.colors.gray};
     position: absolute;
     top: 18.25rem;
     right: 1.13rem;
@@ -26,11 +25,5 @@ export const ProfileImage = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-
-    .icon_image {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
   }
 `;

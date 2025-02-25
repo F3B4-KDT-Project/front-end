@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './apis/queryClient.ts';
 import App from './App.tsx';
-import './index.css';
 
 /* monaco-editor 세팅 */
 

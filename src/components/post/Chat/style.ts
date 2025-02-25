@@ -5,8 +5,8 @@ export const Container = styled.div`
   height: 46.125rem;
 
   border-radius: 0.9375rem;
-  background: var(--bc-gray, #5a5a5a);
-  box-shadow: 0px 0px 4px 0px var(--bc-background, #2b2b2b) inset;
+  background: ${({ theme }) => theme.colors.gray};
+  box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.background} inset;
 
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@ export const InputSection = styled.form`
   height: 9%;
 
   border-radius: 0.9375rem;
-  background: var(--bc-input, rgba(218, 218, 218, 0.35));
+  background: ${({ theme }) => theme.colors.input};
   box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.35);
 
   display: flex;
@@ -47,23 +47,18 @@ export const InputSection = styled.form`
 
     border: none;
     border-radius: 0.9375rem;
-    background: var(--bc-light-gray, #dadada);
+    background: ${({ theme }) => theme.colors.lightGray};
 
-    color: var(--bc-background, #2b2b2b);
-    font-family: 'Pretendard';
-    font-size: 1.375rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    color: ${({ theme }) => theme.colors.background};
+    ${({ theme }) => theme.fonts.input2};
   }
 
   > svg {
-    box-sizing: border-box;
     width: 15%;
     height: 100%;
     padding: 0.44rem;
 
     border: none;
-    fill: var(--bc-gray);
+    fill: ${({ theme }) => theme.colors.gray};
   }
 `;

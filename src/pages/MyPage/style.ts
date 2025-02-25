@@ -6,27 +6,22 @@ export const MyPageContainer = styled.div`
   gap: 2.25rem;
   width: auto;
   height: 100vh;
-  box-sizing: border-box;
   padding: 1.81rem 3rem 2.31rem 3.38rem;
 `;
 
 export const MyPageHeader = styled.header`
-  color: #fff;
-  text-shadow: 0px 0px 4px var(--black);
-  font-family: 'Pretendard';
-  font-size: 2.5rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  color: ${({ theme }) => theme.colors.text};
+  text-shadow: 0px 0px 4px ${({ theme }) => theme.colors.black};
+  ${({ theme }) => theme.fonts.header2}
 `;
 
 export const MyPageHeaderUserName = styled.span`
-  font-size: 4.0625rem;
+  ${({ theme }) => theme.fonts.header3}
 `;
 
 export const MyPageContent = styled.div`
   border-radius: 2.1875rem;
-  background: var(--container);
+  background: ${({ theme }) => theme.colors.container};
   height: 100%;
   display: flex;
   flex-direction: column;

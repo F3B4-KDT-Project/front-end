@@ -10,7 +10,6 @@ import {
 import {
   EmptyBoardContainer,
   Message,
-  IconWrapper,
   Description,
   BoardContainer,
   BodyContainer,
@@ -20,6 +19,8 @@ import {
   PageNumber,
 } from './style';
 import InvitePersonModal from '../../components/modals/InvitePersonModal';
+import { usePosts } from '../../hooks/Posts/usePosts';
+import { useTheme } from '@emotion/react';
 
 // 더미 데이터
 const dummyData = {
@@ -28,32 +29,82 @@ const dummyData = {
   hasPosts: true, // 게시글 존재 여부
   participants: 7, // 참여자 수
   posts: [
-    { id: 1, name: 'Github 세팅', date: '2025.01.12 14:32', badgeCount: 12 },
+    {
+      id: 1,
+      name: 'Github 세팅',
+      date: '2025.01.12 14:32',
+      badgeCount: 12,
+      boardId: 1,
+      postId: 1,
+      roomId: 1,
+    },
     {
       id: 2,
       name: '[FE] 모달창 컴포넌트 만들기',
       date: '2025.01.12 14:32',
       badgeCount: 3,
+      boardId: 1,
+      postId: 2,
+      roomId: 2,
     },
-    { id: 3, name: '[FE] 채팅 구현', date: '2025.01.12 14:32', badgeCount: 99 },
-    { id: 4, name: '[BE] 폴더 구조', date: '2025.01.12 14:32', badgeCount: 12 },
+    {
+      id: 3,
+      name: '[FE] 채팅 구현',
+      date: '2025.01.12 14:32',
+      badgeCount: 99,
+      boardId: 1,
+      postId: 3,
+      roomId: 3,
+    },
+    {
+      id: 4,
+      name: '[BE] 폴더 구조',
+      date: '2025.01.12 14:32',
+      badgeCount: 12,
+      boardId: 1,
+      postId: 4,
+      roomId: 4,
+    },
     {
       id: 5,
       name: '[BE] 라이브러리 세팅',
       date: '2025.01.12 14:32',
       badgeCount: 1,
+      boardId: 1,
+      postId: 5,
+      roomId: 5,
     },
-    { id: 6, name: '[FE] UI 구현', date: '2025.01.12 14:32', badgeCount: 35 },
-    { id: 7, name: '[FE] 아자자~', date: '2025.01.12 14:32', badgeCount: 12 },
+    {
+      id: 6,
+      name: '[FE] UI 구현',
+      date: '2025.01.12 14:32',
+      badgeCount: 35,
+      boardId: 1,
+      postId: 6,
+      roomId: 6,
+    },
+    {
+      id: 7,
+      name: '[FE] 아자자~',
+      date: '2025.01.12 14:32',
+      badgeCount: 12,
+      boardId: 1,
+      postId: 7,
+      roomId: 7,
+    },
   ],
 };
 
 const ITEMS_PER_PAGE = 6;
 
 const Board: React.FC = () => {
+  const theme = useTheme();
   const [isInvitePersonModalOpen, setInvitePersonModalOpen] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
+  const { data: posts } = usePosts(selectedBoardId || 0);
+  console.log(posts);
 
   const totalPages = Math.ceil(dummyData.posts.length / ITEMS_PER_PAGE);
 
@@ -68,13 +119,17 @@ const Board: React.FC = () => {
     currentPage * ITEMS_PER_PAGE
   );
 
+  const handleSelectBoard = (boardId: number) => {
+    setSelectedBoardId(boardId);
+    console.log(`선택한 보드 ID: ${boardId}`);
+  };
+
   // 게시판이 없을 때 화면
   if (!dummyData.hasBoard) {
+    handleSelectBoard;
     return (
       <EmptyBoardContainer>
-        <IconWrapper>
-          <BsFillEmojiWinkFill className="WinkIcon" />
-        </IconWrapper>
+        <BsFillEmojiWinkFill size="12.5rem" />
         <Message>
           아직 <strong>교실</strong>이 없어요.
         </Message>
@@ -93,9 +148,7 @@ const Board: React.FC = () => {
 
         {/* 게시글이 없을 때 */}
         <EmptyBoardContainer>
-          <IconWrapper>
-            <BsFillEmojiWinkFill className="WinkIcon" />
-          </IconWrapper>
+          <BsFillEmojiWinkFill size="12.5rem" />
           <Message>
             아직 <strong>수업</strong>이 없어요.
           </Message>
@@ -116,7 +169,7 @@ const Board: React.FC = () => {
       <BodyContainer>
         {/* 참여자 수 */}
         <Participants onClick={() => setInvitePersonModalOpen(true)}>
-          <BsFillPeopleFill className="PartIcon" />
+          <BsFillPeopleFill size="1.5rem" />
           {dummyData.participants}
         </Participants>
 
@@ -128,16 +181,18 @@ const Board: React.FC = () => {
               postName={post.name}
               date={post.date}
               badgeCount={post.badgeCount}
+              boardId={post.boardId}
+              postId={post.postId}
+              roomId={post.roomId}
             />
           ))}
         </PostList>
 
         {/* 페이지 번호 */}
         <Pagination>
-          <BsFillCaretLeftFill
-            className="left"
-            onClick={() => handlePageChange(currentPage - 1)}
-          />
+          <button onClick={() => handlePageChange(currentPage - 1)}>
+            <BsFillCaretLeftFill size="1.5rem" color={theme.colors.footer} />
+          </button>
           {[...Array(totalPages)].map((_, index) => (
             <PageNumber
               key={index}
@@ -147,10 +202,9 @@ const Board: React.FC = () => {
               {index + 1}
             </PageNumber>
           ))}
-          <BsFillCaretRightFill
-            className="right"
-            onClick={() => handlePageChange(currentPage + 1)}
-          />
+          <button onClick={() => handlePageChange(currentPage + 1)}>
+            <BsFillCaretRightFill size="1.5rem" color={theme.colors.footerAr} />
+          </button>
         </Pagination>
       </BodyContainer>
       <InvitePersonModal
