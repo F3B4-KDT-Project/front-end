@@ -4,7 +4,6 @@ import {
   MyPageContent,
   MyPageHeader,
   MyPageHeaderUserName,
-  ProfileInfo,
   UserInfoWrapper,
 } from './style';
 import { useUserProfile } from '../../hooks/Auth/useUserProfile';
@@ -20,11 +19,7 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
   setIsDarkMode,
 }) => {
   const { data, isLoading, error, refetch } = useUserProfile();
-  const { patchUserNickName, patchUserLoginId, patchUserProfileImage } =
-    useUpdateProfile();
-
-  const [isEditingId, setIsEditingId] = useState(false);
-  const [id, setId] = useState(data?.loginId ?? '');
+  const { patchUserNickName, patchUserProfileImage } = useUpdateProfile();
 
   const [isEditingNickName, setIsEditingNickName] = useState(false);
   const [nickName, setNickName] = useState(data?.nickName ?? '');
@@ -36,21 +31,6 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
       refetch();
     } catch (error) {
       console.error('닉네임 수정 실패', error);
-    }
-  };
-
-  const handleIdChange = async () => {
-    try {
-      await patchUserLoginId(id);
-      setIsEditingId(false);
-
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-
-      alert('아이디가 변경되었습니다. 다시 로그인해주세요.');
-      location.href = '/login';
-    } catch (error) {
-      console.error('아이디 수정 실패', error);
     }
   };
 
@@ -81,17 +61,6 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
             label="사용자 초대 코드"
             value={data?.kakaoId ?? ''}
             detail={data?.kakaoId ?? ''}
-          />
-
-          <ProfileDetails
-            label="사용자 아이디"
-            isEditing={isEditingId}
-            setIsEditing={setIsEditingId}
-            value={id}
-            setValue={setId}
-            placeholder="수정할 아이디를 입력하세요."
-            handleChange={handleIdChange}
-            detail={data?.loginId ?? ''}
           />
 
           <ProfileDetails

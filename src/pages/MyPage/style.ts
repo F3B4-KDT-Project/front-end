@@ -24,6 +24,7 @@ export const MyPageContent = styled.div`
   background: ${({ theme }) => theme.colors.container};
   height: 100%;
   display: flex;
+  justify-content: space-around;
   gap: 2.75rem;
   padding: 2.06rem;
 `;
@@ -32,6 +33,7 @@ export const UserInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.81rem;
+  height: 100%;
 `;
 
 export const ProfileInfo = styled.div`
