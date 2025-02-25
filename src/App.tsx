@@ -90,14 +90,6 @@ function App() {
                 </RequireAuth>
               }
             />
-            <Route
-              path="/calendar/:boardId"
-              element={
-                <RequireAuth>
-                  <Calendar />
-                </RequireAuth>
-              }
-            />
           </Routes>
         </ContentWrapper>
       </AppContainer>
