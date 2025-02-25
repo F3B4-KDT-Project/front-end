@@ -74,11 +74,11 @@ export const CostomCalendar = styled(Calendar)`
   // 달력력 버튼 배경 색 비활성화.
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {
-    background-color: none;
+    background-color: transparent;
   }
 
   .react-calendar__navigation button:disabled {
-    background-color: none;
+    background-color: transparent;
     cursor: default;
   }
 
@@ -121,6 +121,7 @@ export const CostomCalendar = styled(Calendar)`
   .react-calendar__tile:disabled {
     cursor: default;
     color: ${({ theme }) => theme.colors.gray};
+    background-color: transparent;
   }
 
   .react-calendar__tile--now {
