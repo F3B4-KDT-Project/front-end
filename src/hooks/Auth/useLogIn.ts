@@ -1,14 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
-import { SignInRequest, SignInResponse } from '../../models/Auth';
+import { LogInRequest, LogInResponse } from '../../models/Auth';
 import { loginApi } from '../../apis/Auth/authApi';
 
-export const useSignIn = () => {
-  return useMutation<SignInResponse, Error, SignInRequest>({
+export const useLogIn = () => {
+  return useMutation<LogInResponse, Error, LogInRequest>({
     mutationFn: loginApi,
-    onSuccess: (data: SignInResponse) => {
-      const { accessToken, refreshToken } = data.tokenResponse;
+    onSuccess: (data: LogInResponse) => {
+      const accessToken = data.tokenResponse.accessToken;
       localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
       console.log('로그인 성공:', data);
     },
     onError: (error) => {

@@ -1,9 +1,3 @@
-export interface AuthButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  disabled: boolean;
-  text: string;
-}
-
 export interface UserProfileResponse {
   loginId: string;
   memberId: number;
@@ -11,32 +5,15 @@ export interface UserProfileResponse {
   profileImage: string;
 }
 
-export interface SignInRequest {
-  loginId: string;
-  password: string;
+export interface LogInRequest {
+  authorizationCode: string;
 }
 
-export interface SignInResponse {
+export interface LogInResponse {
   memberId: number;
-  nickName: string;
-  loginId: string;
-  tokenResponse: {
-    accessToken: string;
-    refreshToken: string;
-    key: string;
-  };
-}
-
-export interface SignUpRequest {
-  loginId: string;
-  nickName: string;
-  password: string;
-  password2: string;
-}
-
-export interface SignUpResponse {
-  memberId: number;
-  loginId: string;
   nickName: string;
   profileImage: string;
+  tokenResponse: {
+    accessToken: string;
+  };
 }
