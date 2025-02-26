@@ -77,4 +77,5 @@ export const BoardItem = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.colors.text};
   ${({ theme }) => theme.fonts.body1};
+  cursor: pointer;
 `;
