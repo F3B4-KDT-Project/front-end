@@ -1,8 +1,4 @@
-import {
-  updateLoginId,
-  updateNickName,
-  updateProfileImage,
-} from '../../apis/Auth/myPageApi';
+import { updateNickName, updateProfileImage } from '../../apis/Auth/myPageApi';
 
 export const useUpdateProfile = () => ({
   patchUserProfileImage: async (image: File) => {
@@ -11,9 +7,5 @@ export const useUpdateProfile = () => ({
 
   patchUserNickName: async (nickName: string) => {
     return updateNickName(nickName);
-  },
-
-  patchUserLoginId: async (loginId: string) => {
-    return updateLoginId(loginId);
   },
 });

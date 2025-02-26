@@ -11,6 +11,8 @@ import { AppContainer, ContentWrapper } from './components/layout/style';
 import { useEffect, useState } from 'react';
 import GlobalStyles from './styles/GlobalStyle';
 import KakaoCallback from './pages/Login/KakaoCallback';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const navigate = useNavigate();
@@ -46,6 +48,7 @@ function App() {
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <GlobalStyles />
+      <ToastContainer />
       <AppContainer>
         {/* shouldShowSidebar가 true일 때만 Sidebar 렌더링 */}
         {shouldShowSidebar && <Sidebar />}
