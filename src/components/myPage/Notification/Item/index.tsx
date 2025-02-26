@@ -4,11 +4,13 @@ import { NotificationProps } from '../../../../models/MyPage';
 import { ItemWrapper, Message } from './style';
 
 export const Item: React.FC<NotificationProps> = ({ type, message }) => {
+  const category = type === 'SCHEDULE_CREATED' ? '일정' : '초대';
+
   return (
     <ItemWrapper>
       <img src={iconSrc} alt={`${type} 알림 아이콘`} />
       <Message>
-        <span>[ {type} ]</span>
+        <span>[ {category} ]</span>
         {message}
       </Message>
     </ItemWrapper>
