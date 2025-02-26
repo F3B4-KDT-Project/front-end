@@ -5,6 +5,7 @@ import {
   MyPageHeader,
   MyPageHeaderUserName,
   UserInfoWrapper,
+  UserSettingWrapper,
 } from './style';
 import { useUserProfile } from '../../hooks/Auth/useUserProfile';
 import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
@@ -45,7 +46,7 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
       </MyPageHeader>
 
       <MyPageContent>
-        <UserInfoWrapper aria-labelledby="user-info">
+        <UserSettingWrapper>
           <ProfileImg
             profileImage={data?.profileImage ?? ''}
             patchUserProfileImage={patchUserProfileImage}
@@ -54,7 +55,7 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
             isDarkMode={isDarkMode}
             setIsDarkMode={setIsDarkMode}
           />
-        </UserInfoWrapper>
+        </UserSettingWrapper>
 
         <UserInfoWrapper aria-labelledby="user-info">
           <ProfileDetails
