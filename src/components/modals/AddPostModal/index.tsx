@@ -31,7 +31,7 @@ const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
 
   const handleCreatePost = () => {
     if (!postName || !selectedLang) {
-      alert('교실 이름과 언어를 모두 선택해주세요.');
+      alert('수업 이름과 언어를 모두 선택해주세요.');
       return;
     }
     createPost(
@@ -42,11 +42,11 @@ const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
       },
       {
         onSuccess: () => {
-          alert('교실이 성공적으로 생성되었습니다!');
+          alert('수업이 성공적으로 생성되었습니다!');
           onClose(); // 모달 닫기
         },
         onError: () => {
-          alert('교실 생성에 실패했습니다. 다시 시도해주세요.');
+          alert('수업 생성에 실패했습니다. 다시 시도해주세요.');
         },
       }
     );
@@ -60,7 +60,7 @@ const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h1>교실 생성하기</h1>
+          <h1>수업 생성하기</h1>
           <button onClick={onClose}>
             <BsXLg size="1.5rem" color={theme.colors.lightGray} />
           </button>
@@ -68,7 +68,7 @@ const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
         <Line />
         <InputField
           type="text"
-          placeholder="교실 이름을 입력하세요."
+          placeholder="수업 이름을 입력하세요."
           value={postName}
           onChange={(e) => setPostName(e.target.value)}
         />
@@ -85,7 +85,7 @@ const AddPostModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
           ))}
         </LangFieldWrapper>
         <ButtonWrapper>
-          <SubmitButton onClick={handleCreatePost}>교실 생성</SubmitButton>
+          <SubmitButton onClick={handleCreatePost}>수업 생성</SubmitButton>
         </ButtonWrapper>
       </ModalContent>
     </ModalOverlay>
