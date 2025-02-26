@@ -14,6 +14,7 @@ import { ProfileDetails } from '../../components/myPage/ProfileDetails';
 import { ThemeSelection } from '../../components/myPage/ThemeSelection';
 import { ThemeSelectionProps } from '../../models/MyPage';
 import { Notification } from '../../components/myPage/Notification';
+import InvitationDecisionModal from '../../components/modals/InvitationDecisionModal';
 
 const MyPage: React.FC<ThemeSelectionProps> = ({
   isDarkMode,
@@ -24,6 +25,11 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
 
   const [isEditingNickName, setIsEditingNickName] = useState(false);
   const [nickName, setNickName] = useState(data?.nickName ?? '');
+
+  const [selectedNotification, setSelectedNotification] = useState<{
+    notificationId: number;
+    boardId: number;
+  } | null>(null);
 
   const handleNickNameChange = async () => {
     try {
@@ -75,9 +81,18 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
             detail={data?.nickName ?? ''}
           />
 
-          <Notification />
+          <Notification onItemClick={setSelectedNotification} />
         </UserInfoWrapper>
       </MyPageContent>
+
+      {selectedNotification && (
+        <InvitationDecisionModal
+          isOpen={!!selectedNotification}
+          onClose={() => setSelectedNotification(null)}
+          notificationId={selectedNotification.notificationId}
+          boardId={selectedNotification.boardId}
+        />
+      )}
     </MyPageContainer>
   );
 };

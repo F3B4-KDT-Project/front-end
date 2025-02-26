@@ -17,8 +17,10 @@ const InvitationDecisionModal: React.FC<BoardModalProps> = ({
   onClose,
 }) => {
   const theme = useTheme();
+
   const [isAccepted, setIsAccepted] = useState(false);
   const [isRejected, setIsRejected] = useState(false);
+  const [isDecision, setIsDecision] = useState(false);
 
   // 더미 데이터
   const dummyData = {
@@ -28,15 +30,13 @@ const InvitationDecisionModal: React.FC<BoardModalProps> = ({
   // 초대 수락 버튼 클릭 핸들러
   const handleAcceptInvite = () => {
     setIsAccepted(true);
+    setIsDecision(true);
   };
-
-  if (!isOpen) {
-    return null; // 모달이 열려있지 않으면 렌더링하지 않음
-  }
 
   // 초대 거절 버튼 클릭 핸들러
   const handleRejectInvite = () => {
     setIsRejected(true);
+    setIsDecision(true);
   };
 
   if (!isOpen) {
@@ -53,7 +53,7 @@ const InvitationDecisionModal: React.FC<BoardModalProps> = ({
           </button>
         </ModalHeader>
         <Line />
-        <Body>
+        <Body isAccepted={isAccepted} isRejected={isRejected}>
           <h2>{dummyData.boardName}</h2>
           {isAccepted ? (
             <div>
@@ -69,7 +69,7 @@ const InvitationDecisionModal: React.FC<BoardModalProps> = ({
             </div>
           )}
         </Body>
-        {!isAccepted && (
+        {!isDecision && (
           <ButtonWrapper>
             <SubmitButton onClick={handleRejectInvite}>초대 거절</SubmitButton>
             <SubmitButton onClick={handleAcceptInvite}>초대 수락</SubmitButton>

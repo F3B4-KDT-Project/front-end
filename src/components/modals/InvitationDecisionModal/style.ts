@@ -10,6 +10,7 @@ export const ModalOverlay = styled.div`
   background: ${({ theme }) => theme.colors.modalBg};
   justify-content: center;
   align-items: center;
+  z-index: 100;
 `;
 
 export const ModalContent = styled.div`
@@ -48,14 +49,19 @@ export const Line = styled.div`
   margin-bottom: 3.37rem;
 `;
 
-export const Body = styled.div`
+export const Body = styled.div<{ isAccepted: boolean; isRejected: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
   h2 {
-    color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme, isAccepted, isRejected }) =>
+      isAccepted
+        ? theme.colors.green
+        : isRejected
+          ? theme.colors.red
+          : theme.colors.green};
     text-shadow: 0px 0px 4px ${({ theme }) => theme.colors.black};
     ${({ theme }) => theme.fonts.title1};
     margin-bottom: 5rem;
@@ -75,6 +81,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 `;
 
 export const SubmitButton = styled.button`
