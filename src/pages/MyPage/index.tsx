@@ -5,6 +5,7 @@ import {
   MyPageHeader,
   MyPageHeaderUserName,
   UserInfoWrapper,
+  UserSettingWrapper,
 } from './style';
 import { useUserProfile } from '../../hooks/Auth/useUserProfile';
 import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
@@ -13,6 +14,7 @@ import { ProfileDetails } from '../../components/myPage/ProfileDetails';
 import { ThemeSelection } from '../../components/myPage/ThemeSelection';
 import { ThemeSelectionProps } from '../../models/MyPage';
 import { Notification } from '../../components/myPage/Notification';
+import InvitationDecisionModal from '../../components/modals/InvitationDecisionModal';
 
 const MyPage: React.FC<ThemeSelectionProps> = ({
   isDarkMode,
@@ -23,6 +25,11 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
 
   const [isEditingNickName, setIsEditingNickName] = useState(false);
   const [nickName, setNickName] = useState(data?.nickName ?? '');
+
+  const [selectedNotification, setSelectedNotification] = useState<{
+    notificationId: number;
+    boardId: number;
+  } | null>(null);
 
   const handleNickNameChange = async () => {
     try {
@@ -45,7 +52,7 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
       </MyPageHeader>
 
       <MyPageContent>
-        <UserInfoWrapper aria-labelledby="user-info">
+        <UserSettingWrapper>
           <ProfileImg
             profileImage={data?.profileImage ?? ''}
             patchUserProfileImage={patchUserProfileImage}
@@ -54,7 +61,7 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
             isDarkMode={isDarkMode}
             setIsDarkMode={setIsDarkMode}
           />
-        </UserInfoWrapper>
+        </UserSettingWrapper>
 
         <UserInfoWrapper aria-labelledby="user-info">
           <ProfileDetails
@@ -74,9 +81,18 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
             detail={data?.nickName ?? ''}
           />
 
-          <Notification />
+          <Notification onItemClick={setSelectedNotification} />
         </UserInfoWrapper>
       </MyPageContent>
+
+      {selectedNotification && (
+        <InvitationDecisionModal
+          isOpen={!!selectedNotification}
+          onClose={() => setSelectedNotification(null)}
+          notificationId={selectedNotification.notificationId}
+          boardId={selectedNotification.boardId}
+        />
+      )}
     </MyPageContainer>
   );
 };

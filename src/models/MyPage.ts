@@ -29,7 +29,16 @@ export interface ThemeSelectionProps {
   setIsDarkMode: (theme: boolean) => void;
 }
 
-export interface NotificationProps {
-  type: string;
+export interface NotificationResponse {
+  id: number;
+  type:
+    | 'INVITATION'
+    | 'INVITATION_ACCEPTED'
+    | 'INVITATION_REJECTED'
+    | 'SCHEDULE_CREATED';
   message: string;
+  createdAt: string;
+  read: boolean;
 }
+
+export type NotificationProps = Pick<NotificationResponse, 'type' | 'message'>;

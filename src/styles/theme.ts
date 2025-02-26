@@ -114,7 +114,7 @@ export const lightTheme: Theme = {
     input: 'rgba(234, 233, 230, var(--transparent-opacity))',
     modalBg: 'rgba(78, 77, 76, var(--transparent-opacity))',
     modalArea: 'rgba(218, 218, 218, 0.55)',
-    container: '#eae9e6',
+    container: 'rgba(90, 90, 90, 0.35)',
     icon: '#9f9d98',
     navigationGr: 'linear-gradient(180deg, #fff 0%, #cbcbcb 60%, #acacac 100%)',
     navigationBs:
