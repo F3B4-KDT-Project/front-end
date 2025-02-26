@@ -24,20 +24,21 @@ export const MyPageContent = styled.div`
   background: ${({ theme }) => theme.colors.container};
   height: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 1.81rem;
+  justify-content: space-around;
+  gap: 2.75rem;
   padding: 2.06rem;
 `;
 
-export const UserInfoSection = styled.section`
+export const UserInfoWrapper = styled.div`
   display: flex;
-  gap: 2.56rem;
+  flex-direction: column;
+  gap: 1.81rem;
+  height: 100%;
 `;
 
 export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.69rem;
+  gap: 1.625rem;
   flex-grow: 1;
-  margin-top: 2.2rem;
 `;

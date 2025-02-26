@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputProps } from '../../../models/Common';
+import { InputProps } from '../../../models/MyPage';
 import { InputContainer } from './style';
 
 export const Input: React.FC<InputProps> = ({

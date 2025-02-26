@@ -39,4 +39,7 @@ export const EditInfo = styled.div`
 export const ProfileInfoDetailsContent = styled.div`
   color: ${({ theme }) => theme.colors.text};
   ${({ theme }) => theme.fonts.body7};
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 `;
