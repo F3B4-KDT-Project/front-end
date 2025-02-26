@@ -12,13 +12,23 @@ export const Item: React.FC<NotificationProps & { onClick: () => void }> = ({
 
   return (
     <ItemWrapper>
-      <button onClick={onClick}>
-        <img src={iconSrc} alt={`${type} 알림 아이콘`} />
-        <Message>
-          <span>[ {category} ]</span>
-          {message}
-        </Message>
-      </button>
+      {type === 'INVITATION' ? (
+        <button onClick={onClick}>
+          <img src={iconSrc} alt={`${type} 알림 아이콘`} />
+          <Message>
+            <span>[ {category} ]</span>
+            {message}
+          </Message>
+        </button>
+      ) : (
+        <div>
+          <img src={iconSrc} alt={`${type} 알림 아이콘`} />
+          <Message>
+            <span>[ {category} ]</span>
+            {message}
+          </Message>
+        </div>
+      )}
     </ItemWrapper>
   );
 };
