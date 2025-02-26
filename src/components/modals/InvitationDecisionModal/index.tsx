@@ -12,8 +12,12 @@ import { BsXLg } from 'react-icons/bs';
 import { BoardModalProps } from '../../../models/Modal';
 import { useTheme } from '@emotion/react';
 
-const InviteRejectModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
+const InvitationDecisionModal: React.FC<BoardModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const theme = useTheme();
+  const [isAccepted, setIsAccepted] = useState(false);
   const [isRejected, setIsRejected] = useState(false);
 
   // 더미 데이터
@@ -22,6 +26,15 @@ const InviteRejectModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
   };
 
   // 초대 수락 버튼 클릭 핸들러
+  const handleAcceptInvite = () => {
+    setIsAccepted(true);
+  };
+
+  if (!isOpen) {
+    return null; // 모달이 열려있지 않으면 렌더링하지 않음
+  }
+
+  // 초대 거절 버튼 클릭 핸들러
   const handleRejectInvite = () => {
     setIsRejected(true);
   };
@@ -34,7 +47,7 @@ const InviteRejectModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalHeader>
-          <h1>초대 거절하기</h1>
+          <h1>초대 수락하기</h1>
           <button onClick={onClose}>
             <BsXLg size="1.5rem" color={theme.colors.lightGray} />
           </button>
@@ -42,20 +55,24 @@ const InviteRejectModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
         <Line />
         <Body>
           <h2>{dummyData.boardName}</h2>
-          {isRejected ? (
+          {isAccepted ? (
+            <div>
+              <p>초대가 수락되었습니다.</p>
+            </div>
+          ) : isRejected ? (
             <div>
               <p>초대가 거절되었습니다.</p>
             </div>
           ) : (
             <div>
-              <p>해당 초대를 거절하시겠습니까?</p>
-              <p>거절한 초대는 복구할 수 없습니다.</p>
+              <p>해당 초대를 수락하시겠습니까?</p>
             </div>
           )}
         </Body>
-        {!isRejected && (
+        {!isAccepted && (
           <ButtonWrapper>
             <SubmitButton onClick={handleRejectInvite}>초대 거절</SubmitButton>
+            <SubmitButton onClick={handleAcceptInvite}>초대 수락</SubmitButton>
           </ButtonWrapper>
         )}
       </ModalContent>
@@ -63,4 +80,4 @@ const InviteRejectModal: React.FC<BoardModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
-export default InviteRejectModal;
+export default InvitationDecisionModal;
