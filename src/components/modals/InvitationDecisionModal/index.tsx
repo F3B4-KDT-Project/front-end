@@ -9,14 +9,18 @@ import {
   SubmitButton,
 } from './style';
 import { BsXLg } from 'react-icons/bs';
-import { BoardModalProps } from '../../../models/Modal';
+import { InviteDecisionProps } from '../../../models/Modal';
 import { useTheme } from '@emotion/react';
+import { useAcceptInvitation } from '../../../hooks/Notifications/useAcceptInvitation';
 
-const InvitationDecisionModal: React.FC<BoardModalProps> = ({
+const InvitationDecisionModal: React.FC<InviteDecisionProps> = ({
   isOpen,
   onClose,
+  notificationId,
+  boardId,
 }) => {
   const theme = useTheme();
+  const { mutate: acceptNotification } = useAcceptInvitation();
 
   const [isAccepted, setIsAccepted] = useState(false);
   const [isRejected, setIsRejected] = useState(false);
@@ -29,8 +33,20 @@ const InvitationDecisionModal: React.FC<BoardModalProps> = ({
 
   // 초대 수락 버튼 클릭 핸들러
   const handleAcceptInvite = () => {
-    setIsAccepted(true);
-    setIsDecision(true);
+    acceptNotification(
+      { notificationId, boardId },
+      {
+        onSuccess: () => {
+          setIsAccepted(true);
+          setIsDecision(true);
+          console.log('초대 수락 성공');
+        },
+        onError: (error) => {
+          console.error('초대 수락 실패:', error);
+          alert('초대 수락에 실패했습니다.');
+        },
+      }
+    );
   };
 
   // 초대 거절 버튼 클릭 핸들러
