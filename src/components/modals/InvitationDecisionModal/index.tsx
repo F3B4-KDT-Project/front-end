@@ -12,6 +12,7 @@ import { BsXLg } from 'react-icons/bs';
 import { InviteDecisionProps } from '../../../models/Modal';
 import { useTheme } from '@emotion/react';
 import { useAcceptInvitation } from '../../../hooks/Notifications/useAcceptInvitation';
+import { useRejectInvitation } from '../../../hooks/Notifications/useRejectInvitation';
 
 const InvitationDecisionModal: React.FC<InviteDecisionProps> = ({
   isOpen,
@@ -21,6 +22,7 @@ const InvitationDecisionModal: React.FC<InviteDecisionProps> = ({
 }) => {
   const theme = useTheme();
   const { mutate: acceptNotification } = useAcceptInvitation();
+  const { mutate: rejectNotification } = useRejectInvitation();
 
   const [isAccepted, setIsAccepted] = useState(false);
   const [isRejected, setIsRejected] = useState(false);
@@ -51,8 +53,17 @@ const InvitationDecisionModal: React.FC<InviteDecisionProps> = ({
 
   // 초대 거절 버튼 클릭 핸들러
   const handleRejectInvite = () => {
-    setIsRejected(true);
-    setIsDecision(true);
+    rejectNotification(notificationId, {
+      onSuccess: () => {
+        setIsRejected(true);
+        setIsDecision(true);
+        console.log('초대 거절 성공');
+      },
+      onError: (error) => {
+        console.error('초대 거절 실패:', error);
+        alert('초대 거절에 실패했습니다.');
+      },
+    });
   };
 
   if (!isOpen) {

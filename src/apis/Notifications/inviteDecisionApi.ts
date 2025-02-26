@@ -9,3 +9,10 @@ export const acceptInvitation = async (
     `/api/notifications/${notificationId}/accept?boardId=${boardId}`
   );
 };
+
+// 초대 거절
+export const rejectInvitation = async (
+  notificationId: number
+): Promise<string> => {
+  return await http.post<string>(`/api/notifications/${notificationId}/reject`);
+};
