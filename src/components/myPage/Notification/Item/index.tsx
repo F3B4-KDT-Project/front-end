@@ -8,11 +8,13 @@ export const Item: React.FC<NotificationProps> = ({ type, message }) => {
 
   return (
     <ItemWrapper>
-      <img src={iconSrc} alt={`${type} 알림 아이콘`} />
-      <Message>
-        <span>[ {category} ]</span>
-        {message}
-      </Message>
+      <button>
+        <img src={iconSrc} alt={`${type} 알림 아이콘`} />
+        <Message>
+          <span>[ {category} ]</span>
+          {message}
+        </Message>
+      </button>
     </ItemWrapper>
   );
 };
