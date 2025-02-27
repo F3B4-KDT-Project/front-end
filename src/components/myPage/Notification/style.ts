@@ -23,6 +23,10 @@ export const ItemList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  max-height: 100%;
+  max-height: 20rem;
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
