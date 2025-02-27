@@ -5,12 +5,18 @@ export const fetchPostsApi = async (
   boardId: number
 ): Promise<PostResponse[]> => {
   try {
-    console.log(`게시글 데이터 요청 시작 (boardId: ${boardId})`);
-    const response = await http.get<PostResponse[]>(`/api/posts/${boardId}`);
-    console.log(`게시글 데이터 요청 성공:`, response);
+    const response = await http.get<PostResponse[]>(
+      `/api/posts/board/${boardId}`,
+      {
+        headers: {
+          Authorization: `Bearer {token}`, // 🔥 추가
+          'Content-Type': 'application/json', // 🔥 추가
+        },
+      }
+    );
     return response;
   } catch (error) {
-    console.error('게시글 데이터 요청 실패:', error);
-    throw error; // 에러를 다시 던져서 `useQuery`에서 처리
+    console.error('게시글 조회 API 오류:', error);
+    throw error;
   }
 };
