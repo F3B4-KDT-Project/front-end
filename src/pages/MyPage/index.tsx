@@ -29,6 +29,7 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
   const [selectedNotification, setSelectedNotification] = useState<{
     notificationId: number;
     boardId: number;
+    boardTitle: string;
   } | null>(null);
 
   const handleNickNameChange = async () => {
@@ -91,6 +92,7 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
           onClose={() => setSelectedNotification(null)}
           notificationId={selectedNotification.notificationId}
           boardId={selectedNotification.boardId}
+          boardTitle={selectedNotification.boardTitle}
         />
       )}
     </MyPageContainer>
