@@ -17,11 +17,13 @@ import {
   PostList,
   Pagination,
   PageNumber,
+  FlexContainer,
 } from './style';
 import InvitePersonModal from '../../components/modals/InvitePersonModal';
 import { useFetchPosts } from '../../hooks/Board/useFetchPosts';
 import { useFetchBoards } from '../../hooks/Board/useFetchBoards';
 import { useParams } from 'react-router-dom';
+import Calendar from '../../components/board/Calendar';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -77,47 +79,52 @@ const Board: React.FC = () => {
       {/* 게시판 헤더 */}
       <Header boardName={selectedBoard?.title || '게시판'} />
       {/* 게시글 리스트 */}
-      <BodyContainer>
-        {/* 참여자 수 */}
-        <Participants onClick={() => setInvitePersonModalOpen(true)}>
-          <BsFillPeopleFill size="1.5rem" />
-          {selectedBoard?.participants ?? 0}
-        </Participants>
+      <FlexContainer>
+        {/* 캘린더 */}
+        <Calendar />
 
-        {/* 게시글 */}
-        <PostList>
-          {paginatedPosts.map((post) => (
-            <PostCard
-              key={post.id}
-              postName={post.name}
-              date={post.createdAt}
-              badgeCount={post.badgeCount ?? 0} // ✅ 기본값 추가
-              boardId={post.boardId}
-              postId={post.id}
-              roomId={post.roomId}
-            />
-          ))}
-        </PostList>
+        <BodyContainer>
+          {/* 참여자 수 */}
+          <Participants onClick={() => setInvitePersonModalOpen(true)}>
+            <BsFillPeopleFill size="1.5rem" />
+            {selectedBoard?.participants ?? 0}
+          </Participants>
 
-        {/* 페이지 번호 */}
-        <Pagination>
-          <button onClick={() => handlePageChange(currentPage - 1)}>
-            <BsFillCaretLeftFill size="1.5rem" />
-          </button>
-          {[...Array(totalPages)].map((_, index) => (
-            <PageNumber
-              key={index}
-              isActive={index + 1 === currentPage}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </PageNumber>
-          ))}
-          <button onClick={() => handlePageChange(currentPage + 1)}>
-            <BsFillCaretRightFill size="1.5rem" />
-          </button>
-        </Pagination>
-      </BodyContainer>
+          {/* 게시글 */}
+          <PostList>
+            {paginatedPosts.map((post) => (
+              <PostCard
+                key={post.id}
+                postName={post.name}
+                date={post.createdAt}
+                badgeCount={post.badgeCount ?? 0} // ✅ 기본값 추가
+                boardId={post.boardId}
+                postId={post.id}
+                roomId={post.roomId}
+              />
+            ))}
+          </PostList>
+
+          {/* 페이지 번호 */}
+          <Pagination>
+            <button onClick={() => handlePageChange(currentPage - 1)}>
+              <BsFillCaretLeftFill size="1.5rem" />
+            </button>
+            {[...Array(totalPages)].map((_, index) => (
+              <PageNumber
+                key={index}
+                isActive={index + 1 === currentPage}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </PageNumber>
+            ))}
+            <button onClick={() => handlePageChange(currentPage + 1)}>
+              <BsFillCaretRightFill size="1.5rem" />
+            </button>
+          </Pagination>
+        </BodyContainer>
+      </FlexContainer>
       <InvitePersonModal
         isOpen={isInvitePersonModalOpen}
         onClose={() => setInvitePersonModalOpen(false)}
