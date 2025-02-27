@@ -31,7 +31,12 @@ export const ProfileImg: React.FC<ProfileImageProps> = ({
 
   return (
     <ProfileImage>
-      <img src={profileImage.toString() || defaultImg} alt="프로필 이미지" />
+      <img
+        src={
+          profileImage && profileImage.trim() !== '' ? profileImage : defaultImg
+        }
+        alt="프로필 이미지"
+      />
       <button
         aria-label="프로필 이미지 수정"
         onClick={handleProfileImageUploadButtonClick}
