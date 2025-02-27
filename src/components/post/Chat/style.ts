@@ -31,7 +31,6 @@ export const ChatSection = styled.div`
 
 export const InputSection = styled.form`
   width: 100%;
-  height: 9%;
 
   border-radius: 0.9375rem;
   background: ${({ theme }) => theme.colors.input};
@@ -39,6 +38,35 @@ export const InputSection = styled.form`
 
   display: flex;
 
+  > input {
+    display: none;
+  }
+`;
+
+export const InputImageLabel = styled.label`
+  > svg {
+    width: 2.125rem;
+    height: 2.125rem;
+    margin: 1rem 0.8rem 1.3rem 0.8rem;
+  }
+
+  > svg:hover {
+    fill: ${({ theme }) => theme.colors.background};
+    cursor: pointer;
+  }
+
+  > svg:active {
+    opacity: 0.3;
+  }
+`;
+
+export const InputContainer = styled.div`
+  height: 100%;
+  border-radius: 0.9375rem;
+  background: ${({ theme }) => theme.colors.lightGray};
+  box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex: 1;
   > textarea {
     width: 100%;
     padding: 1.25rem;
@@ -47,7 +75,6 @@ export const InputSection = styled.form`
 
     border: none;
     border-radius: 0.9375rem;
-    background: ${({ theme }) => theme.colors.lightGray};
 
     color: ${({ theme }) => theme.colors.background};
     ${({ theme }) => theme.fonts.input2};
@@ -56,9 +83,24 @@ export const InputSection = styled.form`
   > svg {
     width: 15%;
     height: 100%;
-    padding: 0.44rem;
+    padding: 1rem;
 
     border: none;
     fill: ${({ theme }) => theme.colors.gray};
+  }
+
+  > svg:hover {
+    cursor: pointer;
+  }
+`;
+
+export const PreviewImage = styled.div`
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.9375rem;
+
+  > img {
+    max-width: 13rem;
+    border-radius: 0.9375rem;
   }
 `;

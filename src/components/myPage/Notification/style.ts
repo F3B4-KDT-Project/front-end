@@ -4,6 +4,7 @@ export const NotificationContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.62rem;
+  min-width: 30rem;
   flex-grow: 1; /* 나머지 공간을 채우도록 설정 */
 
   div {

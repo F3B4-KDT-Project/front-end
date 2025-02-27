@@ -41,6 +41,13 @@ export const Content = styled.div<MessageProps>`
     color: ${({ theme }) => theme.colors.black};
     ${({ theme }) => theme.fonts.body2};
   }
+
+  > img {
+    max-width: 15rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: ${({ theme }) => theme.colors.lightGray};
+  }
 `;
 
 export const Time = styled.p`

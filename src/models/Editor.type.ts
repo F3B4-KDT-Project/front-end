@@ -6,6 +6,8 @@ export interface IdeEditorProps {
     theme?: string;
     boardName:string;
     postName:string;
+    token:string;
+    sendCodeUpdate:(code:string)=>void
 }
 
 // custom theme json 파일 구조 정의

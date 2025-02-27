@@ -50,10 +50,6 @@ const Sidebar: React.FC = () => {
     console.log('Clicked board:', boardId);
   };
 
-  const handleProfileClick = () => {
-    // 프로필 버튼 클릭 이벤트 (추후 기능 추가 가능)
-  };
-
   const hiddenPaths: string[] = ['/sign-in', '/sign-up'];
 
   if (hiddenPaths.includes(location.pathname)) {
@@ -84,7 +80,7 @@ const Sidebar: React.FC = () => {
           <IoIosAdd className="AddIcon" />
         </AddButton>
       </div>
-      <ProfileButton onClick={handleProfileClick}>
+      <ProfileButton onClick={() => navigate('/my-page')}>
         <BsFillPersonFill className="ProfileIcon" />
       </ProfileButton>
       {isModalOpen && (
