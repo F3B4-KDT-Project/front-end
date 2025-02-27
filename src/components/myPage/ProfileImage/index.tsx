@@ -5,10 +5,10 @@ import { BsImageFill } from 'react-icons/bs';
 import { ProfileImageProps } from '../../../models/MyPage';
 import { useTheme } from '@emotion/react';
 
-export const ProfileImg: React.FC<ProfileImageProps> = (
+export const ProfileImg: React.FC<ProfileImageProps> = ({
   profileImage,
-  patchUserProfileImage
-) => {
+  patchUserProfileImage,
+}) => {
   const theme = useTheme();
   const profileImageUploadRef = React.useRef<HTMLInputElement>(null);
 
@@ -31,7 +31,12 @@ export const ProfileImg: React.FC<ProfileImageProps> = (
 
   return (
     <ProfileImage>
-      <img src={profileImage.toString() || defaultImg} alt="프로필 이미지" />
+      <img
+        src={
+          profileImage && profileImage.trim() !== '' ? profileImage : defaultImg
+        }
+        alt="프로필 이미지"
+      />
       <button
         aria-label="프로필 이미지 수정"
         onClick={handleProfileImageUploadButtonClick}
