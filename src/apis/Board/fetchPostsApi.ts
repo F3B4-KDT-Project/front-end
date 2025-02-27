@@ -5,8 +5,16 @@ export const fetchPostsApi = async (
   boardId: number
 ): Promise<PostResponse[]> => {
   try {
-    const response = await http.get<PostResponse[]>(`/api/posts/${boardId}`);
-    return response; // ✅ `response.data` 대신 `response` 반환
+    const response = await http.get<PostResponse[]>(
+      `/api/posts/board/${boardId}`,
+      {
+        headers: {
+          Authorization: `Bearer {token}`, // 🔥 추가
+          'Content-Type': 'application/json', // 🔥 추가
+        },
+      }
+    );
+    return response;
   } catch (error) {
     console.error('게시글 조회 API 오류:', error);
     throw error;
