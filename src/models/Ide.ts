@@ -5,5 +5,5 @@ export interface IdeCodeSaveProps {
 
 export interface GetIdeCodeProps {
     code:string;
-    token:string;
+    token?:string;
 }

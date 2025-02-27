@@ -7,13 +7,18 @@ const MessageCard = ({
   messageText,
   sendTime,
   isMyMessage,
+  type,
 }: MessageCardProps) => {
   return (
     <Container isFlexRight={isMyMessage}>
       <ProfileImage src={memberProfileImageUrl} alt="profile image" />
       <Content isFlexRight={isMyMessage}>
         <p>{memberNickname}</p>
-        <div>{messageText}</div>
+        {type === 'text' ? (
+          <div>{messageText}</div>
+        ) : (
+          <img src={messageText} alt="sent image" />
+        )}
       </Content>
       <Time>{sendTime.split(' ')[1].slice(0, 5)}</Time>
       <Spacer />

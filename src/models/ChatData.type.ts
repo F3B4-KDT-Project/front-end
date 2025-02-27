@@ -4,6 +4,7 @@ export interface Message {
   memberNickname: string;
   messageText: string;
   sendTime: string;
+  type: string;
 }
 
 export interface MessageCardProps {
@@ -12,9 +13,14 @@ export interface MessageCardProps {
   memberNickname: string;
   messageText: string;
   sendTime: string;
+  type: string;
   isMyMessage: boolean;
 }
 
 export interface MessageProps {
   isFlexRight: boolean;
+}
+
+export interface UploadImageRequest {
+  imageFile: File;
 }

@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
+import { FetchScheduleListApi } from '../../../apis/Board/calenderApi';
+import { useParams } from 'react-router-dom';
 import { IoIosCalendar } from 'react-icons/io';
-import { TaskCardProps } from '../../../models/Calendar';
+import { ScheduleProps } from '../../../models/Calendar';
 import TaskCard from '../TaskCard';
 import 'react-calendar/dist/Calendar.css';
 import {
@@ -10,15 +13,35 @@ import {
   CostomCalendar,
   TaskList,
 } from './style';
-
-// 더미 데이터
-const dummyTasks: TaskCardProps[] = [
-  { taskName: 'Front-end 회의', taskTime: 'am 10:00' },
-  { taskName: '전체 회의', taskTime: 'pm 12:00' },
-  { taskName: 'Back-end 멘토링', taskTime: 'pm 08:00' },
-];
+import { Value } from 'react-calendar/dist/esm/shared/types.js';
 
 const Calendar = () => {
+  const { boardId } = useParams<{ boardId: string }>();
+  const [selectedDate, setSelectedDate] = useState<Value>(new Date());
+  const [scheduleList, setScheduleList] = useState<ScheduleProps[]>([]);
+
+  const loadSchedules = async () => {
+    try {
+      if (selectedDate) {
+        const data = await FetchScheduleListApi(
+          Number(boardId),
+          selectedDate?.toString()
+        );
+        setScheduleList(data);
+      }
+    } catch (error) {
+      console.log('스케줄 목록 로드 실패', error);
+    }
+  };
+
+  useEffect(() => {
+    loadSchedules();
+  }, [selectedDate]);
+
+  const handleDateChange = (date: Value) => {
+    setSelectedDate(date);
+  };
+
   return (
     <Container>
       <CalendarHeader>
@@ -27,22 +50,25 @@ const Calendar = () => {
       </CalendarHeader>
       <CalendarBox>
         <CostomCalendar
+          onChange={handleDateChange}
+          value={selectedDate}
           formatMonthYear={(_, date) =>
             `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}`
           }
           formatDay={(_, date) => String(date.getDate()).padStart(2, '0')}
           prev2Label={null}
           next2Label={null}
+          selectRange={false}
           minDate={new Date()}
           tileClassName={({ date }) => (date < new Date() ? 'past-date' : '')}
         />
       </CalendarBox>
       <TaskList>
-        {dummyTasks.map((task, index) => (
+        {scheduleList.map((schedule) => (
           <TaskCard
-            key={index}
-            taskName={task.taskName}
-            taskTime={task.taskTime}
+            key={schedule.scheduleId}
+            taskName={schedule.title}
+            taskTime={schedule.startAt}
           />
         ))}
       </TaskList>

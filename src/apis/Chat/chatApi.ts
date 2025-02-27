@@ -1,4 +1,4 @@
-import { Message } from '../../models/ChatData.type';
+import { Message, UploadImageRequest } from '../../models/ChatData.type';
 import { http } from '../httpClient';
 
 export const ChatHistoryApi = async (roomId: number, token: string) => {
@@ -6,6 +6,22 @@ export const ChatHistoryApi = async (roomId: number, token: string) => {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
+    },
+  });
+};
+
+export const UploadImageApi = async (
+  roomId: number,
+  token: string,
+  data: UploadImageRequest
+): Promise<void> => {
+  const formData = new FormData();
+  formData.append('imageFile', data.imageFile);
+
+  return await http.post(`/api/chat/${roomId}/images`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': undefined,
     },
   });
 };
