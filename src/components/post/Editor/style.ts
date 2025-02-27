@@ -12,7 +12,7 @@ export const Container = styled.div`
   padding: 0.62rem;
 
   width: 47.9375rem;
-  height: 46.125rem;
+  height: 100%;
 
   p {
     font-size: 30px;
