@@ -19,6 +19,7 @@ const InvitationDecisionModal: React.FC<InviteDecisionProps> = ({
   onClose,
   notificationId,
   boardId,
+  boardTitle,
 }) => {
   const theme = useTheme();
   const { mutate: acceptNotification } = useAcceptInvitation();
@@ -29,10 +30,6 @@ const InvitationDecisionModal: React.FC<InviteDecisionProps> = ({
   const [isDecision, setIsDecision] = useState(false);
 
   // 더미 데이터
-  const dummyData = {
-    boardName: '9oorm_KDT',
-  };
-
   // 초대 수락 버튼 클릭 핸들러
   const handleAcceptInvite = () => {
     acceptNotification(
@@ -53,17 +50,20 @@ const InvitationDecisionModal: React.FC<InviteDecisionProps> = ({
 
   // 초대 거절 버튼 클릭 핸들러
   const handleRejectInvite = () => {
-    rejectNotification(notificationId, {
-      onSuccess: () => {
-        setIsRejected(true);
-        setIsDecision(true);
-        console.log('초대 거절 성공');
-      },
-      onError: (error) => {
-        console.error('초대 거절 실패:', error);
-        alert('초대 거절에 실패했습니다.');
-      },
-    });
+    rejectNotification(
+      { notificationId, boardId },
+      {
+        onSuccess: () => {
+          setIsRejected(true);
+          setIsDecision(true);
+          console.log('초대 거절 성공');
+        },
+        onError: (error) => {
+          console.error('초대 거절 실패:', error);
+          alert('초대 거절에 실패했습니다.');
+        },
+      }
+    );
   };
 
   if (!isOpen) {
@@ -81,7 +81,7 @@ const InvitationDecisionModal: React.FC<InviteDecisionProps> = ({
         </ModalHeader>
         <Line />
         <Body isAccepted={isAccepted} isRejected={isRejected}>
-          <h2>{dummyData.boardName}</h2>
+          <h2>{boardTitle}</h2>
           {isAccepted ? (
             <div>
               <p>초대가 수락되었습니다.</p>

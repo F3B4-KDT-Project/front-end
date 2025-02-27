@@ -7,6 +7,7 @@ export const Notification: React.FC<{
   onItemClick: (notification: {
     notificationId: number;
     boardId: number;
+    boardTitle: string;
   }) => void;
 }> = ({ onItemClick }) => {
   const { data: notifications, isLoading, error } = useNotifications();
@@ -23,7 +24,11 @@ export const Notification: React.FC<{
             key={notification.id}
             {...notification}
             onClick={() =>
-              onItemClick({ notificationId: notification.id, boardId: 123 })
+              onItemClick({
+                notificationId: notification.id,
+                boardId: notification.boardId,
+                boardTitle: notification.boardTitle,
+              })
             }
           />
         ))}
