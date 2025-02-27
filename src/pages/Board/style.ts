@@ -49,13 +49,20 @@ export const Description = styled.p`
   }
 `;
 
+export const FlexContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 1.44rem;
+`;
+
 export const BodyContainer = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   width: 100%;
   flex-shrink: 0;
   padding: 2.12rem 2.06rem;
-  margin-top: 1.56rem;
   border-radius: 2.1875rem;
   background-color: ${({ theme }) => theme.colors.container};
 `;

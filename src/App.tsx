@@ -13,6 +13,8 @@ import GlobalStyles from './styles/GlobalStyle';
 import KakaoCallback from './pages/Login/KakaoCallback';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useFetchBoards } from './hooks/Board/useFetchBoards';
+import EmptyBoardPage from './pages/EmptyBoard';
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const navigate = useNavigate();
@@ -29,12 +31,27 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
 
 function App() {
   const location = useLocation(); // 현재 경로 가져오기
+  const navigate = useNavigate();
   const hiddenPaths: string[] = ['/login', '/kakao/callback']; // 사이드바 숨길 경로
 
   const shouldShowSidebar = !hiddenPaths.includes(location.pathname); // 숨길 경로에 해당하지 않을 때만 true
 
   const theme = localStorage.getItem('theme'); // 로컬스토리지에서 테마 가져오기
   const [isDarkMode, setIsDarkMode] = useState(!theme);
+
+  const { data: boards, isLoading, isError } = useFetchBoards();
+
+  useEffect(() => {
+    // location.pathname이 '/' 일 때만 자동 이동
+    if (location.pathname === '/' && !isLoading && !isError) {
+      const boardList = boards ?? []; // boards가 undefined면 빈 배열 사용
+      if (boardList.length === 0) {
+        navigate('/empty-board');
+      } else {
+        navigate(`/${boardList[0].id}`);
+      }
+    }
+  }, [boards, isLoading, isError, navigate, location.pathname]);
 
   const handleThemeChange = (isDarkMode: boolean) => {
     setIsDarkMode(isDarkMode);
@@ -57,6 +74,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/kakao/callback" element={<KakaoCallback />} />
 
+            {/* 게시판 목록이 없을 경우 "교실 없음" 페이지로 이동 */}
+            <Route path="/empty-board" element={<EmptyBoardPage />} />
+
+            {/* 게시판이 있을 경우 첫 번째 게시판으로 이동 */}
             <Route
               path="/"
               element={

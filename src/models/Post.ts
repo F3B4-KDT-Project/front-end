@@ -1,4 +1,3 @@
-
 export interface CreatePostRequest {
   boardId: number;
   name: string;
@@ -13,6 +12,7 @@ export interface PostResponse {
   filePath: string;
   createdAt: string;
   roomId: number;
+  badgeCount?: number; // ✅ badgeCount 필드 추가
 }
 
 export interface PostProps {

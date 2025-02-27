@@ -17,26 +17,29 @@ import { AddBoardModalProps } from '../../../models/Modal';
 import { useBoardInvite } from '../../../hooks/Board/useBoardInvite';
 import { useCreateBoard } from '../../../hooks/Board/useCreateBoard';
 import { useTheme } from '@emotion/react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
-const AddBoardModal: React.FC<AddBoardModalProps> = ({
-  onClose,
-  onAddBoard,
-}) => {
+const AddBoardModal: React.FC<AddBoardModalProps> = ({ onClose }) => {
   const [boardName, setBoardName] = useState('');
   const [id, setId] = useState('');
   const [idList, setIdList] = useState<string[]>([]);
   const [idError, setIdError] = useState(false);
   const [idSuccess, setIdSuccess] = useState(false);
   const theme = useTheme();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { mutate: inviteUser } = useBoardInvite();
   const { mutate: createBoard } = useCreateBoard();
+  // ✅ 게시판 생성 Mutation
+  const createBoardMutation = useCreateBoard();
+  const isLoading = createBoardMutation.isPending; // ✅ 최신 방식
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // 기본 Enter 동작 방지
-      if (id.trim() && id.trim() && !idList.includes(id)) {
-        // API 호출
+      e.preventDefault();
+      if (id.trim() && !idList.includes(id)) {
         inviteUser(
           { boardId: 1, loginId: id },
           {
@@ -53,28 +56,26 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({
           }
         );
       } else {
-        setIdError(true); // 빈 입력값 또는 중복 ID 에러
+        setIdError(true);
         setIdSuccess(false);
       }
     }
   };
 
-  const handleRemoveId = (targetId: string) => {
-    setIdList(idList.filter((item) => item !== targetId));
-  };
-
+  // ✅ 게시판 생성 버튼 클릭 이벤트
   const handleCreateBoard = () => {
     if (!boardName.trim()) {
-      alert('교실 이름을 입력하세요.');
+      setIdError(true);
       return;
     }
 
     createBoard(
-      { title: boardName },
+      { title: boardName }, // ✅ `boardName`을 API 요청에 포함
       {
-        onSuccess: () => {
-          onAddBoard(boardName); // Sidebar에 교실 이름 전달
-          onClose(); // 모달 닫기
+        onSuccess: (newBoard) => {
+          queryClient.invalidateQueries({ queryKey: ['boards'] }); // ✅ 최신화
+          navigate(`/${newBoard.id}`); // ✅ 생성된 게시판으로 이동
+          onClose(); // ✅ 모달 닫기
         },
         onError: (error) => {
           console.error('교실 생성 실패:', error);
@@ -121,14 +122,18 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({
           {idList.map((item, index) => (
             <div key={index} className="email-item">
               {item}
-              <button onClick={() => handleRemoveId(item)}>
+              <button
+                onClick={() => setIdList(idList.filter((i) => i !== item))}
+              >
                 <BsXLg size="0.9375rem" color={theme.colors.lightGray} />
               </button>
             </div>
           ))}
         </IdList>
         <ButtonWrapper>
-          <SubmitButton onClick={handleCreateBoard}>교실 생성</SubmitButton>
+          <SubmitButton onClick={handleCreateBoard} disabled={isLoading}>
+            {isLoading ? '생성 중...' : '교실 생성'}
+          </SubmitButton>{' '}
         </ButtonWrapper>
       </ModalContent>
     </ModalOverlay>
