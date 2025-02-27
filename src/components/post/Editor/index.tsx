@@ -1,55 +1,81 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import Editor, { loader } from '@monaco-editor/react';
 import * as monaco from 'monaco-editor';
 import { IdeEditorProps, CustomTheme } from '../../../models/Editor.type';
 import { Container, ButtonContainer, CopyButton, SaveButton } from './style';
 import { BsFiles, BsDownload } from 'react-icons/bs';
-import useIdeWebsocket from '../../../hooks/Chat/useIdeWebsocket';
+// import useIdeWebsocket from '../../../hooks/IDE/useIdeWebsocket';
 // import { Client } from '@stomp/stompjs';
 import { useTheme } from '@emotion/react';
 import { IdeCodeSaveApi } from '../../../apis/Ide/ideApi';
+
+
+loader.config({
+  paths:{
+    vs:"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0/min/vs" // 테마 적용은 안되지만, IDE는 출력됨.
+  },
+});
+
 
 const IdeEditor: React.FC<IdeEditorProps> = ({
   defaultLanguage,
   defaultValue,
   language,
-  // value,
-  // theme,/
+  value,
   boardName,
   postName,
+  token,
+  sendCodeUpdate, // Post.tsx에서 전달된 함수
 }) => {
   const myTheme = useTheme();
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null); // 코드 복사, 저장 : 명시적으로 monaco.editor.IStandaloneCodeEditor 타입 지정
   const [themeLoaded, setThemeLoaded] = useState(false);
+  const [editorValue, setEditorValue] = useState(defaultValue);
 
   const postId = 1;
-  // const id = 1;
-  // const token = `Bearer ${localStorage.getItem('accessToken')}`;
-  const token =
-    'eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IlVTRVIiLCJleHAiOjE3Mzk2OTc0MjMsImlhdCI6MTczOTY5MzgyM30.7vSb7mRm3-byiJKRl4tsU-Fu3NCxCkGHResws-AalJE';
+  // const { receivedCode, sendCodeUpdate } = useIdeWebsocket({ postId, token});
 
-  const { receivedCode, sendMessage } = useIdeWebsocket({ postId, token });
+  // 에디터 설정 useMemo로 설정
+  const editorOptions = useMemo<monaco.editor.IStandaloneEditorConstructionOptions>(()=>({
+    minimap : { enabled : false },
+    scrollbar :{
+      alwaysConsumeMouseWheel: true,
+      vertical:"auto",
+      verticalScrollbarSize: 5,
+      horizontal: 'auto',
+    },
+    accessibilitySupport: 'off', // iPad 키보드 방지
+    readOnly:false,
+  }),[]);
 
+  const handleCodeChange = (newCode:string|undefined) => {
+    const updatedCode = newCode || '';
+    setEditorValue(updatedCode);
+    sendCodeUpdate(updatedCode); // Post.tsx에 전달된 'sendCodeUpdate' 사용
+  };
+
+  // 2️⃣ JSON 테마 파일 로드 및 Monaco Editor 초기화
   useEffect(() => {
-    // 2️⃣ JSON 테마 파일 로드 및 Monaco Editor 초기화
     const loadCustomTheme = async () => {
       try {
         const response = await fetch('/monaco-themes/dark.json'); // public 폴더 기준
         if (!response.ok) {
           throw new Error(
-            `[ ❌ HTTP 오류 ] 테마 로드 안됨. Status: ${response.status}`
+            `[ ❌ HTTP 오류 ] 테마 로드 실패. Status: ${response.status}`
           );
         }
 
         // 'response.json()'의 결과를 CustomTheme 타입으로 캐스팅
         const customTheme = (await response.json()) as CustomTheme;
-        const monaco = await loader.init(); // Monaco 로더 초기화
-
-        monaco.editor.defineTheme('custom-dark', customTheme); // 커스텀 테마 등록
+        loader.init().then((monaco)=>{
+          monaco.editor.defineTheme('custom-dark', customTheme);
+          setThemeLoaded(true); // 테마 로드 완료
+          console.log('✅ 테마 로드 완료')
+        })
         setThemeLoaded(true); // 테마 로드 완료
       } catch (error) {
         console.error(
-          '[ ❌ HTTP 오류 ] 테마 로드 안됨 :',
+          '[ ❌ HTTP 오류 ] 테마 로드 실패 :',
           (error as Error).message
         );
       }
@@ -58,26 +84,49 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
     loadCustomTheme();
   }, []);
 
+  useEffect(()=>{
+    setEditorValue(value);
+  },[value]);
+
+  useEffect(()=>{
+    if(editorRef.current){
+      editorRef.current.updateOptions({accessibilitySupport:'off'});
+    }
+  },[editorValue]); // editorValue가 변경될 때마다 실행
+
   if (!themeLoaded) {
     return (
-      <div style={{ color: '#000' }}>
-        코드를 불러오는 중입니다! 잠시만 기다려주세요!
+      <div style={{ color: '#fff' }}>
+        코드를 불러오는 중입니다! 잠시만 기다려주세요! 테마가 로드가 안되용..
       </div>
     );
   }
 
+  // 에디터 마운트 후 설정
   const handleEditorMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editorRef.current = editor;
     console.log('😇 Editor가 마운트 됨');
+
+    // 리렌더링 후에도 iPad 키보드 안보이게 강제 설정
+    editor.updateOptions({
+      accessibilitySupport:'off',
+    })
+
+    // 자동 포커싱 방지 (키보드 뜨는 문제 해결)
+    setTimeout(()=>{
+      editor?.getContainerDomNode()?.blur();
+    },100);
 
     editor.onDidChangeModelContent(() => {
       if (!editorRef.current) return;
 
       const updateCode = editorRef.current.getValue();
-      sendMessage(updateCode);
+      sendCodeUpdate(updateCode); // Post.tsx에서 전달된 SendCodeUpdate 사용
+      setEditorValue(updateCode);
     });
   };
 
+  // 코드 클립보드 복사
   const handleCopyButton = async () => {
     if (editorRef.current) {
       const currentCode = editorRef.current.getValue();
@@ -93,14 +142,14 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
     }
   };
 
-  // 추후 api연동시 수정
+  // 코드 저장 - 추후 api연동시 수정
   const handleSaveButton = async () => {
     if (editorRef.current) {
       const currentCode = editorRef.current.getValue();
       try {
         alert(`${boardName} - ${postName} 에 저장되었습니다.`);
         console.log('✅ save currentCode : \n', currentCode);
-        IdeCodeSaveApi(postId,token)
+        await IdeCodeSaveApi(postId,token)
       } catch (error) {
         console.error('[ ❌ 실패 ] 코드 저장 실패');
       }
@@ -117,18 +166,12 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
         defaultLanguage={defaultLanguage}
         defaultValue={defaultValue}
         language={language}
-        value={receivedCode}
+        // value={receivedCode}
+        value={editorValue} 
+        onChange={(value)=> handleCodeChange(value)}
         theme={'vs-dark'}
         onMount={handleEditorMount}
-        options={{
-          minimap: { enabled: false },
-          scrollbar: {
-            alwaysConsumeMouseWheel: true,
-            vertical: 'auto',
-            verticalScrollbarSize: 5,
-            horizontal: 'auto',
-          },
-        }}
+        options={editorOptions}
       />
       <ButtonContainer>
         <CopyButton onClick={handleCopyButton}>
