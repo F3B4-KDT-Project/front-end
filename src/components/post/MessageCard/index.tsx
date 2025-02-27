@@ -17,11 +17,7 @@ const MessageCard = ({
         {type === 'text' ? (
           <div>{messageText}</div>
         ) : (
-          <img
-            src={messageText}
-            alt="sent image"
-            style={{ maxWidth: '200px', borderRadius: '8px' }}
-          />
+          <img src={messageText} alt="sent image" />
         )}
       </Content>
       <Time>{sendTime.split(' ')[1].slice(0, 5)}</Time>
