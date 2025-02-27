@@ -38,6 +38,8 @@ export interface NotificationResponse {
     | 'SCHEDULE_CREATED';
   message: string;
   createdAt: string;
+  boardTitle: string;
+  boardId: number;
   read: boolean;
 }
 
