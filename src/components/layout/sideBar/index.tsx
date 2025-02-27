@@ -3,8 +3,10 @@ import { SideBar, AddButton, ProfileButton, BoardItem } from './style';
 import { IoIosAdd } from 'react-icons/io';
 import { BsFillPersonFill } from 'react-icons/bs';
 import AddBoardModal from '../../modals/AddBoardModal';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [boards, setBoards] = useState<string[]>([]);
 
@@ -22,14 +24,6 @@ const Sidebar: React.FC = () => {
     setBoards([truncatedName, ...boards]); // 새로운 게시판을 맨 위에 추가
   };
 
-  const handleProfileClick = () => {};
-
-  const hiddenPaths: string[] = ['/sign-in', '/sign-up'];
-
-  if (hiddenPaths.includes(location.pathname)) {
-    return null;
-  }
-
   return (
     <SideBar>
       <div>
@@ -40,7 +34,7 @@ const Sidebar: React.FC = () => {
           <IoIosAdd className="AddIcon" />
         </AddButton>
       </div>
-      <ProfileButton onClick={handleProfileClick}>
+      <ProfileButton onClick={() => navigate('/my-page')}>
         <BsFillPersonFill className="ProfileIcon" />
       </ProfileButton>
       {isModalOpen && (

@@ -5,6 +5,10 @@ import {
   MyPageHeader,
   MyPageHeaderUserName,
   UserInfoWrapper,
+<<<<<<< HEAD
+=======
+  UserSettingWrapper,
+>>>>>>> 9c59c688476b9eea4bc5f1147cf882bede21fcad
 } from './style';
 import { useUserProfile } from '../../hooks/Auth/useUserProfile';
 import { useUpdateProfile } from '../../hooks/Auth/useUpdateProfile';
@@ -13,6 +17,10 @@ import { ProfileDetails } from '../../components/myPage/ProfileDetails';
 import { ThemeSelection } from '../../components/myPage/ThemeSelection';
 import { ThemeSelectionProps } from '../../models/MyPage';
 import { Notification } from '../../components/myPage/Notification';
+<<<<<<< HEAD
+=======
+import InvitationDecisionModal from '../../components/modals/InvitationDecisionModal';
+>>>>>>> 9c59c688476b9eea4bc5f1147cf882bede21fcad
 
 const MyPage: React.FC<ThemeSelectionProps> = ({
   isDarkMode,
@@ -23,6 +31,11 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
 
   const [isEditingNickName, setIsEditingNickName] = useState(false);
   const [nickName, setNickName] = useState(data?.nickName ?? '');
+
+  const [selectedNotification, setSelectedNotification] = useState<{
+    notificationId: number;
+    boardId: number;
+  } | null>(null);
 
   const handleNickNameChange = async () => {
     try {
@@ -45,7 +58,11 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
       </MyPageHeader>
 
       <MyPageContent>
+<<<<<<< HEAD
         <UserInfoWrapper aria-labelledby="user-info">
+=======
+        <UserSettingWrapper>
+>>>>>>> 9c59c688476b9eea4bc5f1147cf882bede21fcad
           <ProfileImg
             profileImage={data?.profileImage ?? ''}
             patchUserProfileImage={patchUserProfileImage}
@@ -54,7 +71,11 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
             isDarkMode={isDarkMode}
             setIsDarkMode={setIsDarkMode}
           />
+<<<<<<< HEAD
         </UserInfoWrapper>
+=======
+        </UserSettingWrapper>
+>>>>>>> 9c59c688476b9eea4bc5f1147cf882bede21fcad
 
         <UserInfoWrapper aria-labelledby="user-info">
           <ProfileDetails
@@ -74,9 +95,22 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
             detail={data?.nickName ?? ''}
           />
 
+<<<<<<< HEAD
           <Notification />
+=======
+          <Notification onItemClick={setSelectedNotification} />
+>>>>>>> 9c59c688476b9eea4bc5f1147cf882bede21fcad
         </UserInfoWrapper>
       </MyPageContent>
+
+      {selectedNotification && (
+        <InvitationDecisionModal
+          isOpen={!!selectedNotification}
+          onClose={() => setSelectedNotification(null)}
+          notificationId={selectedNotification.notificationId}
+          boardId={selectedNotification.boardId}
+        />
+      )}
     </MyPageContainer>
   );
 };

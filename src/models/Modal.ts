@@ -34,3 +34,8 @@ export interface CreateBoardResponse {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface InviteDecisionProps extends BoardModalProps {
+  notificationId: number;
+  boardId: number;
+}
