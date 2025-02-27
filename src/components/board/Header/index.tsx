@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BsTrashFill, BsThreeDotsVertical } from 'react-icons/bs';
 import EditBoardModal from '../../modals/EditBoardModal';
-import DeleteBoardModal from '../../modals/DeleteBoardModal';
+import AddScheduleModal from '../../modals/AddScheduleModal';
 import AddPostModal from '../../modals/AddPostModal';
 import {
   Board,
@@ -15,7 +15,7 @@ import {
 
 const Header: React.FC<{ boardName: string }> = ({ boardName }) => {
   const [isEditBoardModalOpen, setEditBoardModalOpen] = useState(false);
-  const [isDeleteBoardModalOpen, setDeleteBoardModalOpen] = useState(false);
+  const [isAddScheduleModalOpen, setAddScheduleModalOpen] = useState(false);
   const [isAddPostModalOpen, setAddPostModalOpen] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ const Header: React.FC<{ boardName: string }> = ({ boardName }) => {
         <EditButton onClick={() => setEditBoardModalOpen(true)}>
           <BsThreeDotsVertical size="1.5rem" />
         </EditButton>
-        <DeleteButton onClick={() => setDeleteBoardModalOpen(true)}>
+        <DeleteButton onClick={() => setAddScheduleModalOpen(true)}>
           <BsTrashFill size="1.5rem" />
         </DeleteButton>
       </Info>
@@ -40,9 +40,9 @@ const Header: React.FC<{ boardName: string }> = ({ boardName }) => {
         isOpen={isEditBoardModalOpen}
         onClose={() => setEditBoardModalOpen(false)}
       />
-      <DeleteBoardModal
-        isOpen={isDeleteBoardModalOpen}
-        onClose={() => setDeleteBoardModalOpen(false)}
+      <AddScheduleModal
+        isOpen={isAddScheduleModalOpen}
+        onClose={() => setAddScheduleModalOpen(false)}
       />
       <AddPostModal
         isOpen={isAddPostModalOpen}
