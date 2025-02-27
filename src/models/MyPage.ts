@@ -29,12 +29,6 @@ export interface ThemeSelectionProps {
   setIsDarkMode: (theme: boolean) => void;
 }
 
-<<<<<<< HEAD
-export interface NotificationProps {
-  type: string;
-  message: string;
-}
-=======
 export interface NotificationResponse {
   id: number;
   type:
@@ -48,4 +42,3 @@ export interface NotificationResponse {
 }
 
 export type NotificationProps = Pick<NotificationResponse, 'type' | 'message'>;
->>>>>>> 9c59c688476b9eea4bc5f1147cf882bede21fcad
