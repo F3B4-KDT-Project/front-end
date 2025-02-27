@@ -26,7 +26,7 @@ export const Notification: React.FC<{
             onClick={() =>
               onItemClick({
                 notificationId: notification.id,
-                boardId: 123,
+                boardId: notification.boardId,
                 boardTitle: notification.boardTitle,
               })
             }
