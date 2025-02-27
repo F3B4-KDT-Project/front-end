@@ -25,8 +25,7 @@ const Chat: React.FC = () => {
   const [previewUrl, setPreviewUrl] = useState<string>('');
 
   const location = useLocation();
-  // const roomId = location.state?.roomId;
-  const roomId = 1;
+  const roomId = location.state?.roomId;
   const WS_URL = import.meta.env.VITE_WEBSOCKET_URL;
   const token = localStorage.getItem('accessToken') ?? '';
   const { data: userData } = useUserProfile();
