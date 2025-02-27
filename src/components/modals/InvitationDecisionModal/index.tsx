@@ -50,17 +50,20 @@ const InvitationDecisionModal: React.FC<InviteDecisionProps> = ({
 
   // 초대 거절 버튼 클릭 핸들러
   const handleRejectInvite = () => {
-    rejectNotification(notificationId, {
-      onSuccess: () => {
-        setIsRejected(true);
-        setIsDecision(true);
-        console.log('초대 거절 성공');
-      },
-      onError: (error) => {
-        console.error('초대 거절 실패:', error);
-        alert('초대 거절에 실패했습니다.');
-      },
-    });
+    rejectNotification(
+      { notificationId, boardId },
+      {
+        onSuccess: () => {
+          setIsRejected(true);
+          setIsDecision(true);
+          console.log('초대 거절 성공');
+        },
+        onError: (error) => {
+          console.error('초대 거절 실패:', error);
+          alert('초대 거절에 실패했습니다.');
+        },
+      }
+    );
   };
 
   if (!isOpen) {
