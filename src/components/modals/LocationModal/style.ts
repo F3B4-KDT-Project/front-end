@@ -37,6 +37,7 @@ export const ModalHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.37rem;
+
   h1 {
     color: ${({ theme }) => theme.colors.text};
     ${({ theme }) => theme.fonts.title6};
@@ -52,47 +53,75 @@ export const Line = styled.div`
   margin-bottom: 1.37rem;
 `;
 
-export const Input = styled.input`
-  width: 34.875rem;
-  flex-shrink: 0;
-  background: ${({ theme }) => theme.colors.input};
-  border-radius: 0.4375rem;
-  border: 3px solid ${({ theme }) => theme.colors.lightGray};
-  backdrop-filter: blur(2px);
-  padding: 0.81rem 1.3rem;
+/* ✅ 카카오맵이 들어갈 컨테이너 */
+export const MapContainer = styled.div`
+  width: 100%;
+  height: 300px;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
   color: ${({ theme }) => theme.colors.text};
-  ${({ theme }) => theme.fonts.input1};
+`;
 
-  ::placeholder {
+/* ✅ 입력 필드와 버튼을 감싸는 컨테이너 */
+export const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 1rem;
+
+  input {
+    width: 34.875rem;
+    flex-shrink: 0;
+    padding: 0.81rem 1.3rem;
+    border-radius: 0.4375rem;
+    border: 3px solid ${({ theme }) => theme.colors.lightGray};
+    text-align: center;
+    font-size: 1rem;
+    background: ${({ theme }) => theme.colors.input};
     color: ${({ theme }) => theme.colors.text};
+  }
+
+  button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    background: ${({ theme }) => theme.colors.gray};
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.black};
+    }
   }
 `;
 
-export const TextArea = styled.textarea`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: none;
-  border-radius: 5px;
-  background: #333;
-  color: #fff;
-  font-size: 1rem;
-  resize: none;
+/* ✅ 버튼을 감싸는 컨테이너 */
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
 `;
 
 export const Button = styled.button`
-  width: 100%;
+  width: 48%;
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background: #007bff;
+  background: ${({ theme }) => theme.colors.gray};
   color: white;
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
 
   &:hover {
-    background: #0056b3;
+    background: ${({ theme }) => theme.colors.black};
   }
 
   &:disabled {
@@ -105,28 +134,4 @@ export const StepContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`;
-
-export const LocationInputWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  background: #333;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 15px;
-`;
-
-export const LocationButton = styled.button`
-  background: #444;
-  color: #fff;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: auto;
-  transition: 0.3s;
-
-  &:hover {
-    background: #555;
-  }
 `;
