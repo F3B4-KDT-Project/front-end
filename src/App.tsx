@@ -11,7 +11,6 @@ import { AppContainer, ContentWrapper } from './components/layout/style';
 import { useEffect, useState } from 'react';
 import GlobalStyles from './styles/GlobalStyle';
 import KakaoCallback from './pages/Login/KakaoCallback';
-import Calendar from './components/board/Calendar';
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const navigate = useNavigate();
