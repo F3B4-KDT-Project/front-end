@@ -15,12 +15,15 @@ import { ThemeSelection } from '../../components/myPage/ThemeSelection';
 import { ThemeSelectionProps } from '../../models/MyPage';
 import { Notification } from '../../components/myPage/Notification';
 import InvitationDecisionModal from '../../components/modals/InvitationDecisionModal';
+import { useQueryClient } from '@tanstack/react-query';
 
 const MyPage: React.FC<ThemeSelectionProps> = ({
   isDarkMode,
   setIsDarkMode,
 }) => {
-  const { data, isLoading, error, refetch } = useUserProfile();
+  const queryClient = useQueryClient();
+
+  const { data, isLoading, error } = useUserProfile();
   const { patchUserNickName, patchUserProfileImage } = useUpdateProfile();
 
   const [isEditingNickName, setIsEditingNickName] = useState(false);
@@ -36,7 +39,7 @@ const MyPage: React.FC<ThemeSelectionProps> = ({
     try {
       await patchUserNickName(nickName);
       setIsEditingNickName(false);
-      refetch();
+      queryClient.invalidateQueries({ queryKey: ['userInfo'] });
     } catch (error) {
       console.error('닉네임 수정 실패', error);
     }

@@ -95,6 +95,11 @@ const Chat: React.FC = () => {
   const handleEnterKey = (
     e: React.KeyboardEvent<HTMLTextAreaElement>
   ): void => {
+    // 한글이 조합 중일 때 엔터 키 중복 적용 방지.
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();

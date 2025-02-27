@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 
   padding: 2.38rem 1.94rem;
@@ -20,7 +19,8 @@ export const Body = styled.div`
   align-items: flex-start; /* 컴포넌트를 상단 정렬 */
 
   width: 100%;
-  height: auto;
+  height: 100%;
+  overflow: hidden;
 
   padding: 1.31rem 1.56rem;
   gap: 1.25rem;
