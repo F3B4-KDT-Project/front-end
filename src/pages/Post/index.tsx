@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Header from '../../components/post/Header';
 import IdeEditor from '../../components/post/Editor';
-// import Chat from '../../components/post/Chat';
+import Chat from '../../components/post/Chat';
 
 import { Body, Container } from './style';
 
@@ -150,7 +150,7 @@ const Post = () => {
           sendCodeUpdate={sendCodeUpdate}
         />
 
-        {/* <Chat /> */}
+        <Chat />
       </Body>
     </Container>
   );
