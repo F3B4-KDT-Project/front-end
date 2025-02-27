@@ -14,11 +14,13 @@ import {
   TaskList,
 } from './style';
 import { Value } from 'react-calendar/dist/esm/shared/types.js';
+import AddScheduleModal from '../../modals/AddScheduleModal';
 
 const Calendar = () => {
   const { boardId } = useParams<{ boardId: string }>();
   const [selectedDate, setSelectedDate] = useState<Value>(new Date());
   const [scheduleList, setScheduleList] = useState<ScheduleProps[]>([]);
+  const [isAddScheduleModalOpen, setAddScheduleModalOpen] = useState(false);
 
   const loadSchedules = async () => {
     try {
@@ -72,9 +74,14 @@ const Calendar = () => {
           />
         ))}
       </TaskList>
-      <AddTaskButton>
+      <AddTaskButton onClick={() => setAddScheduleModalOpen(true)}>
         <p>일정 추가</p>
       </AddTaskButton>
+
+      <AddScheduleModal
+        isOpen={isAddScheduleModalOpen}
+        onClose={() => setAddScheduleModalOpen(false)}
+      />
     </Container>
   );
 };
