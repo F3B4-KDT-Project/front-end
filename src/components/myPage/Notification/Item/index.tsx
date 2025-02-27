@@ -1,7 +1,7 @@
 import React from 'react';
 import iconSrc from '../../../../assets/icons/notification_item.svg';
 import { NotificationProps } from '../../../../models/MyPage';
-import { ItemWrapper, Message } from './style';
+import { Icon, ItemWrapper, Message } from './style';
 
 export const Item: React.FC<NotificationProps & { onClick: () => void }> = ({
   type,
@@ -14,7 +14,7 @@ export const Item: React.FC<NotificationProps & { onClick: () => void }> = ({
     <ItemWrapper>
       {type === 'INVITATION' ? (
         <button onClick={onClick}>
-          <img src={iconSrc} alt={`${type} 알림 아이콘`} />
+          <Icon src={iconSrc} alt={`${type} 알림 아이콘`} />
           <Message>
             <span>[ {category} ]</span>
             {message}
@@ -22,7 +22,7 @@ export const Item: React.FC<NotificationProps & { onClick: () => void }> = ({
         </button>
       ) : (
         <div>
-          <img src={iconSrc} alt={`${type} 알림 아이콘`} />
+          <Icon src={iconSrc} alt={`${type} 알림 아이콘`} />
           <Message>
             <span>[ {category} ]</span>
             {message}
