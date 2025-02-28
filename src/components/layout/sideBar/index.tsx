@@ -23,7 +23,6 @@ const Sidebar: React.FC = () => {
       setBoards(data); // API 응답을 boards 상태로 저장
     }
   }, [data]);
-  console.log(data);
 
   // ✅ 게시판 추가 후 목록 갱신
   const handleAddBoard = (boardName: string) => {
