@@ -48,7 +48,7 @@ function App() {
       if (boardList.length === 0) {
         navigate('/empty-board');
       } else {
-        navigate(`/${boardList[0].id}`);
+        navigate(`/${boardList[0].boardId}`);
       }
     }
   }, [boards, isLoading, isError, navigate, location.pathname]);

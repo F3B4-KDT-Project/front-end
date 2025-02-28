@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
   // ✅ 게시판 추가 후 목록 갱신
   const handleAddBoard = (boardName: string) => {
     const newBoard: BoardResponse = {
-      id: Date.now(), // ✅ 임시 ID 생성
+      boardId: Date.now(), // ✅ 임시 ID 생성
       title: boardName,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -68,8 +68,8 @@ const Sidebar: React.FC = () => {
               board: BoardResponse // ✅ `board` 타입 명시
             ) => (
               <BoardItem
-                key={board.id}
-                onClick={() => handleBoardClick(board.id)}
+                key={board.boardId}
+                onClick={() => handleBoardClick(board.boardId)}
               >
                 {board.title}
               </BoardItem>

@@ -34,7 +34,9 @@ const Board: React.FC = () => {
 
   // 게시판 목록 불러오기
   const { data: boards } = useFetchBoards();
-  const selectedBoard = boards?.find((board) => board.id === Number(boardId));
+  const selectedBoard = boards?.find(
+    (board) => board.boardId === Number(boardId)
+  );
 
   // 게시판 내 게시글 불러오기
   const { data: posts } = useFetchPosts(Number(boardId));
