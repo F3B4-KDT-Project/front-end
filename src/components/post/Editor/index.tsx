@@ -54,7 +54,7 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
     sendCodeUpdate(updatedCode); // Post.tsx에 전달된 'sendCodeUpdate' 사용
   };
 
-  // 2️⃣ JSON 테마 파일 로드 및 Monaco Editor 초기화
+  // JSON 테마 파일 로드 및 Monaco Editor 초기화
   useEffect(() => {
     const loadCustomTheme = async () => {
       try {
@@ -126,7 +126,7 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
     });
   };
 
-  // 코드 클립보드 복사
+  // ✅ 코드 클립보드 복사
   const handleCopyButton = async () => {
     if (editorRef.current) {
       const currentCode = editorRef.current.getValue();
@@ -142,7 +142,7 @@ const IdeEditor: React.FC<IdeEditorProps> = ({
     }
   };
 
-  // 코드 저장 - 추후 api연동시 수정
+  // ✅ 코드 저장 - 추후 api연동시 수정
   const handleSaveButton = async () => {
     if (editorRef.current) {
       const currentCode = editorRef.current.getValue();
