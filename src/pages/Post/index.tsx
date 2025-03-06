@@ -96,6 +96,7 @@ const Post = () => {
           // });
           setPostData(data);
           console.log('[ ✅ Post 페이지 getData 성공 ] 게시글 데이터 :', data);
+          console.log('filePath : ', data.filePath);
         } catch (error) {
           console.error('[ ❌ Post 페이지 getData 오류 ] 게시글 조회 실패 :', error);
         }
@@ -119,9 +120,6 @@ const Post = () => {
     }, 0); // 0ms 딜레이를 줘서 localStorage에서 데이터를 확실히 가져온 후 실행
   }, [postId, token]);
   
-  useEffect(()=>{
-
-  },[])
 
   if(!postData){
     return <div>게시글 데이터를 불러오는 중입니다. 잠시만 기다려주세요! :)</div>

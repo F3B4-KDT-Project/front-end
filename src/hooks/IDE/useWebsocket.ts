@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useCallback } from 'react';
 import {Client} from '@stomp/stompjs';
 
 interface useWebsocket {
@@ -8,8 +8,10 @@ interface useWebsocket {
     topic:string;
 }
 
-const useWebsocket = ({url, token, onMessageReceived, topic}:useWebsocket) => {
+const useWebsocket = ({ url, token, onMessageReceived, topic }: useWebsocket) => {
     const stompClientRef = useRef<Client | null>(null);
+    const stableOnMessageReceived=useCallback(onMessageReceived, []);
+    let subscription:any = null;
 
     useEffect(()=>{
         if (stompClientRef.current?.connected){
@@ -22,16 +24,18 @@ const useWebsocket = ({url, token, onMessageReceived, topic}:useWebsocket) => {
         stompClientRef.current = new Client({
             brokerURL:url,
             connectHeaders:{ Authorization:`Bearer ${token}` },
-            debug:(str) => console.log(`[💡 IDE Websocket Debug] : ${str}`),
+            debug:(str) => console.log(`[ 💡 IDE Websocket Debug ] : ${str}`),
             onConnect:()=>{
                 console.log('[ 😜 ✅ IDE 성공 ] Connected to Websoclet');
 
+                if(subscription){subscription.unsubscribe();} // 기존 구독 제거
+                
                 // 메세지 구독
-                stompClientRef.current?.subscribe(topic, (message)=>{
+                subscription = stompClientRef.current?.subscribe(topic, (message)=>{
                     try{
                         const receivedData = JSON.parse(message.body);
                         console.log(`[ 😜 💌 IDE 수신 ] 메세지 : `, receivedData);
-                        onMessageReceived(receivedData);
+                        stableOnMessageReceived(receivedData);
                     } catch(error){
                         console.error(`[ 😜 ❌ IDE JSON 파싱 오류 ] : `, message.body);
                     }
@@ -56,15 +60,20 @@ const useWebsocket = ({url, token, onMessageReceived, topic}:useWebsocket) => {
 
         return ()=>{
             console.log('[ 😜 IDE 연결 해제 ] 웹소켓 연결 해제');
-            if (stompClientRef.current?.connected){
-                stompClientRef.current.deactivate();
-            }
+            setTimeout(()=>{
+                if (stompClientRef.current?.connected){
+                    stompClientRef.current.deactivate();
+                }
+            },500);
+            // if (stompClientRef.current?.connected){
+            //     stompClientRef.current.deactivate();
+            // }
         };
-    },[url, token, topic, onMessageReceived]);
+    },[url, token, topic, stableOnMessageReceived]);
 
     const sendMessage = (destination:string, message:object) => {
         if(!stompClientRef.current?.connected) {
-            console.warn('[ 😜 IDE websocket ] 연결이 닫혀있어서 메세지를 보낼 수 없음.')
+            console.warn('[ 😜 IDE websocket ] 연결이 닫혀있어서 메세지를 보낼 수 없음. 아직 활성화되지 않음.')
             return;
         }
 
